@@ -18,6 +18,7 @@ class RegistrationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = .black
         setupView()
         // Do any additional setup after loading the view.
     }
@@ -29,5 +30,13 @@ class RegistrationVC: UIViewController {
         loginButton.layer.cornerRadius = 15
 
     }
+    
+
+    @IBAction func signUpTapped(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "toSignUpVC") as! SignUpVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
