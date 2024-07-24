@@ -18,6 +18,8 @@ class RegistrationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        overrideUserInterfaceStyle = .light
         self.navigationController?.navigationBar.tintColor = .black
         setupView()
         // Do any additional setup after loading the view.

@@ -157,7 +157,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="face" translatesAutoresizingMaskIntoConstraints="NO" id="ezp-oZ-uFf">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadimage" translatesAutoresizingMaskIntoConstraints="NO" id="ezp-oZ-uFf">
                                 <rect key="frame" x="136.66666666666666" y="99" width="119.99999999999997" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="EeC-EQ-Lt7"/>
@@ -167,7 +167,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85Y-3d-X5q">
                                 <rect key="frame" x="20" y="259" width="353" height="40"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aWV-Eq-BiZ">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aWV-Eq-BiZ">
                                         <rect key="frame" x="8" y="3" width="337" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -182,8 +182,8 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2RD-vY-0NR">
-                                <rect key="frame" x="60" y="439" width="273" height="35"/>
-                                <color key="backgroundColor" systemColor="labelColor"/>
+                                <rect key="frame" x="60" y="429" width="273" height="35"/>
+                                <color key="backgroundColor" red="0.35294118520000001" green="0.32941177490000001" blue="0.45098042490000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="9wu-bb-R5N"/>
                                     <constraint firstAttribute="height" constant="35" id="Hf2-lt-SKU"/>
@@ -195,7 +195,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uw0-zH-Kvt">
                                 <rect key="frame" x="20" y="309" width="353" height="40"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="80I-k5-ZjN">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="80I-k5-ZjN">
                                         <rect key="frame" x="8" y="3" width="337" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -212,7 +212,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HK8-qJ-19e">
                                 <rect key="frame" x="20" y="359" width="353" height="40"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ted-KH-Sa3">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ted-KH-Sa3">
                                         <rect key="frame" x="8" y="3" width="337" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -237,7 +237,7 @@
                             <constraint firstItem="85Y-3d-X5q" firstAttribute="top" secondItem="ezp-oZ-uFf" secondAttribute="bottom" constant="40" id="6jP-CW-f9L"/>
                             <constraint firstItem="UGi-PG-IjP" firstAttribute="trailing" secondItem="2RD-vY-0NR" secondAttribute="trailing" constant="60" id="8UO-hw-4Fa"/>
                             <constraint firstItem="UGi-PG-IjP" firstAttribute="trailing" secondItem="2RD-vY-0NR" secondAttribute="trailing" constant="60" id="GyZ-O6-L3e"/>
-                            <constraint firstItem="2RD-vY-0NR" firstAttribute="top" secondItem="HK8-qJ-19e" secondAttribute="bottom" constant="40" id="Iyn-ga-KVx"/>
+                            <constraint firstItem="2RD-vY-0NR" firstAttribute="top" secondItem="HK8-qJ-19e" secondAttribute="bottom" constant="30" id="Iyn-ga-KVx"/>
                             <constraint firstItem="UGi-PG-IjP" firstAttribute="trailing" secondItem="Uw0-zH-Kvt" secondAttribute="trailing" constant="20" id="Lqa-aH-dHq"/>
                             <constraint firstItem="Uw0-zH-Kvt" firstAttribute="leading" secondItem="UGi-PG-IjP" secondAttribute="leading" constant="20" id="OuH-9h-qH8"/>
                             <constraint firstItem="ezp-oZ-uFf" firstAttribute="top" secondItem="UGi-PG-IjP" secondAttribute="top" constant="40" id="T6z-Wh-UFD"/>
@@ -249,8 +249,14 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="profileImageView" destination="ezp-oZ-uFf" id="Mly-Ip-f1k"/>
-                        <outlet property="signUpButton" destination="2RD-vY-0NR" id="5oj-6U-mYa"/>
+                        <outlet property="emailContainer" destination="Uw0-zH-Kvt" id="koz-o5-59G"/>
+                        <outlet property="emailTextField" destination="80I-k5-ZjN" id="ubR-0s-URp"/>
+                        <outlet property="passwordContainer" destination="HK8-qJ-19e" id="9YP-i9-7ZQ"/>
+                        <outlet property="passwordTextField" destination="Ted-KH-Sa3" id="7TU-WR-gbH"/>
+                        <outlet property="profileImageView" destination="ezp-oZ-uFf" id="Dxv-n6-Urj"/>
+                        <outlet property="signUpButton" destination="2RD-vY-0NR" id="wii-Q3-GVV"/>
+                        <outlet property="usernameContainer" destination="85Y-3d-X5q" id="uAl-fQ-o3x"/>
+                        <outlet property="usernameTextField" destination="aWV-Eq-BiZ" id="zcM-Pj-V6J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xB0-YL-g6X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -278,10 +284,7 @@
     </scenes>
     <resources>
         <image name="TikTok Icon " width="3000" height="3000"/>
-        <image name="face" width="5760" height="5075"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="uploadimage" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
