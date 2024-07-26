@@ -40,5 +40,14 @@ class RegistrationVC: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    
+    
+    @IBAction func signInTapped(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "toSignInVC") as! SignInVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
 }
 
