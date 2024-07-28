@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import FirebaseAuth
+
 
 class SignUpVC: UIViewController {
     
     
     //MARK: Proporties
-    
+    		
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var signUpButton: UIButton!
@@ -41,6 +43,23 @@ class SignUpVC: UIViewController {
         
         signUpButton.layer.cornerRadius = 15
     }
+    
+    
+    
+    @IBAction func signUp(_ sender: UIButton) {
+        Auth.auth().createUser(withEmail: "gunes2@gmail.com", password: "123456") { result, error in
+            if error != nil {
+                print("ERROR: \(error!.localizedDescription)")
+                return
+            } else{
+                if let authData = result {
+                    print("USER: \(authData.user.email!)")
+                }
+            }
+        }
+   
+    }
+    
     
     
     
