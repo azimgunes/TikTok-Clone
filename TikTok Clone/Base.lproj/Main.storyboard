@@ -160,7 +160,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadimage" translatesAutoresizingMaskIntoConstraints="NO" id="ezp-oZ-uFf">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon2" translatesAutoresizingMaskIntoConstraints="NO" id="ezp-oZ-uFf">
                                 <rect key="frame" x="136.66666666666666" y="99" width="119.99999999999997" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="EeC-EQ-Lt7"/>
@@ -374,7 +374,7 @@
     </scenes>
     <resources>
         <image name="TikTok Icon " width="3000" height="3000"/>
-        <image name="uploadimage" width="512" height="512"/>
+        <image name="icon2" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+import PhotosUI
 
 
 class SignUpVC: UIViewController {
@@ -42,20 +44,38 @@ class SignUpVC: UIViewController {
     func setupView(){
         
         signUpButton.layer.cornerRadius = 15
+        profileImageView.layer.cornerRadius = 60
+        profileImageView.clipsToBounds = true
+        profileImageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
+        profileImageView.addGestureRecognizer(tapGesture)
     }
     
     
     
     @IBAction func signUp(_ sender: UIButton) {
-        Auth.auth().createUser(withEmail: "gunes2@gmail.com", password: "123456") { result, error in
+        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { result, error in
             if error != nil {
                 print("ERROR: \(error!.localizedDescription)")
                 return
-            } else{
+            }
                 if let authData = result {
                     print("USER: \(authData.user.email!)")
+                    let dictionary: Dictionary<String, Any> = [
+                        
+                        "uid": authData.user.uid,
+                        "email": authData.user.email!,
+                        "profileImageUrl": "",
+                        "status": "",
+                    ]
+                    
+                    guard let userUid = result?.user.uid else {return}
+
+                    Firestore.firestore().collection("users").document(userUid).setData(dictionary)
+                    print("\(authData.user.email!) sended to Firestore.")
+                    
                 }
-            }
+            
         }
    
     }
@@ -94,4 +114,31 @@ extension SignUpVC {
         
     }
     
+}
+
+
+extension SignUpVC: PHPickerViewControllerDelegate{
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        for item in results {
+            item.itemProvider.loadObject(ofClass: UIImage.self) { Image, error in
+                if let imageSelected = Image as? UIImage {
+                    DispatchQueue.main.async {
+                        self.profileImageView.image = imageSelected
+                    }
+                }
+            }
+        }
+        dismiss(animated: true)
+    }
+    
+    @objc func presentPicker(){
+        var config: PHPickerConfiguration = PHPickerConfiguration()
+        config.filter = PHPickerFilter.images
+        config.selectionLimit = 1
+        
+        let picker : PHPickerViewController = PHPickerViewController(configuration: config)
+        picker.delegate = self
+        self.present(picker, animated: true)
+        
+    }
 }
