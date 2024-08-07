@@ -54,12 +54,31 @@ class SignUpVC: UIViewController {
         profileImageView.addGestureRecognizer(tapGesture)
     }
     
+    func validateFields(){
+        guard let username = self.usernameTextField.text, !username.isEmpty else {
+            alertFunc()
+            return
+        }
+        guard let email = self.emailTextField.text, !email.isEmpty else {
+            alertFunc()
+            return
+        }
+        guard let password = self.passwordTextField.text, !password.isEmpty else {
+            alertFunc()
+            return
+        }
+        if profileImageView == nil {
+            alertFunc()
+        }
+    }
     
     
     @IBAction func signUp(_ sender: UIButton) {
         
+        self.validateFields()
+        
         guard let imageSelected = self.image else {
-            print("Image is nil")
+            alertFunc()
             return
         }
         guard let imageData = imageSelected.jpegData(compressionQuality: 0.4) else {return}
@@ -76,6 +95,7 @@ class SignUpVC: UIViewController {
                         
                         "uid": authData.user.uid,
                         "email": authData.user.email!,
+                        "username": self.usernameTextField.text!,
                         "profileImageUrl": "",
                         "status": "",
                     ]
@@ -142,6 +162,12 @@ extension SignUpVC {
         passwordContainer.clipsToBounds = true
         passwordTextField.borderStyle = .none
         
+    }
+    
+    func alertFunc(){
+        let alert = UIAlertController(title: "Error!", message: "Make sure you fill in the blank fields and try again.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Try Again!", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
