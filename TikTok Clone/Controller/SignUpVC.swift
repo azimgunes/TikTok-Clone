@@ -76,57 +76,8 @@ class SignUpVC: UIViewController {
     @IBAction func signUp(_ sender: UIButton) {
         
         self.validateFields()
-        
-        guard let imageSelected = self.image else {
-            alertFunc()
-            return
-        }
-        guard let imageData = imageSelected.jpegData(compressionQuality: 0.4) else {return}
-        
-        
-        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { result, error in
-            if error != nil {
-                print("ERROR: \(error!.localizedDescription)")
-                return
-            }
-                if let authData = result {
-                    print("USER: \(authData.user.email!)")
-                    var dictionary: Dictionary<String, Any> = [
-                        
-                        "uid": authData.user.uid,
-                        "email": authData.user.email!,
-                        "username": self.usernameTextField.text!,
-                        "profileImageUrl": "",
-                        "status": "",
-                    ]
-                    
-                    let storageRef = Storage.storage().reference(forURL: "gs://tiktok-clone-12238.appspot.com")
-                    let storageProfile = storageRef.child("profile").child(authData.user.uid)
-                    
-                    let metaData = StorageMetadata()
-                    metaData.contentType = "image/jpeg"
-                    storageProfile.putData(imageData, metadata: metaData) { storageMetaData, error in
-                        if error != nil {
-                            print(error!.localizedDescription)
-                            return
-                        }
-                        storageProfile.downloadURL { url, error in
-                            if let metaImageUrl = url?.absoluteString {
-                                dictionary["profileImageUrl"] = metaImageUrl
-                            
-                                Firestore.firestore().collection("users").document(authData.user.uid).updateData(dictionary)
-                            }
-                        }
-                    }
-                    
-                    guard let userUid = result?.user.uid else {return}
-
-                    Firestore.firestore().collection("users").document(userUid).setData(dictionary)
-                    print("\(authData.user.email!) sended to Firestore.")
-                    
-                }
-            
-        }
+        self.signUp()
+ 
    
     }
     
@@ -197,5 +148,17 @@ extension SignUpVC: PHPickerViewControllerDelegate{
         picker.delegate = self
         self.present(picker, animated: true)
         
+    }
+}
+
+
+extension SignUpVC{
+    func signUp(){
+        Api.User.signUp(withUsername: self.usernameTextField.text!, email: self.emailTextField.text!, password: self.passwordTextField.text!, image: self.image) {
+            print("TAMAM")
+        } onErr: { errorMesssage in
+            print(errorMesssage)
+        }
+
     }
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3C005A6A2C4FD4A200E38A3C /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C005A692C4FD4A200E38A3C /* SignUpVC.swift */; };
+		3C35F8CB2C6575B900522261 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CA2C6575B900522261 /* Api.swift */; };
+		3C35F8CD2C6575E300522261 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CC2C6575E300522261 /* UserApi.swift */; };
+		3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CE2C657E8200522261 /* StorageService.swift */; };
 		3C7BDB402C4E5EB100082AD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */; };
 		3C7BDB422C4E5EB100082AD8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */; };
 		3C7BDB442C4E5EB100082AD8 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7BDB432C4E5EB100082AD8 /* RegistrationVC.swift */; };
@@ -48,6 +51,9 @@
 
 /* Begin PBXFileReference section */
 		3C005A692C4FD4A200E38A3C /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		3C35F8CA2C6575B900522261 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		3C35F8CC2C6575E300522261 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
+		3C35F8CE2C657E8200522261 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		3C7BDB3C2C4E5EB100082AD8 /* TikTok Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TikTok Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +111,9 @@
 				3C7BDB432C4E5EB100082AD8 /* RegistrationVC.swift */,
 				3C005A692C4FD4A200E38A3C /* SignUpVC.swift */,
 				3C9A13F42C51958300DDDB69 /* SignInVC.swift */,
+				3C35F8CA2C6575B900522261 /* Api.swift */,
+				3C35F8CC2C6575E300522261 /* UserApi.swift */,
+				3C35F8CE2C657E8200522261 /* StorageService.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -245,10 +254,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C35F8CB2C6575B900522261 /* Api.swift in Sources */,
 				3C005A6A2C4FD4A200E38A3C /* SignUpVC.swift in Sources */,
 				3C7BDB442C4E5EB100082AD8 /* RegistrationVC.swift in Sources */,
 				3C7BDB402C4E5EB100082AD8 /* AppDelegate.swift in Sources */,
 				3C7BDB422C4E5EB100082AD8 /* SceneDelegate.swift in Sources */,
+				3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */,
+				3C35F8CD2C6575E300522261 /* UserApi.swift in Sources */,
 				3C9A13F52C51958300DDDB69 /* SignInVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
