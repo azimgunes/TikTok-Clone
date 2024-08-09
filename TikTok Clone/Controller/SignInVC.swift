@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseStorage
+import PhotosUI
 
 class SignInVC: UIViewController {
     
@@ -35,7 +39,76 @@ class SignInVC: UIViewController {
         super.viewDidLoad()
         
         setupView()
+        emailTextFieldFunc()
+        passwordTextFieldFunc()
 
+    }
+
+    
+    @IBAction func signInTapped(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.validateFields()
+        self.signIn {
+            print("DONE")
+        } onErr: { errorMesssage in
+            print("ERROR \(errorMesssage)")
+        }
+
+    }
+
+}
+
+
+extension SignInVC {
+    
+    func signIn(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMesssage: String) -> Void){
+        Api.User.signIn(email: self.emailTextField.text!, password: self.passwordTextField.text!) {
+            print("GİRİŞ YAPILDI")
+        } onErr: { errorMesssage in
+            self.alertSigningFunc()
+            print(errorMesssage)
+           
+        }
+
+    }
+    
+    func validateFields(){
+        guard let email = self.emailTextField.text, !email.isEmpty else {
+            alertFunc()
+            return
+        }
+        guard let password = self.passwordTextField.text, !password.isEmpty else {
+            alertFunc()
+            return
+        }
+    }
+    
+    func emailTextFieldFunc(){
+        emailContainer.layer.borderWidth = 0.8
+        emailContainer.layer.cornerRadius = 10
+        emailContainer.layer.borderColor =   #colorLiteral(red: 0.1846590936, green: 0.1846590936, blue: 0.1846590936, alpha: 0.4318863825)
+        emailContainer.clipsToBounds = true
+        emailTextField.borderStyle = .none
+        
+    }
+    func passwordTextFieldFunc(){
+        passwordContainer.layer.borderWidth = 0.8
+        passwordContainer.layer.cornerRadius = 10
+        passwordContainer.layer.borderColor =   #colorLiteral(red: 0.1846590936, green: 0.1846590936, blue: 0.1846590936, alpha: 0.4318863825)
+        passwordContainer.clipsToBounds = true
+        passwordTextField.borderStyle = .none
+        
+    }
+    func alertFunc(){
+        let alert = UIAlertController(title: "Error!", message: "Make sure you fill in the blank fields and try again.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Try Again!", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func alertSigningFunc(){
+        let alert = UIAlertController(title: "Error!", message: "Check your email or password.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Try Again!", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     
@@ -43,5 +116,5 @@ class SignInVC: UIViewController {
         signInButton.layer.cornerRadius = 10
   
     }
-
+    
 }

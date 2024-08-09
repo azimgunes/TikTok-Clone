@@ -12,7 +12,20 @@ import FirebaseFirestore
 import FirebaseStorage
 import PhotosUI
 
-class UserApi {
+class UserApi: SignInVC {
+    
+    func signIn(email: String, password: String, onSuc: @escaping() -> Void, onErr: @escaping(_ errorMesssage: String) -> Void){
+        Auth.auth().signIn(withEmail: email, password: password) { authData, error in
+            if error != nil {
+                onErr("HATA BURADA \(error!.localizedDescription)")
+                return
+            }else {
+                print(authData?.user.uid)
+                onSuc()
+            }
+        }
+        
+    }
     func signUp(withUsername username: String, email: String, password: String, image: UIImage?, onSuc: @escaping() -> Void, onErr: @escaping(_ errorMesssage: String) -> Void) {
         
         guard let imageSelected = image else {

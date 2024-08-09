@@ -44,6 +44,8 @@ class SignUpVC: UIViewController {
         passwordTextFieldFunc()
     }
     
+    
+
     func setupView(){
         
         signUpButton.layer.cornerRadius = 15
