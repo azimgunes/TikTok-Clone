@@ -72,4 +72,16 @@ class UserApi: SignInVC {
             
         }
     }
+    func logOut(){
+        do {
+            try Auth.auth().signOut()
+        }catch {
+            print("CATCH ERROR")
+            return
+        }
+        let scene = UIApplication.shared.connectedScenes.first
+        if let sceneDelegate : SceneDelegate = (scene?.delegate as? SceneDelegate) {
+            sceneDelegate.configInitialVC()
+        }
+    }
 }

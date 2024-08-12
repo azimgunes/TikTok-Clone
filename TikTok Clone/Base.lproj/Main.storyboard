@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kyK-oW-1hI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KwI-VB-JcM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
@@ -320,7 +320,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="ymD-sG-A93">
             <objects>
-                <tabBarController id="kyK-oW-1hI" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarVC" id="kyK-oW-1hI" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rio-jQ-F8Y">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -333,7 +333,7 @@
                         <segue destination="Nxv-ib-iBK" kind="relationship" relationship="viewControllers" id="Gfm-8G-KCC"/>
                         <segue destination="cBi-ur-WWa" kind="relationship" relationship="viewControllers" id="QuZ-P8-KMh"/>
                         <segue destination="WuK-p3-6yv" kind="relationship" relationship="viewControllers" id="Mp4-99-Ahm"/>
-                        <segue destination="Adw-Fa-cbf" kind="relationship" relationship="viewControllers" id="RyV-GS-Lyy"/>
+                        <segue destination="xSL-vy-6YJ" kind="relationship" relationship="viewControllers" id="RyV-GS-Lyy"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JIm-vT-kXv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -435,7 +435,7 @@
         <!--Navigation Controller-->
         <scene sceneID="w9y-GT-yjo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KwI-VB-JcM" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainVC" automaticallyAdjustsScrollViewInsets="NO" id="KwI-VB-JcM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wcW-fi-eWM">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -496,21 +496,47 @@
             </objects>
             <point key="canvasLocation" x="1047" y="2754"/>
         </scene>
-        <!--Profile-->
+        <!--ProfileVC-->
         <scene sceneID="gkG-my-DFu">
             <objects>
-                <viewController id="Adw-Fa-cbf" sceneMemberID="viewController">
+                <viewController id="Adw-Fa-cbf" customClass="ProfileVC" customModule="TikTok_Clone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ynh-is-Tm6">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="H9y-cz-yp7"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="person.bubble" catalog="system" id="Z0r-lD-18I"/>
+                    <navigationItem key="navigationItem" id="7hB-i4-OCI">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" style="done" id="h7m-J9-ZIV">
+                            <color key="tintColor" systemColor="systemRedColor"/>
+                            <connections>
+                                <action selector="logOutButton:" destination="Adw-Fa-cbf" id="vV3-cz-rfI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ei7-Xs-ym5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047" y="3521"/>
+            <point key="canvasLocation" x="1973.2824427480916" y="3520.4225352112676"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="3wi-Cx-hFG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xSL-vy-6YJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.bubble" catalog="system" id="Z0r-lD-18I"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cj5-DY-axO">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Adw-Fa-cbf" kind="relationship" relationship="rootViewController" id="eDx-es-wAe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ebI-lD-mSH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1046.5648854961833" y="3520.4225352112676"/>
         </scene>
     </scenes>
     <resources>

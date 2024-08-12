@@ -49,7 +49,10 @@ class SignInVC: UIViewController {
         self.view.endEditing(true)
         self.validateFields()
         self.signIn {
-            print("DONE")
+            let scene = UIApplication.shared.connectedScenes.first
+            if let sceneDelegate : SceneDelegate = (scene?.delegate as? SceneDelegate) {
+                sceneDelegate.configInitialVC()
+            }
         } onErr: { errorMesssage in
             print("ERROR \(errorMesssage)")
         }
@@ -63,8 +66,10 @@ extension SignInVC {
     
     func signIn(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMesssage: String) -> Void){
         Api.User.signIn(email: self.emailTextField.text!, password: self.passwordTextField.text!) {
-            print("GİRİŞ YAPILDI")
-        } onErr: { errorMesssage in
+            let scene = UIApplication.shared.connectedScenes.first
+            if let sceneDelegate : SceneDelegate = (scene?.delegate as? SceneDelegate) {
+                sceneDelegate.configInitialVC()
+            }        } onErr: { errorMesssage in
             self.alertSigningFunc()
             print(errorMesssage)
            
