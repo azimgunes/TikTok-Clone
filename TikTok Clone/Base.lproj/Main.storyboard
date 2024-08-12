@@ -288,7 +288,7 @@
         <!--Add-->
         <scene sceneID="VgN-sh-i7T">
             <objects>
-                <viewController id="cBi-ur-WWa" sceneMemberID="viewController">
+                <viewController id="cBi-ur-WWa" customClass="ContentVC" customModule="TikTok_Clone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9UI-BY-i2Z">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -299,7 +299,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="INN-Ua-bh6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047" y="2021"/>
+            <point key="canvasLocation" x="1973.2824427480916" y="2020.4225352112678"/>
         </scene>
         <!--Home-->
         <scene sceneID="rUl-O7-tVf">
@@ -330,10 +330,10 @@
                     </tabBar>
                     <connections>
                         <segue destination="S6t-0q-TwI" kind="relationship" relationship="viewControllers" id="cKX-at-dYf"/>
-                        <segue destination="Nxv-ib-iBK" kind="relationship" relationship="viewControllers" id="Gfm-8G-KCC"/>
-                        <segue destination="cBi-ur-WWa" kind="relationship" relationship="viewControllers" id="QuZ-P8-KMh"/>
-                        <segue destination="WuK-p3-6yv" kind="relationship" relationship="viewControllers" id="Mp4-99-Ahm"/>
                         <segue destination="xSL-vy-6YJ" kind="relationship" relationship="viewControllers" id="RyV-GS-Lyy"/>
+                        <segue destination="Xyp-Ym-ZlP" kind="relationship" relationship="viewControllers" id="7xA-6K-fVV"/>
+                        <segue destination="WuK-p3-6yv" kind="relationship" relationship="viewControllers" id="Mp4-99-Ahm"/>
+                        <segue destination="Nxv-ib-iBK" kind="relationship" relationship="viewControllers" id="Gfm-8G-KCC"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JIm-vT-kXv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -450,20 +450,65 @@
             </objects>
             <point key="canvasLocation" x="119.84732824427481" y="-34.507042253521128"/>
         </scene>
-        <!--View Controller-->
+        <!--ContentVC-->
         <scene sceneID="aev-Ug-tqv">
             <objects>
-                <viewController id="kkB-zz-J1E" sceneMemberID="viewController">
+                <viewController id="kkB-zz-J1E" customClass="ContentVC" customModule="TikTok_Clone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PRz-1l-yvl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5z-f6-4wq">
+                                <rect key="frame" x="20" y="133" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="05G-Ha-7KL"/>
+                                    <constraint firstAttribute="width" constant="35" id="6iH-0h-pDt"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YIW-Fc-hN7">
+                                <rect key="frame" x="154" y="687" width="85" height="85"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNK-BS-7q9">
+                                        <rect key="frame" x="8.6666666666666572" y="8.6666666666666288" width="68" height="68"/>
+                                        <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="68" id="7yN-4y-3NN"/>
+                                            <constraint firstAttribute="width" constant="68" id="qAH-1V-YgB"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="xNK-BS-7q9" firstAttribute="centerX" secondItem="YIW-Fc-hN7" secondAttribute="centerX" id="2Vp-cR-eGc"/>
+                                    <constraint firstAttribute="width" constant="85" id="YZd-Mz-Hhm"/>
+                                    <constraint firstAttribute="height" constant="85" id="eUg-Gp-Ow1"/>
+                                    <constraint firstItem="xNK-BS-7q9" firstAttribute="centerY" secondItem="YIW-Fc-hN7" secondAttribute="centerY" id="tzR-DR-5RB"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="MYU-As-65H"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YIW-Fc-hN7" firstAttribute="centerX" secondItem="PRz-1l-yvl" secondAttribute="centerX" id="QZY-3F-05O"/>
+                            <constraint firstAttribute="bottom" secondItem="YIW-Fc-hN7" secondAttribute="bottom" constant="80" id="f66-ia-vgA"/>
+                            <constraint firstItem="Y5z-f6-4wq" firstAttribute="leading" secondItem="MYU-As-65H" secondAttribute="leading" constant="20" id="gU8-ON-am0"/>
+                            <constraint firstItem="Y5z-f6-4wq" firstAttribute="top" secondItem="MYU-As-65H" secondAttribute="top" constant="30" id="kXw-31-JS1"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="mRT-et-9i7"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="Y5z-f6-4wq" id="Ka9-a0-Qjf"/>
+                        <outlet property="captureButton" destination="xNK-BS-7q9" id="fcs-ep-l75"/>
+                        <outlet property="captureRingView" destination="YIW-Fc-hN7" id="2Hz-uD-fTT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5w-Lp-IlA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047" y="2021"/>
+            <point key="canvasLocation" x="1973.2824427480916" y="2020.4225352112678"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="bXP-Gx-6hp">
@@ -478,7 +523,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggm-0C-Veq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047" y="2021"/>
+            <point key="canvasLocation" x="1973.2824427480916" y="2020.4225352112678"/>
         </scene>
         <!--Inbox-->
         <scene sceneID="ldu-CO-chB">
@@ -538,6 +583,25 @@
             </objects>
             <point key="canvasLocation" x="1046.5648854961833" y="3520.4225352112676"/>
         </scene>
+        <!--Add-->
+        <scene sceneID="ZoF-p0-hxr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xyp-Ym-ZlP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Add" image="plus.square" catalog="system" id="roq-9G-HAk"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EqN-3r-lt7">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kkB-zz-J1E" kind="relationship" relationship="rootViewController" id="GGW-uZ-a1a"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z6o-Yl-XPP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1046.5648854961833" y="2020.4225352112678"/>
+        </scene>
     </scenes>
     <resources>
         <image name="TikTok Icon " width="3000" height="3000"/>
@@ -547,6 +611,7 @@
         <image name="opticaldisc" catalog="system" width="128" height="123"/>
         <image name="person.bubble" catalog="system" width="128" height="110"/>
         <image name="plus.square" catalog="system" width="128" height="114"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -555,6 +620,9 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
