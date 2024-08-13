@@ -38,6 +38,7 @@ class SignUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
+        hideKeyboard()
         setupView()
         usernameTextFieldFunc()
         emailTextFieldFunc()

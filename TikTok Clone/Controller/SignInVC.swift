@@ -37,7 +37,8 @@ class SignInVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        overrideUserInterfaceStyle = .light
+        hideKeyboard()
         setupView()
         emailTextFieldFunc()
         passwordTextFieldFunc()

@@ -50,6 +50,7 @@
 		3CDF30072C6A7DC80036A26E /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF30062C6A7DC80036A26E /* Reference.swift */; };
 		3CDF30092C6A7F260036A26E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF30082C6A7F260036A26E /* ProfileVC.swift */; };
 		3CDF300B2C6A8FA00036A26E /* ContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF300A2C6A8FA00036A26E /* ContentVC.swift */; };
+		3CE33E852C6B887C0083CE43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE33E842C6B887C0083CE43 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		3CDF30062C6A7DC80036A26E /* Reference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		3CDF30082C6A7F260036A26E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		3CDF300A2C6A8FA00036A26E /* ContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVC.swift; sourceTree = "<group>"; };
+		3CE33E842C6B887C0083CE43 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 		3C7BDB3E2C4E5EB100082AD8 /* TikTok Clone */ = {
 			isa = PBXGroup;
 			children = (
+				3CE33E832C6B886F0083CE43 /* Helpers */,
 				3C005A6B2C4FD4B100E38A3C /* Controller */,
 				3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */,
 				3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */,
@@ -156,6 +159,14 @@
 				3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */,
 			);
 			path = "TikTok Clone";
+			sourceTree = "<group>";
+		};
+		3CE33E832C6B886F0083CE43 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3CE33E842C6B887C0083CE43 /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +281,7 @@
 				3C7BDB402C4E5EB100082AD8 /* AppDelegate.swift in Sources */,
 				3C7BDB422C4E5EB100082AD8 /* SceneDelegate.swift in Sources */,
 				3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */,
+				3CE33E852C6B887C0083CE43 /* Extensions.swift in Sources */,
 				3CDF300B2C6A8FA00036A26E /* ContentVC.swift in Sources */,
 				3CDF30072C6A7DC80036A26E /* Reference.swift in Sources */,
 				3C35F8CD2C6575E300522261 /* UserApi.swift in Sources */,
