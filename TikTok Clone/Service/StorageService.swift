@@ -26,9 +26,6 @@ class StorageService{
 
             storageProfileRef.downloadURL { url, error in
                 if let metaImageUrl = url?.absoluteString {
-                    
-                    
-        
                     if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
                         changeRequest.photoURL = url
                         changeRequest.displayName = username

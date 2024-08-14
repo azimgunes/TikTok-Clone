@@ -119,10 +119,6 @@
 				3C7BDB432C4E5EB100082AD8 /* RegistrationVC.swift */,
 				3C005A692C4FD4A200E38A3C /* SignUpVC.swift */,
 				3C9A13F42C51958300DDDB69 /* SignInVC.swift */,
-				3C35F8CA2C6575B900522261 /* Api.swift */,
-				3C35F8CC2C6575E300522261 /* UserApi.swift */,
-				3C35F8CE2C657E8200522261 /* StorageService.swift */,
-				3CDF30062C6A7DC80036A26E /* Reference.swift */,
 				3CDF30082C6A7F260036A26E /* ProfileVC.swift */,
 				3CDF300A2C6A8FA00036A26E /* ContentVC.swift */,
 			);
@@ -148,17 +144,37 @@
 		3C7BDB3E2C4E5EB100082AD8 /* TikTok Clone */ = {
 			isa = PBXGroup;
 			children = (
-				3CE33E832C6B886F0083CE43 /* Helpers */,
-				3C005A6B2C4FD4B100E38A3C /* Controller */,
+				3C7BDB4D2C4E5EB300082AD8 /* Info.plist */,
 				3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */,
 				3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */,
 				3C7BDB452C4E5EB100082AD8 /* Main.storyboard */,
 				3C7BDB482C4E5EB300082AD8 /* Assets.xcassets */,
 				3C7BDB4A2C4E5EB300082AD8 /* LaunchScreen.storyboard */,
-				3C7BDB4D2C4E5EB300082AD8 /* Info.plist */,
 				3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */,
+				3CE33E832C6B886F0083CE43 /* Helpers */,
+				3C9A82F42C6D0BFC00A3BF5B /* Service */,
+				3C9A82F82C6D0F8300A3BF5B /* Model */,
+				3C005A6B2C4FD4B100E38A3C /* Controller */,
 			);
 			path = "TikTok Clone";
+			sourceTree = "<group>";
+		};
+		3C9A82F42C6D0BFC00A3BF5B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3C35F8CE2C657E8200522261 /* StorageService.swift */,
+				3C35F8CA2C6575B900522261 /* Api.swift */,
+				3C35F8CC2C6575E300522261 /* UserApi.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		3C9A82F82C6D0F8300A3BF5B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3CDF30062C6A7DC80036A26E /* Reference.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3CE33E832C6B886F0083CE43 /* Helpers */ = {

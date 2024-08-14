@@ -17,6 +17,13 @@ class ContentVC: UIViewController {
     
     @IBOutlet weak var captureRingView: UIView!
     
+    @IBOutlet weak var flipButton: UIButton!
+    
+    @IBOutlet weak var flipLabel: UILabel!
+    
+    
+    
+    
     
     let photoOutput = AVCapturePhotoOutput()
     let captureSession = AVCaptureSession()
@@ -57,6 +64,9 @@ class ContentVC: UIViewController {
         captureButton.layer.zPosition = 1
         captureRingView.layer.zPosition = 1
         cancelButton.layer.zPosition = 1
+        
+        flipButton.layer.zPosition = 1
+        flipLabel.layer.zPosition = 1
     }
     
     func setupCaptureSession() -> Bool{
@@ -93,5 +103,34 @@ class ContentVC: UIViewController {
         return true
     }
 
-
+    @IBAction func dismissButton(_ sender: UIButton) {
+        tabBarController?.selectedIndex = 0
+    }
+    
+    @IBAction func flipDidTapped(_ sender: UIButton) {
+        captureSession.beginConfiguration()
+        
+        let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput
+        let newCamDevice = currentInput?.device.position == .back ? getDeviceFront(position: .front) : getDeviceBack(position: .back)
+        
+        let newVideoInput = try? AVCaptureDeviceInput(device: newCamDevice!)
+        
+        if let inputs = captureSession.inputs as? [AVCaptureDeviceInput]{
+            for input in inputs {
+                captureSession.removeInput(input)
+            }
+        }
+        
+        if captureSession.inputs.isEmpty {
+            captureSession.addInput(newVideoInput!)
+        }
+        captureSession.commitConfiguration()
+        
+    }
+    func getDeviceFront(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
+    }
+    func getDeviceBack(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+    }
 }
