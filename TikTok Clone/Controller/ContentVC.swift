@@ -21,9 +21,34 @@ class ContentVC: UIViewController {
     
     @IBOutlet weak var flipLabel: UILabel!
     
+    @IBOutlet weak var speedButton: UIButton!
+    
+    @IBOutlet weak var speedLabel: UILabel!
+    
+    @IBOutlet weak var beautyButton: UIButton!
+    
+    @IBOutlet weak var beautyLabel: UILabel!
+    
+    @IBOutlet weak var timerButton: UIButton!
+    
+    @IBOutlet weak var timerLabel: UILabel!
+    
+    @IBOutlet weak var flashButton: UIButton!
+    
+    @IBOutlet weak var flashLabel: UILabel!
+    
+    @IBOutlet weak var galleryButton: UIButton!
+    
+    @IBOutlet weak var effectsButton: UIButton!
+    
+    @IBOutlet weak var soundsView: UIView!
+    
+    @IBOutlet weak var filtersButton: UIButton!
+    
+    @IBOutlet weak var filtersLabel: UILabel!
     
     
-    
+    @IBOutlet weak var timeCounterLabel: UILabel!
     
     let photoOutput = AVCapturePhotoOutput()
     let captureSession = AVCaptureSession()
@@ -61,12 +86,20 @@ class ContentVC: UIViewController {
         captureRingView.layer.borderWidth = 6
         captureRingView.layer.cornerRadius = 85/2
         
-        captureButton.layer.zPosition = 1
-        captureRingView.layer.zPosition = 1
-        cancelButton.layer.zPosition = 1
+
+        timeCounterLabel.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        timeCounterLabel.layer.cornerRadius = 15
+        timeCounterLabel.layer.borderColor = UIColor.white.cgColor
+        timeCounterLabel.layer.borderWidth = 1.8
+        timeCounterLabel.clipsToBounds = true
         
-        flipButton.layer.zPosition = 1
-        flipLabel.layer.zPosition = 1
+        soundsView.layer.cornerRadius = 12
+        
+        
+        
+        [self.captureButton, self.captureRingView, self.cancelButton, self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+            subView?.layer.zPosition = 1
+        }
     }
     
     func setupCaptureSession() -> Bool{
