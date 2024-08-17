@@ -467,6 +467,9 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="captureButtonTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="LoH-Ww-NOI"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

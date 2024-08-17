@@ -50,8 +50,17 @@ class ContentVC: UIViewController {
     
     @IBOutlet weak var timeCounterLabel: UILabel!
     
+    
+    
+    
     let photoOutput = AVCapturePhotoOutput()
     let captureSession = AVCaptureSession()
+    let movieOutput = AVCapturePhotoOutput()
+    
+    var activeInput : AVCaptureDeviceInput!
+    var outputUrl : URL!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +87,11 @@ class ContentVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    
+    @IBAction func captureButtonTapped(_ sender: UIButton) {
+    }
+    
     
     func setupView(){
         captureButton.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
@@ -114,10 +128,16 @@ class ContentVC: UIViewController {
                 
                 if captureSession.canAddInput(inputVideo) {
                     captureSession.addInput(inputVideo)
+                    activeInput = inputVideo
                 }
                 if captureSession.canAddInput(inputAudio) {
                     captureSession.addInput(inputAudio)
                 }
+                
+                if captureSession.canAddOutput(movieOutput){
+                    captureSession.addOutput(movieOutput)
+                }
+            
             } catch let error {
                 print("ERROR - SESSİON", error)
                 return false
@@ -156,6 +176,20 @@ class ContentVC: UIViewController {
         
         if captureSession.inputs.isEmpty {
             captureSession.addInput(newVideoInput!)
+            activeInput = newVideoInput
+        }
+        
+        
+        if let microphone = AVCaptureDevice.default(for: .audio){
+            do {
+                let micInput = try AVCaptureDeviceInput(device: microphone)
+                if captureSession.canAddInput(micInput){
+                    captureSession.addInput(micInput)
+                }
+            }catch let micInputError{
+                print("DEVICE ERROR FOR AUDIO INPUT: \(micInputError)")
+                
+            }
         }
         captureSession.commitConfiguration()
         
@@ -166,4 +200,37 @@ class ContentVC: UIViewController {
     func getDeviceBack(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
     }
+}
+
+extension ContentVC: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if error != nil {
+            print("RECORDİNG ERROR: \(error?.localizedDescription ?? "")")
+        }else {
+            let urlVideoRec = outputUrl! as URL
+            
+            guard let generatedThumbImage = genVideoThum(withfile: urlVideoRec) else {return}
+            
+             
+            
+            
+        }
+    }
+    func genVideoThum(withfile videoUrl: URL) -> UIImage? {
+        let asset = AVAsset(url: videoUrl)
+        
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        
+        do{
+            let cmTime = CMTimeMake(value: 1, timescale: 60)
+            let thumbnailCgImage = try imageGenerator.copyCGImage(at: cmTime, actualTime: nil)
+            return UIImage(cgImage: thumbnailCgImage)
+        }catch let error{
+            print(error)
+            
+        }
+        return nil
+    }
+    
 }
