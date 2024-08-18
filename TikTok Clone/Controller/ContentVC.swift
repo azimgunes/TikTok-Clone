@@ -10,6 +10,8 @@ import AVFoundation
 
 class ContentVC: UIViewController {
     
+    // MARK: - UI Elements
+    
     
     @IBOutlet weak var cancelButton: UIButton!
     
@@ -51,8 +53,6 @@ class ContentVC: UIViewController {
     @IBOutlet weak var timeCounterLabel: UILabel!
     
     
-    
-    
     let photoOutput = AVCapturePhotoOutput()
     let captureSession = AVCaptureSession()
     let movieOutput = AVCaptureMovieFileOutput()
@@ -63,6 +63,8 @@ class ContentVC: UIViewController {
     var thumbnailImage : UIImage?
     var recordClips = [Videos]()
     
+    
+    // MARK: - Lifecycle Methods
     
     
     override func viewDidLoad() {
@@ -75,55 +77,48 @@ class ContentVC: UIViewController {
         }
         
         setupView()
-
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.tabBarController?.tabBar.isHidden = true
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        hideTabBarAndNavigationBar()
+   
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        self.tabBarController?.tabBar.isHidden = false
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        showTabBarAndNavigationBar()
+       
     }
     
+    // MARK: - Button Actions
     
     @IBAction func captureButtonTapped(_ sender: UIButton) {
         if movieOutput.isPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled == false {
-            startRec()
+            startRecording()
         } else {
-            stopRec()
+            stopRecording()
         }
     }
-    
-    
-    func setupView(){
-        captureButton.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
-        captureButton.layer.cornerRadius = 68/2
-        captureRingView.layer.borderColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0).cgColor
-        captureRingView.layer.borderWidth = 6
-        captureRingView.layer.cornerRadius = 85/2
-        
 
-        timeCounterLabel.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        timeCounterLabel.layer.cornerRadius = 15
-        timeCounterLabel.layer.borderColor = UIColor.white.cgColor
-        timeCounterLabel.layer.borderWidth = 1.8
-        timeCounterLabel.clipsToBounds = true
-        
-        soundsView.layer.cornerRadius = 12
-        
-        
-        
-        [self.captureButton, self.captureRingView, self.cancelButton, self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
-            subView?.layer.zPosition = 1
-        }
+    
+    // MARK: - Helper Methods
+    private func hideTabBarAndNavigationBar() {
+        self.tabBarController?.tabBar.isHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    private func showTabBarAndNavigationBar() {
+        self.tabBarController?.tabBar.isHidden = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    @IBAction func dismissButton(_ sender: UIButton) {
+        tabBarController?.selectedIndex = 0
+    }
+    
+
+
     func setupCaptureSession() -> Bool{
         captureSession.sessionPreset = AVCaptureSession.Preset.high
         
@@ -145,7 +140,7 @@ class ContentVC: UIViewController {
                 if captureSession.canAddOutput(movieOutput){
                     captureSession.addOutput(movieOutput)
                 }
-            
+                
             } catch let error {
                 print("ERROR - SESSİON", error)
                 return false
@@ -163,10 +158,8 @@ class ContentVC: UIViewController {
         view.layer.addSublayer(preLayer)
         return true
     }
-
-    @IBAction func dismissButton(_ sender: UIButton) {
-        tabBarController?.selectedIndex = 0
-    }
+    
+    
     
     func tempUrl() -> URL? {
         let directory = NSTemporaryDirectory() as NSString
@@ -218,7 +211,7 @@ class ContentVC: UIViewController {
     func getDeviceBack(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
     }
-    func startRec(){
+    func startRecording(){
         if movieOutput.isRecording == false {
             guard let connection = movieOutput.connection(with: .video) else {return}
             if connection.isVideoOrientationSupported {
@@ -238,7 +231,7 @@ class ContentVC: UIViewController {
             }
         }
     }
-    func stopRec(){
+    func stopRecording(){
         if movieOutput.isRecording == true {
             movieOutput.stopRecording()
             print("STOP COUNT")
@@ -261,7 +254,7 @@ extension ContentVC: AVCaptureFileOutputRecordingDelegate {
             }else{
                 thumbnailImage = generatedThumbImage
             }
-             
+            
             
             
         }
@@ -294,4 +287,33 @@ extension ContentVC: AVCaptureFileOutputRecordingDelegate {
         return nil
     }
     
+}
+
+extension ContentVC {
+    
+    
+    //MARK: Setup View
+
+    func setupView(){
+        captureButton.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
+        captureButton.layer.cornerRadius = 68/2
+        captureRingView.layer.borderColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0).cgColor
+        captureRingView.layer.borderWidth = 6
+        captureRingView.layer.cornerRadius = 85/2
+        
+        
+        timeCounterLabel.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        timeCounterLabel.layer.cornerRadius = 15
+        timeCounterLabel.layer.borderColor = UIColor.white.cgColor
+        timeCounterLabel.layer.borderWidth = 1.8
+        timeCounterLabel.clipsToBounds = true
+        
+        soundsView.layer.cornerRadius = 12
+        
+        
+        
+        [self.captureButton, self.captureRingView, self.cancelButton, self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+            subView?.layer.zPosition = 1
+        }
+    }
 }
