@@ -55,10 +55,13 @@ class ContentVC: UIViewController {
     
     let photoOutput = AVCapturePhotoOutput()
     let captureSession = AVCaptureSession()
-    let movieOutput = AVCapturePhotoOutput()
+    let movieOutput = AVCaptureMovieFileOutput()
     
     var activeInput : AVCaptureDeviceInput!
     var outputUrl : URL!
+    var currentCamDevice : AVCaptureDevice?
+    var thumbnailImage : UIImage?
+    var recordClips = [Videos]()
     
     
     
@@ -90,6 +93,11 @@ class ContentVC: UIViewController {
     
     
     @IBAction func captureButtonTapped(_ sender: UIButton) {
+        if movieOutput.isPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled == false {
+            startRec()
+        } else {
+            stopRec()
+        }
     }
     
     
@@ -160,6 +168,16 @@ class ContentVC: UIViewController {
         tabBarController?.selectedIndex = 0
     }
     
+    func tempUrl() -> URL? {
+        let directory = NSTemporaryDirectory() as NSString
+        
+        if directory != "" {
+            let path = directory.appendingPathComponent(NSUUID().uuidString + ".mp4")
+            return URL(fileURLWithPath: path)
+        }
+        return nil
+    }
+    
     @IBAction func flipDidTapped(_ sender: UIButton) {
         captureSession.beginConfiguration()
         
@@ -200,6 +218,32 @@ class ContentVC: UIViewController {
     func getDeviceBack(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
     }
+    func startRec(){
+        if movieOutput.isRecording == false {
+            guard let connection = movieOutput.connection(with: .video) else {return}
+            if connection.isVideoOrientationSupported {
+                connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
+                let device = activeInput.device
+                if device.isSmoothAutoFocusEnabled {
+                    do {
+                        try device.lockForConfiguration()
+                        device.isSmoothAutoFocusEnabled = false
+                        device.unlockForConfiguration()
+                    } catch {
+                        print("CONFIG ERROR: \(error)")
+                    }
+                }
+                outputUrl = tempUrl()
+                movieOutput.startRecording(to: outputUrl, recordingDelegate: self)
+            }
+        }
+    }
+    func stopRec(){
+        if movieOutput.isRecording == true {
+            movieOutput.stopRecording()
+            print("STOP COUNT")
+        }
+    }
 }
 
 extension ContentVC: AVCaptureFileOutputRecordingDelegate {
@@ -211,10 +255,27 @@ extension ContentVC: AVCaptureFileOutputRecordingDelegate {
             
             guard let generatedThumbImage = genVideoThum(withfile: urlVideoRec) else {return}
             
+            
+            if currentCamDevice?.position == .front {
+                thumbnailImage = didGetPicture(generatedThumbImage, to: .upMirrored)
+            }else{
+                thumbnailImage = generatedThumbImage
+            }
              
             
             
         }
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        let newRecClip = Videos(videoUrl: fileURL, cameraPosition: currentCamDevice?.position)
+        recordClips.append(newRecClip)
+        print("MOVIE RECORD",recordClips.count)
+    }
+    
+    func didGetPicture(_ picture: UIImage, to orientation: UIImage.Orientation) -> UIImage {
+        let flippedImage = UIImage(cgImage: picture.cgImage!, scale: picture.scale, orientation: orientation)
+        return flippedImage
     }
     func genVideoThum(withfile videoUrl: URL) -> UIImage? {
         let asset = AVAsset(url: videoUrl)
