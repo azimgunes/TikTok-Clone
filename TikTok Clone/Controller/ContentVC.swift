@@ -49,8 +49,11 @@ class ContentVC: UIViewController {
     
     @IBOutlet weak var filtersLabel: UILabel!
     
-    
     @IBOutlet weak var timeCounterLabel: UILabel!
+    
+    @IBOutlet weak var saveButton: UIButton!
+    
+    @IBOutlet weak var discardButton: UIButton!
     
     
     let photoOutput = AVCapturePhotoOutput()
@@ -62,6 +65,7 @@ class ContentVC: UIViewController {
     var currentCamDevice : AVCaptureDevice?
     var thumbnailImage : UIImage?
     var recordClips = [Videos]()
+    var isRecording = false
     
     
     // MARK: - Lifecycle Methods
@@ -228,13 +232,61 @@ class ContentVC: UIViewController {
                 }
                 outputUrl = tempUrl()
                 movieOutput.startRecording(to: outputUrl, recordingDelegate: self)
+                animatedRecordButton()
             }
         }
+   
     }
     func stopRecording(){
         if movieOutput.isRecording == true {
             movieOutput.stopRecording()
+            animatedRecordButton()
             print("STOP COUNT")
+        }
+    }
+    func animatedRecordButton(){
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: { [weak self] in
+            guard let self = self else {return}
+            if self.isRecording == false {
+                self.captureButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                self.captureButton.layer.cornerRadius = 5
+                self.captureRingView.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
+                
+                self.saveButton.alpha = 0
+                self.discardButton.alpha = 0
+                
+                
+                [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+                    subView?.isHidden = true
+                }
+            } else {
+                self.captureRingView.transform = CGAffineTransform.identity
+                self.captureButton.layer.cornerRadius = 68/2
+                self.captureRingView.transform = CGAffineTransform.identity
+                
+                self.resetAllVisibilitytoId()
+            }
+        } ) {[weak self] onComplete in
+            guard let self = self else {return}
+            self.isRecording = !self.isRecording
+        }
+    }
+    func resetAllVisibilitytoId(){
+    
+        if recordClips.isEmpty == true {
+            [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+                subView?.isHidden = false
+            }
+            saveButton.alpha = 0
+            discardButton.alpha = 0
+            print("THERE IS NO RECORD")
+        }else {
+            [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+                subView?.isHidden = true
+            }
+            saveButton.alpha = 1
+            discardButton.alpha = 1
+            print("THERE IS A RECORD")
         }
     }
 }
@@ -309,10 +361,16 @@ extension ContentVC {
         timeCounterLabel.clipsToBounds = true
         
         soundsView.layer.cornerRadius = 12
+        saveButton.layer.cornerRadius = 17
+        saveButton.backgroundColor =  UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
+        saveButton.alpha = 0
+        discardButton.alpha = 0
         
         
         
-        [self.captureButton, self.captureRingView, self.cancelButton, self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+        
+        
+        [self.captureButton, self.captureRingView, self.cancelButton, self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton, self.saveButton, self.discardButton].forEach { subView in
             subView?.layer.zPosition = 1
         }
     }
