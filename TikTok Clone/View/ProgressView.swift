@@ -56,8 +56,7 @@ class ProgressView : UIView {
     }
     fileprivate func setupShapeLayer(){
         shapeLayer.path = aPath.cgPath
-        layer.addSublayer(shapeLayer
-        )
+        layer.addSublayer(shapeLayer)
     }
     func setProgress(_ progress: CGFloat){
         shapeLayer.strokeEnd = progress

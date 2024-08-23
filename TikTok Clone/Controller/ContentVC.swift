@@ -77,6 +77,7 @@ class ContentVC: UIViewController {
     
     var totalRecTimeInSecs = 0
     var totalRecTimeInMins = 0
+    lazy var segmentProView = ProgressView(width: view.frame.width - 17.5)
     
     // MARK: - Lifecycle Methods
     
@@ -256,6 +257,7 @@ class ContentVC: UIViewController {
             movieOutput.stopRecording()
             animatedRecordButton()
             stopTimer()
+            segmentProView.pauseProgress()
             print("STOP COUNT")
         }
     }
@@ -271,7 +273,7 @@ class ContentVC: UIViewController {
                 self.discardButton.alpha = 0
                 
                 
-                [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.flashLabel, self.flashButton].forEach { subView in
+                [self.galleryButton, self.effectsButton, self.soundsView].forEach { subView in
                     subView?.isHidden = true
                 }
             } else {
@@ -289,7 +291,7 @@ class ContentVC: UIViewController {
     func resetAllVisibilitytoId(){
     
         if recordClips.isEmpty == true {
-            [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.flashLabel, self.flashButton].forEach { subView in
+            [ self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.flashLabel, self.flashButton].forEach { subView in
                 subView?.isHidden = false
             }
             saveButton.alpha = 0
@@ -382,6 +384,15 @@ extension ContentVC {
         saveButton.alpha = 0
         discardButton.alpha = 0
         
+
+        view.addSubview(segmentProView)
+        segmentProView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
+        segmentProView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        segmentProView.widthAnchor.constraint(equalToConstant: view.frame.width - 17.5).isActive = true
+        segmentProView.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        segmentProView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         
         
         
@@ -413,6 +424,11 @@ extension ContentVC {
         
             didTapRecord()
         }
+        let startTime = 0
+        let trimmedTime : Int = Int(currentMaxRecDur) - startTime
+        let positiveOrZero = max(totalRecTimeInSecs, 0)
+        let progress = Float(positiveOrZero) / Float(trimmedTime) / 10
+        segmentProView.setProgress(CGFloat(progress))
         let countDowmSec: Int = Int(currentMaxRecDur) - totalRecTimeInSecs / 10
         timeCounterLabel.text = "\(countDowmSec)s"
     }
