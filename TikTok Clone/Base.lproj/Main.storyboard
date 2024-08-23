@@ -597,7 +597,7 @@
                                     <constraint firstAttribute="height" constant="30" id="fAA-4n-c0w"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qf9-Bz-2rr">
@@ -693,7 +693,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MYU-As-65H"/>
-                        <color key="backgroundColor" systemColor="systemMintColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="kHJ-YV-i3H" firstAttribute="centerX" secondItem="qHA-pN-nGw" secondAttribute="centerX" id="1DC-Cs-Hbm"/>
                             <constraint firstItem="W3a-sn-v3o" firstAttribute="centerX" secondItem="laS-PK-4IZ" secondAttribute="centerX" id="28v-Tz-k6x"/>
@@ -880,9 +880,6 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemMintColor">
-            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

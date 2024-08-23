@@ -67,6 +67,16 @@ class ContentVC: UIViewController {
     var recordClips = [Videos]()
     var isRecording = false
     
+    var videoDurOfLastClip = 0
+    var recordingTimer: Timer?
+    var currentMaxRecDur: Int = 15 {
+        didSet {
+            timeCounterLabel.text = "\(currentMaxRecDur)s"
+        }
+    }
+    
+    var totalRecTimeInSecs = 0
+    var totalRecTimeInMins = 0
     
     // MARK: - Lifecycle Methods
     
@@ -98,7 +108,11 @@ class ContentVC: UIViewController {
     // MARK: - Button Actions
     
     @IBAction func captureButtonTapped(_ sender: UIButton) {
-        if movieOutput.isPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled == false {
+        didTapRecord()
+    }
+    
+    func didTapRecord(){
+        if movieOutput.isRecording == false {
             startRecording()
         } else {
             stopRecording()
@@ -241,6 +255,7 @@ class ContentVC: UIViewController {
         if movieOutput.isRecording == true {
             movieOutput.stopRecording()
             animatedRecordButton()
+            stopTimer()
             print("STOP COUNT")
         }
     }
@@ -256,11 +271,11 @@ class ContentVC: UIViewController {
                 self.discardButton.alpha = 0
                 
                 
-                [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+                [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.flashLabel, self.flashButton].forEach { subView in
                     subView?.isHidden = true
                 }
             } else {
-                self.captureRingView.transform = CGAffineTransform.identity
+                self.captureButton.transform = CGAffineTransform.identity
                 self.captureButton.layer.cornerRadius = 68/2
                 self.captureRingView.transform = CGAffineTransform.identity
                 
@@ -274,14 +289,14 @@ class ContentVC: UIViewController {
     func resetAllVisibilitytoId(){
     
         if recordClips.isEmpty == true {
-            [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+            [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.flashLabel, self.flashButton].forEach { subView in
                 subView?.isHidden = false
             }
             saveButton.alpha = 0
             discardButton.alpha = 0
             print("THERE IS NO RECORD")
         }else {
-            [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton].forEach { subView in
+            [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.flashLabel, self.flashButton].forEach { subView in
                 subView?.isHidden = true
             }
             saveButton.alpha = 1
@@ -316,6 +331,7 @@ extension ContentVC: AVCaptureFileOutputRecordingDelegate {
         let newRecClip = Videos(videoUrl: fileURL, cameraPosition: currentCamDevice?.position)
         recordClips.append(newRecClip)
         print("MOVIE RECORD",recordClips.count)
+        startTimer()
     }
     
     func didGetPicture(_ picture: UIImage, to orientation: UIImage.Orientation) -> UIImage {
@@ -374,4 +390,34 @@ extension ContentVC {
             subView?.layer.zPosition = 1
         }
     }
+}
+
+//MARK: TIMER
+
+extension ContentVC {
+    func startTimer(){
+        videoDurOfLastClip = 0
+        stopTimer()
+        recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+            self?.timerTick()
+            
+        })
+    }
+    func timerTick(){
+        totalRecTimeInSecs += 1
+        videoDurOfLastClip += 1
+    
+        
+        let timeLim = currentMaxRecDur * 10
+        if totalRecTimeInSecs == timeLim {
+        
+            didTapRecord()
+        }
+        let countDowmSec: Int = Int(currentMaxRecDur) - totalRecTimeInSecs / 10
+        timeCounterLabel.text = "\(countDowmSec)s"
+    }
+    func stopTimer(){
+        recordingTimer?.invalidate()
+    }
+    
 }
