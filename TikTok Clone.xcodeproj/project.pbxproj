@@ -11,6 +11,7 @@
 		3C35F8CB2C6575B900522261 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CA2C6575B900522261 /* Api.swift */; };
 		3C35F8CD2C6575E300522261 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CC2C6575E300522261 /* UserApi.swift */; };
 		3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CE2C657E8200522261 /* StorageService.swift */; };
+		3C5AB2A62C7903D300B17E7E /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5AB2A52C7903D300B17E7E /* ProgressView.swift */; };
 		3C7BDB402C4E5EB100082AD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */; };
 		3C7BDB422C4E5EB100082AD8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */; };
 		3C7BDB442C4E5EB100082AD8 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7BDB432C4E5EB100082AD8 /* RegistrationVC.swift */; };
@@ -59,6 +60,7 @@
 		3C35F8CA2C6575B900522261 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		3C35F8CC2C6575E300522261 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
 		3C35F8CE2C657E8200522261 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		3C5AB2A52C7903D300B17E7E /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		3C7BDB3C2C4E5EB100082AD8 /* TikTok Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TikTok Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +129,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		3C5AB2A32C7903AA00B17E7E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C5AB2A52C7903D300B17E7E /* ProgressView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3C7BDB332C4E5EB100082AD8 = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +165,7 @@
 				3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */,
 				3CE33E832C6B886F0083CE43 /* Helpers */,
 				3C9A82F42C6D0BFC00A3BF5B /* Service */,
+				3C5AB2A32C7903AA00B17E7E /* View */,
 				3C9A82F82C6D0F8300A3BF5B /* Model */,
 				3C005A6B2C4FD4B100E38A3C /* Controller */,
 			);
@@ -304,6 +315,7 @@
 				3CDF300B2C6A8FA00036A26E /* ContentVC.swift in Sources */,
 				3CDF30072C6A7DC80036A26E /* Reference.swift in Sources */,
 				3CD741642C721EF400B0AB38 /* Videos.swift in Sources */,
+				3C5AB2A62C7903D300B17E7E /* ProgressView.swift in Sources */,
 				3C35F8CD2C6575E300522261 /* UserApi.swift in Sources */,
 				3C9A13F52C51958300DDDB69 /* SignInVC.swift in Sources */,
 			);
