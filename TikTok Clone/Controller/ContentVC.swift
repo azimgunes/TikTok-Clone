@@ -120,6 +120,60 @@ class ContentVC: UIViewController {
         }
     }
 
+    @IBAction func discardButton(_ sender: UIButton) {
+        let alertVC = UIAlertController(title: "Discard Last Clip ?", message: nil, preferredStyle: .alert)
+        let discardAction = UIAlertAction(title: "Discard", style: .default) { [weak self] (_) in
+            self!.discardLastRecord()
+ 
+        }
+        let keepAction = UIAlertAction(title: "Keep!", style: .cancel) { (_) in
+            
+            
+        }
+        alertVC.addAction(discardAction)
+        alertVC.addAction(keepAction)
+        present(alertVC, animated: true)
+        
+    }
+    func discardLastRecord(){
+        print("Discarded")
+        outputUrl = nil
+        thumbnailImage = nil
+        recordClips.removeLast()
+        resetAllVisibilitytoId()
+        setNewOutputUrlThumImage()
+        segmentProView.removeLastSegment()
+         
+        
+        if recordClips.isEmpty == true {
+            resetTimersAndProgressToZero()
+        } else if recordClips.isEmpty == false {
+            calculateDurLeft()
+        }
+        
+    }
+    func calculateDurLeft(){
+        let timeToDiscard = videoDurOfLastClip
+        let currentCombTime = totalRecTimeInSecs
+        let newVideoDur = currentCombTime - timeToDiscard
+        totalRecTimeInSecs = newVideoDur
+        let countDownSec: Int = Int(currentMaxRecDur) - totalRecTimeInSecs / 10
+        timeCounterLabel.text = "\(countDownSec)"
+    }
+    
+    func setNewOutputUrlThumImage(){
+        outputUrl = recordClips.last?.videoUrl
+        let currentUrl: URL? = outputUrl
+        guard let currentUrlUnwrapped = currentUrl else {return}
+        guard let generatedThumbImage = genVideoThum(withfile: currentUrlUnwrapped) else {return}
+        if currentCamDevice?.position == .front {
+            
+            thumbnailImage = didGetPicture(generatedThumbImage, to: .upMirrored)
+            
+        }else {
+            thumbnailImage = generatedThumbImage
+        }
+    }
     
     // MARK: - Helper Methods
     private func hideTabBarAndNavigationBar() {
@@ -291,14 +345,14 @@ class ContentVC: UIViewController {
     func resetAllVisibilitytoId(){
     
         if recordClips.isEmpty == true {
-            [ self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.flashLabel, self.flashButton].forEach { subView in
+            [self.galleryButton, self.effectsButton, self.soundsView].forEach { subView in
                 subView?.isHidden = false
             }
             saveButton.alpha = 0
             discardButton.alpha = 0
             print("THERE IS NO RECORD")
         }else {
-            [self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.flashLabel, self.flashButton].forEach { subView in
+            [self.galleryButton, self.effectsButton, self.soundsView].forEach { subView in
                 subView?.isHidden = true
             }
             saveButton.alpha = 1
@@ -386,7 +440,7 @@ extension ContentVC {
         
 
         view.addSubview(segmentProView)
-        segmentProView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
+        segmentProView.topAnchor.constraint(equalTo: view.topAnchor, constant: 55).isActive = true
         segmentProView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         segmentProView.widthAnchor.constraint(equalToConstant: view.frame.width - 17.5).isActive = true
         segmentProView.heightAnchor.constraint(equalToConstant: 4).isActive = true
@@ -431,6 +485,15 @@ extension ContentVC {
         segmentProView.setProgress(CGFloat(progress))
         let countDowmSec: Int = Int(currentMaxRecDur) - totalRecTimeInSecs / 10
         timeCounterLabel.text = "\(countDowmSec)s"
+    }
+    
+    func resetTimersAndProgressToZero(){
+        totalRecTimeInSecs = 0
+        totalRecTimeInMins = 0
+        videoDurOfLastClip = 0
+        stopTimer()
+        segmentProView.setProgress(0)
+        timeCounterLabel.text = "\(currentMaxRecDur)"
     }
     func stopTimer(){
         recordingTimer?.invalidate()

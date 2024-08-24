@@ -65,7 +65,8 @@ class ProgressView : UIView {
     func pauseProgress(){
         let newSegment = createSegment()
         addSubview(newSegment)
-        newSegment.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -3).isActive = true
+        newSegment.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -2).isActive = true
+        positionSegment(newSegment: newSegment)
         segments.append(newSegment)
         segPoints.append(CFloat(shapeLayer.strokeEnd))
         
@@ -86,6 +87,13 @@ class ProgressView : UIView {
         newSegment.backgroundColor = UIColor.darkGray
         print("segments:", segments.count)
         
+    }
+    func removeLastSegment(){
+        segments.last?.removeFromSuperview()
+        segPoints.removeLast()
+        segments.removeLast()
+        shapeLayer.strokeEnd = CGFloat(segPoints.last ?? 0)
+        print("segment:", segments.count)
     }
 }
 

@@ -185,7 +185,6 @@
 		3C9A82F82C6D0F8300A3BF5B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3CDF30062C6A7DC80036A26E /* Reference.swift */,
 				3CD741632C721EF400B0AB38 /* Videos.swift */,
 			);
 			path = Model;
@@ -195,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				3CE33E842C6B887C0083CE43 /* Extensions.swift */,
+				3CDF30062C6A7DC80036A26E /* Reference.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
