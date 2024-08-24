@@ -70,6 +70,10 @@ class ProgressView : UIView {
         segments.append(newSegment)
         segPoints.append(CFloat(shapeLayer.strokeEnd))
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.positionSegment(newSegment: newSegment)
+        }
+        
         
     }
     

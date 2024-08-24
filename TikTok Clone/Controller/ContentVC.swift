@@ -135,6 +135,23 @@ class ContentVC: UIViewController {
         present(alertVC, animated: true)
         
     }
+    
+    @IBAction func saveButton(_ sender: UIButton) {
+        let previewVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "PreviewVC") { coder -> PreviewVC? in
+            PreviewVC(coder: coder, recordedClips: self.recordClips)
+        }
+        previewVC.viewWillDenitRestartVideo = { [weak self] in
+            guard let self = self else {return}
+            if self.setupCaptureSession() {
+                DispatchQueue.global(qos: .background).async {
+                    self.captureSession.stopRunning()
+                }
+            }
+            
+        }
+        navigationController?.pushViewController(previewVC, animated: true)
+    }
+    
     func discardLastRecord(){
         print("Discarded")
         outputUrl = nil
