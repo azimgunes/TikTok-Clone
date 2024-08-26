@@ -100,8 +100,8 @@ class ContentVC: UIViewController {
    
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         showTabBarAndNavigationBar()
        
     }
@@ -113,6 +113,7 @@ class ContentVC: UIViewController {
     }
     
     func didTapRecord(){
+            
         if movieOutput.isRecording == false {
             startRecording()
         } else {
@@ -500,7 +501,8 @@ extension ContentVC {
         let positiveOrZero = max(totalRecTimeInSecs, 0)
         let progress = Float(positiveOrZero) / Float(trimmedTime) / 10
         segmentProView.setProgress(CGFloat(progress))
-        let countDowmSec: Int = Int(currentMaxRecDur) - totalRecTimeInSecs / 10
+        
+        let countDowmSec: Int = max(0, Int(currentMaxRecDur) - totalRecTimeInSecs / 10)
         timeCounterLabel.text = "\(countDowmSec)s"
     }
     

@@ -785,19 +785,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jaf-4u-3FH">
-                                <rect key="frame" x="159" y="408.66666666666669" width="75" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dam-1a-ANa">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UgU-B7-SGH">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WqB-Ex-o9D">
+                                        <rect key="frame" x="20" y="50" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="XHt-v2-YTy"/>
+                                            <constraint firstAttribute="height" constant="35" id="Ygl-Qt-jyX"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                                        <connections>
+                                            <action selector="cancelButton:" destination="gWl-oe-9F1" eventType="touchUpInside" id="AC7-qX-oty"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="UgU-B7-SGH" firstAttribute="leading" secondItem="dam-1a-ANa" secondAttribute="leading" id="AsO-Lr-EDO"/>
+                                    <constraint firstItem="UgU-B7-SGH" firstAttribute="top" secondItem="dam-1a-ANa" secondAttribute="top" id="GkV-xv-V54"/>
+                                    <constraint firstAttribute="bottom" secondItem="UgU-B7-SGH" secondAttribute="bottom" id="Gxy-ZQ-aWS"/>
+                                    <constraint firstItem="WqB-Ex-o9D" firstAttribute="leading" secondItem="dam-1a-ANa" secondAttribute="leading" constant="20" id="K7c-KH-rMy"/>
+                                    <constraint firstItem="WqB-Ex-o9D" firstAttribute="top" secondItem="dam-1a-ANa" secondAttribute="top" constant="50" id="fpp-WV-1Cb"/>
+                                    <constraint firstAttribute="trailing" secondItem="UgU-B7-SGH" secondAttribute="trailing" id="oIV-IZ-nQf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QeK-TF-ZbR"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="jaf-4u-3FH" firstAttribute="centerY" secondItem="Qgu-mI-SiA" secondAttribute="centerY" id="Iil-q4-pLK"/>
-                            <constraint firstItem="jaf-4u-3FH" firstAttribute="centerX" secondItem="Qgu-mI-SiA" secondAttribute="centerX" id="eQy-FN-9Rc"/>
+                            <constraint firstItem="QeK-TF-ZbR" firstAttribute="bottom" secondItem="dam-1a-ANa" secondAttribute="bottom" id="4KS-66-gru"/>
+                            <constraint firstItem="dam-1a-ANa" firstAttribute="top" secondItem="QeK-TF-ZbR" secondAttribute="top" id="C4k-pK-gkz"/>
+                            <constraint firstItem="QeK-TF-ZbR" firstAttribute="trailing" secondItem="dam-1a-ANa" secondAttribute="trailing" id="dIO-Ts-yOn"/>
+                            <constraint firstItem="dam-1a-ANa" firstAttribute="leading" secondItem="QeK-TF-ZbR" secondAttribute="leading" id="sGK-pG-a67"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="thumbImageView" destination="UgU-B7-SGH" id="vWk-hI-eVu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SK5-Z1-bsV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -902,22 +932,22 @@
         <image name="timer" catalog="system" width="128" height="123"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
-            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
