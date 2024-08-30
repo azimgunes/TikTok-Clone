@@ -12,6 +12,7 @@
 		3C35F8CB2C6575B900522261 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CA2C6575B900522261 /* Api.swift */; };
 		3C35F8CD2C6575E300522261 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CC2C6575E300522261 /* UserApi.swift */; };
 		3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C35F8CE2C657E8200522261 /* StorageService.swift */; };
+		3C39190E2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */; };
 		3C5AB2A62C7903D300B17E7E /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5AB2A52C7903D300B17E7E /* ProgressView.swift */; };
 		3C7BDB402C4E5EB100082AD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */; };
 		3C7BDB422C4E5EB100082AD8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */; };
@@ -62,6 +63,7 @@
 		3C35F8CA2C6575B900522261 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		3C35F8CC2C6575E300522261 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
 		3C35F8CE2C657E8200522261 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCompisitionWriter.swift; sourceTree = "<group>"; };
 		3C5AB2A52C7903D300B17E7E /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		3C7BDB3C2C4E5EB100082AD8 /* TikTok Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TikTok Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				3CDF30082C6A7F260036A26E /* ProfileVC.swift */,
 				3CDF300A2C6A8FA00036A26E /* ContentVC.swift */,
 				3C069FCC2C7A7B4E00F918BA /* PreviewVC.swift */,
+				3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */,
 				3C069FCD2C7A7B4E00F918BA /* PreviewVC.swift in Sources */,
 				3CE33E852C6B887C0083CE43 /* Extensions.swift in Sources */,
+				3C39190E2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift in Sources */,
 				3CDF300B2C6A8FA00036A26E /* ContentVC.swift in Sources */,
 				3CDF30072C6A7DC80036A26E /* Reference.swift in Sources */,
 				3CD741642C721EF400B0AB38 /* Videos.swift in Sources */,
