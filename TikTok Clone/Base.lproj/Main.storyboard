@@ -804,15 +804,44 @@
                                             <action selector="cancelButton:" destination="gWl-oe-9F1" eventType="touchUpInside" id="AC7-qX-oty"/>
                                         </connections>
                                     </button>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kMK-BA-qwL">
+                                        <rect key="frame" x="0.0" y="666" width="393" height="3"/>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="3" id="AuI-qP-6qw"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fel-5S-cMw">
+                                        <rect key="frame" x="313" y="677" width="60" height="30"/>
+                                        <color key="backgroundColor" red="0.73333334920000004" green="0.19607841970000001" blue="0.34509804840000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Dib-Dw-0uQ"/>
+                                            <constraint firstAttribute="width" constant="60" id="h7T-hO-hYd"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Next"/>
+                                        <connections>
+                                            <action selector="nextButton:" destination="gWl-oe-9F1" eventType="touchUpInside" id="Xpt-S4-gIJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="kMK-BA-qwL" secondAttribute="trailing" id="8Fv-ze-KPg"/>
+                                    <constraint firstItem="Fel-5S-cMw" firstAttribute="top" secondItem="kMK-BA-qwL" secondAttribute="bottom" constant="8" id="9Ja-yt-nuW"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fel-5S-cMw" secondAttribute="trailing" constant="20" id="9r8-bD-7iR"/>
                                     <constraint firstItem="UgU-B7-SGH" firstAttribute="leading" secondItem="dam-1a-ANa" secondAttribute="leading" id="AsO-Lr-EDO"/>
+                                    <constraint firstItem="kMK-BA-qwL" firstAttribute="leading" secondItem="dam-1a-ANa" secondAttribute="leading" id="Cma-ud-kU0"/>
                                     <constraint firstItem="UgU-B7-SGH" firstAttribute="top" secondItem="dam-1a-ANa" secondAttribute="top" id="GkV-xv-V54"/>
                                     <constraint firstAttribute="bottom" secondItem="UgU-B7-SGH" secondAttribute="bottom" id="Gxy-ZQ-aWS"/>
                                     <constraint firstItem="WqB-Ex-o9D" firstAttribute="leading" secondItem="dam-1a-ANa" secondAttribute="leading" constant="20" id="K7c-KH-rMy"/>
+                                    <constraint firstAttribute="bottom" secondItem="kMK-BA-qwL" secondAttribute="bottom" constant="90" id="KX5-xb-BZx"/>
+                                    <constraint firstAttribute="bottom" secondItem="kMK-BA-qwL" secondAttribute="bottom" constant="90" id="aCg-8Z-wyd"/>
+                                    <constraint firstItem="kMK-BA-qwL" firstAttribute="leading" secondItem="dam-1a-ANa" secondAttribute="leading" id="cif-ha-uZC"/>
                                     <constraint firstItem="WqB-Ex-o9D" firstAttribute="top" secondItem="dam-1a-ANa" secondAttribute="top" constant="50" id="fpp-WV-1Cb"/>
                                     <constraint firstAttribute="trailing" secondItem="UgU-B7-SGH" secondAttribute="trailing" id="oIV-IZ-nQf"/>
+                                    <constraint firstAttribute="trailing" secondItem="kMK-BA-qwL" secondAttribute="trailing" id="wcG-AR-UqV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -826,12 +855,44 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="nextButtonTapped" destination="Fel-5S-cMw" id="hRr-2s-h9w"/>
                         <outlet property="thumbImageView" destination="UgU-B7-SGH" id="vWk-hI-eVu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SK5-Z1-bsV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2837" y="2019"/>
+            <point key="canvasLocation" x="2835.8778625954196" y="2018.3098591549297"/>
+        </scene>
+        <!--ShareVC-->
+        <scene sceneID="vaU-eL-kGq">
+            <objects>
+                <viewController id="Riz-jd-C1v" customClass="ShareVC" customModule="TikTok_Clone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gm8-tN-ch9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-79-b86">
+                                <rect key="frame" x="293" y="109" width="80" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="awE-OO-lqR"/>
+                                    <constraint firstAttribute="width" constant="80" id="kt4-IN-zxt"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ibj-8e-ak6"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ibj-8e-ak6" firstAttribute="trailing" secondItem="hYh-79-b86" secondAttribute="trailing" constant="20" id="M01-pl-013"/>
+                            <constraint firstItem="hYh-79-b86" firstAttribute="top" secondItem="ibj-8e-ak6" secondAttribute="top" constant="50" id="O3j-MI-RKC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="thumbImageView" destination="hYh-79-b86" id="WK4-Gx-HXl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ty2-R6-Sgx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3632" y="2031"/>
         </scene>
         <!--Inbox-->
         <scene sceneID="ldu-CO-chB">
@@ -942,6 +1003,9 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -12,6 +12,10 @@ class PreviewVC: UIViewController {
     
     //MARK: Proporties
     
+    
+    @IBOutlet weak var nextButtonTapped: UIButton!
+    
+    
     var currentPlayingVideo: Videos
     var recordedClips: [Videos] = []
     var viewWillDenitRestartVideo: (() -> Void)?
@@ -87,7 +91,10 @@ class PreviewVC: UIViewController {
             
         }
     }
-    
+    func setupView(){
+        nextButtonTapped.layer.cornerRadius = 2
+        nextButtonTapped.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 88/255, alpha: 1.0)
+    }
     func setupPlayerView(with videoClip: Videos) {
         let player = AVPlayer(url: videoClip.videoUrl)
         let playerLayer = AVPlayerLayer(player: player)
@@ -136,7 +143,40 @@ class PreviewVC: UIViewController {
         
     }
     @IBAction func cancelButton(_ sender: UIButton) {
+        hideStatusBar = true
+        navigationController?.popViewController(animated: true)
     }
+    func mergeClips(){
+        VideoCompisitionWriter().mergeMultiVideo(urls: urlForVid) { success, outputURL in
+            if success {
+                guard let outputURLunwrapped = outputURL else {return}
+                print("outputURLUnwrapped")
+                
+                DispatchQueue.main.async {
+                    let player = AVPlayer(url: outputURLunwrapped)
+                    let vc = AVPlayerViewController()
+                    vc.player = player
+                    
+                    self.present(vc, animated: true) {
+                        vc.player?.play()
+                    }
+                }
+            }
+        }
+    }
+    @IBAction func nextButton(_ sender: UIButton) {
+        mergeClips()
+        hideStatusBar = false
+        
+        let shareVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "ShareVC", creator: { coder -> ShareVC? in
+            ShareVC(coder: coder, videoUrl: self.currentPlayingVideo.videoUrl)
+                    })
+        shareVC.selectedPhoto = thumbImageView.image
+        navigationController?.pushViewController(shareVC, animated: true)
+        return
+    }
+    
+    
 }
 
 
@@ -151,4 +191,6 @@ extension PreviewVC {
         self.tabBarController?.tabBar.isHidden = false
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
+    
 }
