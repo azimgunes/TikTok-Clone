@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KwI-VB-JcM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
@@ -864,35 +864,19 @@
             <point key="canvasLocation" x="2835.8778625954196" y="2018.3098591549297"/>
         </scene>
         <!--ShareVC-->
-        <scene sceneID="vaU-eL-kGq">
+        <scene sceneID="Fl5-Xi-Dhk">
             <objects>
-                <viewController id="Riz-jd-C1v" customClass="ShareVC" customModule="TikTok_Clone" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gm8-tN-ch9">
+                <viewController storyboardIdentifier="ShareVC" id="VwG-lj-F86" customClass="ShareVC" customModule="TikTok_Clone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pRl-xc-hPI">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-79-b86">
-                                <rect key="frame" x="293" y="109" width="80" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="awE-OO-lqR"/>
-                                    <constraint firstAttribute="width" constant="80" id="kt4-IN-zxt"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="ibj-8e-ak6"/>
+                        <viewLayoutGuide key="safeArea" id="kRQ-7f-BTc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="ibj-8e-ak6" firstAttribute="trailing" secondItem="hYh-79-b86" secondAttribute="trailing" constant="20" id="M01-pl-013"/>
-                            <constraint firstItem="hYh-79-b86" firstAttribute="top" secondItem="ibj-8e-ak6" secondAttribute="top" constant="50" id="O3j-MI-RKC"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="thumbImageView" destination="hYh-79-b86" id="WK4-Gx-HXl"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ty2-R6-Sgx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q7Q-XD-hiV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3632" y="2031"/>
+            <point key="canvasLocation" x="3796" y="2020"/>
         </scene>
         <!--Inbox-->
         <scene sceneID="ldu-CO-chB">

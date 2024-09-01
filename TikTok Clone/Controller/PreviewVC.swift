@@ -146,11 +146,13 @@ class PreviewVC: UIViewController {
         hideStatusBar = true
         navigationController?.popViewController(animated: true)
     }
+    
+
     func mergeClips(){
         VideoCompisitionWriter().mergeMultiVideo(urls: urlForVid) { success, outputURL in
             if success {
                 guard let outputURLunwrapped = outputURL else {return}
-                print("outputURLUnwrapped")
+                print("outputURLUnwrapped", outputURLunwrapped)
                 
                 DispatchQueue.main.async {
                     let player = AVPlayer(url: outputURLunwrapped)
