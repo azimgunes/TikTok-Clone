@@ -18,7 +18,8 @@ class ShareVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
+        view.backgroundColor = .white
+        self.navigationController?.navigationBar.tintColor = .black
 
         // Do any additional setup after loading the view.
     }
