@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 import AVFoundation
 
 class ShareVC: UIViewController, UITextViewDelegate {
@@ -36,8 +37,12 @@ class ShareVC: UIViewController, UITextViewDelegate {
         view.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = .black
 
-        // Do any additional setup after loading the view.
+        if let thumbnailImage = self.thumbnailImageForFileUrl(originalVideoUrl) {
+            self.selectedPhoto = thumbnailImage.imageRotated(by: Double.pi/2)
+            thumbImageView.image = thumbnailImage.imageRotated(by: Double.pi/2)
+        }
     }
+
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +58,18 @@ class ShareVC: UIViewController, UITextViewDelegate {
       
         
        
+    }
+    
+    func thumbnailImageForFileUrl(_ fileUrl: URL) -> UIImage? {
+        let asset = AVAsset(url: fileUrl)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        do {
+            let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 7, timescale: 1), actualTime: nil)
+            return UIImage(cgImage: thumbnailCGImage)
+        } catch {
+           print(error)
+        }
+        return nil
     }
 
     init?(coder: NSCoder, videoUrl: URL) {
@@ -126,5 +143,24 @@ extension ShareVC{
             textView.text = placeholder
             textView.textColor = .lightGray
         }
+    }
+}
+
+extension UIImage {
+    func imageRotated(by radian: CGFloat) -> UIImage {
+        let rotatedSize = CGRect(origin: .zero, size: size).applying(CGAffineTransform(rotationAngle: radian)).integral.size
+        
+        UIGraphicsBeginImageContext(rotatedSize)
+        if let context = UIGraphicsGetCurrentContext() {
+            let origin = CGPoint(x: rotatedSize.width / 2.0, y: rotatedSize.height / 2.0)
+            context.translateBy(x: origin.x, y: origin.y)
+            context.rotate(by: radian)
+            draw(in: CGRect(x: -size.width / 2.0, y: -size.height / 2.0, width: size.width, height: size.height))
+            let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            return rotatedImage ?? self
+        }
+        return self
     }
 }
