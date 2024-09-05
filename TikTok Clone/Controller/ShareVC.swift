@@ -15,6 +15,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
     
     
     let originalVideoUrl: URL
+    var encodedVideoURL: URL?
     var selectedPhoto : UIImage?
     
     @IBOutlet weak var textView: UITextView!
@@ -40,6 +41,9 @@ class ShareVC: UIViewController, UITextViewDelegate {
         if let thumbnailImage = self.thumbnailImageForFileUrl(originalVideoUrl) {
             self.selectedPhoto = thumbnailImage.imageRotated(by: Double.pi/2)
             thumbImageView.image = thumbnailImage.imageRotated(by: Double.pi/2)
+        }
+        saveVideoToServer(sourceURL: originalVideoUrl) {[weak self] (outputURL) in
+            self?.encodedVideoURL = outputURL
         }
     }
 
@@ -105,6 +109,25 @@ class ShareVC: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func postButton(_ sender: UIButton) {
+        self.sharePost {
+            self.dismiss(animated: true) {
+                self.tabBarController?.selectedIndex = 0
+            }
+        } onErr: { errorMessage in
+            print(errorMessage)
+        }
+
+    }
+    
+    func sharePost(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void){
+        Api.Post.sharePost(encodedVideoURL: encodedVideoURL, selectedPhoto: selectedPhoto, textView: textView) {
+            print("OKEYYYYYY")
+            onSuc()
+        } onErr: { errorMessage in
+            onErr(errorMessage)
+        }
+
+        
     }
     
     @IBAction func draftsButton(_ sender: UIButton) {

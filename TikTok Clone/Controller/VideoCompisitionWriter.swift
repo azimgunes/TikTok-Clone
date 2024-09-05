@@ -120,3 +120,40 @@ class VideoCompisitionWriter: NSObject {
         return mainCompisition
     }
 }
+
+func saveVideoToServer(sourceURL: URL, completion: ((_ outputUrl: URL) -> Void )? = nil) {
+    
+    let fileManager = FileManager.default
+    
+    let documentDirectory = NSURL.fileURL(withPath: NSTemporaryDirectory(), isDirectory: true)
+    let asset = AVAsset(url: sourceURL)
+    let length = Float(asset.duration.value) / Float(asset.duration.timescale)
+    print("video: \(length) seconds")
+    
+    var outputURL = documentDirectory.appendingPathComponent("output")
+    do {
+        try fileManager.createDirectory(at: outputURL, withIntermediateDirectories: true, attributes: nil)
+        outputURL = outputURL.appendingPathComponent("\(sourceURL.lastPathComponent).mp4")
+    }catch let error {
+        print(error)
+    }
+    try? fileManager.removeItem(at: outputURL)
+    
+    guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {return}
+    exportSession.outputURL = outputURL
+    exportSession.outputFileType = AVFileType.mp4
+    
+    exportSession.exportAsynchronously {
+        switch exportSession.status {
+        case .completed:
+            print("exported: \(outputURL)")
+            completion?(outputURL)
+        case .failed:
+            print("failed")
+        case .cancelled:
+            print("cancelled")
+            
+        default: break
+        }
+    }
+}

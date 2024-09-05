@@ -14,5 +14,7 @@ import FirebaseStorage
 import PhotosUI
 
 struct Api {
+    static var Post = PostApi()
+
     static var User = UserApi()
 }
