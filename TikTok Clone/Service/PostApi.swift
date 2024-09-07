@@ -6,7 +6,7 @@ import FirebaseStorage
 import PhotosUI
 
 class PostApi {
-
+    
     func sharePost(encodedVideoURL: URL?, selectedPhoto: UIImage?, textView: UITextView, onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void) {
         
         let creationDate = Date().timeIntervalSince1970
@@ -18,7 +18,7 @@ class PostApi {
             let videoRef = storageRef.child("posts").child(videoIdString)
             let videoMetadata = StorageMetadata()
             videoMetadata.contentType = "video/mp4" // İçerik türünü belirtin
-
+            
             videoRef.putFile(from: encodedVideoURLUnwrapped, metadata: videoMetadata) { metadata, error in
                 if let error = error {
                     onErr("Error uploading video: \(error.localizedDescription)")
@@ -47,38 +47,24 @@ class PostApi {
                             "commentCount": 0,
                             "uid": uid
                         ]
+                  
+                        Firestore.firestore().collection("Posts").document(uid).setData(values) { error in
+                                                   if let error = error {
+                                                       onErr("Error saving post data: \(error.localizedDescription)")
+                                                   } else {
+                                                       onSuc()
+                                                   }
+                                               }
                         
-                        let postId = UUID().uuidString
-                        let postRef = storageRef.child("Posts/\(postId).jpg")
-                        let postMetadata = StorageMetadata()
-                        postMetadata.contentType = "image/jpeg" // İçerik türünü belirtin
                         
-                        postRef.putData(Data(), metadata: postMetadata) { metadata, error in
-                            if let error = error {
-                                onErr("Error uploading post metadata: \(error.localizedDescription)")
-                                return
-                            }
-                            
-                            // Bu kısmı gereksiz olabilir, eğer bu metadataların Firebase Storage'a upload edilmesini istiyorsanız
-                            // buradaki kodu silmeniz gerekebilir.
-                            
-                            // Firestore'a post verilerini ekleme kısmı eksik
-                            Firestore.firestore().collection("posts").document(postId).setData(values) { error in
-                                if let error = error {
-                                    onErr("Error saving post data: \(error.localizedDescription)")
-                                } else {
-                                    onSuc()
-                                }
-                            }
-                        }
+                        
                     }
                 }
             }
-        } else {
-            onErr("No video URL provided")
         }
     }
 
+    
     func uploadThumbImageToFirestore(selectedPhoto: UIImage?, completion: @escaping (String) -> ()) {
         guard let thumbnailImage = selectedPhoto, let imageData = thumbnailImage.jpegData(compressionQuality: 0.3) else {
             completion("No image data")
@@ -114,4 +100,6 @@ class PostApi {
             }
         }
     }
-}
+
+
+    }
