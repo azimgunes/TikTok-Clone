@@ -26,6 +26,14 @@ class ShareVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var draftsBut: UIButton!
     
     
+    
+    @IBOutlet weak var toWhatsapp: UIButton!
+    
+    @IBOutlet weak var toSnapchat: UIButton!
+    
+    @IBOutlet weak var toInstagram: UIButton!
+    
+    
     let placeholder = "Write your explanation about the content."
     
     
@@ -36,7 +44,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
         hideKeyboard()
         
         view.backgroundColor = .white
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.tintColor = .systemPink
 
         if let thumbnailImage = self.thumbnailImageForFileUrl(originalVideoUrl) {
             self.selectedPhoto = thumbnailImage.imageRotated(by: Double.pi/2)
@@ -92,6 +100,8 @@ class ShareVC: UIViewController, UITextViewDelegate {
         
         postBut.layer.cornerRadius = 15
         
+        toWhatsapp.contentMode = .scaleAspectFit
+        
     }
     
     @IBAction func allowToComments(_ sender: UISwitch) {
@@ -107,7 +117,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
     
     @IBAction func saveToDevice(_ sender: UISwitch) {
     }
-    
+
     @IBAction func postButton(_ sender: UIButton) {
         self.sharePost {
             self.dismiss(animated: true) {
@@ -116,8 +126,9 @@ class ShareVC: UIViewController, UITextViewDelegate {
         } onErr: { errorMessage in
             print(errorMessage)
         }
-
     }
+    
+    
     
     func sharePost(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void){
         Api.Post.sharePost(encodedVideoURL: encodedVideoURL, selectedPhoto: selectedPhoto, textView: textView) {
