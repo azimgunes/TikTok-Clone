@@ -26,6 +26,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var draftsBut: UIButton!
     
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
     
     @IBOutlet weak var toWhatsapp: UIButton!
     
@@ -39,38 +40,80 @@ class ShareVC: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textViewDidChange()
+        setupTextView()
         setupView()
         hideKeyboard()
-        
+        loadThumb()
         view.backgroundColor = .white
-        self.navigationController?.navigationBar.tintColor = .systemPink
 
-        if let thumbnailImage = self.thumbnailImageForFileUrl(originalVideoUrl) {
-            self.selectedPhoto = thumbnailImage.imageRotated(by: Double.pi/2)
-            thumbImageView.image = thumbnailImage.imageRotated(by: Double.pi/2)
-        }
+    
         saveVideoToServer(sourceURL: originalVideoUrl) {[weak self] (outputURL) in
             self?.encodedVideoURL = outputURL
         }
     }
 
     
+    init?(coder: NSCoder, videoUrl: URL) {
+        self.originalVideoUrl = videoUrl
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarAndNavigationBar()
- 
-   
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarAndNavigationBar()
-      
-        
-       
     }
+    
+    //MARK: Setup Methods
+    
+    func setupView(){
+        draftsBut.layer.borderColor = UIColor.lightGray.cgColor
+        draftsBut.layer.borderWidth = 0.3
+        draftsBut.layer.cornerRadius = 15
+        
+        postBut.layer.cornerRadius = 15
+        
+        toWhatsapp.contentMode = .scaleAspectFit
+        
+    }
+    
+    
+    func setupTextView(){
+        textView.delegate = self
+        textView.text = placeholder
+        textView.textColor = .lightGray
+    }
+    
+    
+    @IBAction func backToPreviewVC() {
+        
+        backButton.target = self
+        backButton.action = #selector(backToPreviewVC)
+        
+        if let navController = navigationController {
+            navController.popViewController(animated: true)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func loadThumb(){
+        if let thumbnailImage = self.thumbnailImageForFileUrl(originalVideoUrl) {
+            self.selectedPhoto = thumbnailImage.imageRotated(by: Double.pi/2)
+            thumbImageView.image = thumbnailImage.imageRotated(by: Double.pi/2)
+        }
+    }
+
+    // MARK: - Thumbnail Generator
+
     
     func thumbnailImageForFileUrl(_ fileUrl: URL) -> UIImage? {
         let asset = AVAsset(url: fileUrl)
@@ -84,25 +127,8 @@ class ShareVC: UIViewController, UITextViewDelegate {
         return nil
     }
 
-    init?(coder: NSCoder, videoUrl: URL) {
-        self.originalVideoUrl = videoUrl
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupView(){
-        draftsBut.layer.borderColor = UIColor.lightGray.cgColor
-        draftsBut.layer.borderWidth = 0.3
-        draftsBut.layer.cornerRadius = 15
-        
-        postBut.layer.cornerRadius = 15
-        
-        toWhatsapp.contentMode = .scaleAspectFit
-        
-    }
+
+
     
     @IBAction func allowToComments(_ sender: UISwitch) {
     }
@@ -128,7 +154,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
         }
     }
     
-    
+
     
     func sharePost(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void){
         Api.Post.sharePost(encodedVideoURL: encodedVideoURL, selectedPhoto: selectedPhoto, textView: textView) {
@@ -161,11 +187,7 @@ extension ShareVC {
     
 }
 extension ShareVC{
-    func textViewDidChange(){
-        textView.delegate = self
-        textView.text = placeholder
-        textView.textColor = .lightGray
-    }
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == .lightGray {
             textView.text = ""
@@ -178,6 +200,7 @@ extension ShareVC{
             textView.textColor = .lightGray
         }
     }
+    
 }
 
 extension UIImage {
