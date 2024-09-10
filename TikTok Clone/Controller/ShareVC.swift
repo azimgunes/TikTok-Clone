@@ -38,18 +38,18 @@ class ShareVC: UIViewController, UITextViewDelegate {
     let placeholder = "Write your explanation about the content."
     
     
+    //MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextView()
         setupView()
         hideKeyboard()
         loadThumb()
+        saveToServer()
+        
         view.backgroundColor = .white
-
-    
-        saveVideoToServer(sourceURL: originalVideoUrl) {[weak self] (outputURL) in
-            self?.encodedVideoURL = outputURL
-        }
+      
     }
 
     
@@ -83,6 +83,9 @@ class ShareVC: UIViewController, UITextViewDelegate {
         
         toWhatsapp.contentMode = .scaleAspectFit
         
+        backButton.target = self
+        backButton.action = #selector(backToPreviewVC)
+        
     }
     
     
@@ -91,19 +94,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
         textView.text = placeholder
         textView.textColor = .lightGray
     }
-    
-    
-    @IBAction func backToPreviewVC() {
-        
-        backButton.target = self
-        backButton.action = #selector(backToPreviewVC)
-        
-        if let navController = navigationController {
-            navController.popViewController(animated: true)
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
-    }
+
     
     func loadThumb(){
         if let thumbnailImage = self.thumbnailImageForFileUrl(originalVideoUrl) {
@@ -127,7 +118,30 @@ class ShareVC: UIViewController, UITextViewDelegate {
         return nil
     }
 
+    // MARK: - Button Actions
 
+    @IBAction func backToPreviewVC() {
+        
+        
+        
+        if let navController = navigationController {
+            navController.popViewController(animated: true)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    
+    @IBAction func postButton(_ sender: UIButton) {
+        self.sharePost {
+            self.dismiss(animated: true) {
+                self.tabBarController?.selectedIndex = 0
+            }
+        } onErr: { errorMessage in
+            print(errorMessage)
+        }
+    }
+    
 
     
     @IBAction func allowToComments(_ sender: UISwitch) {
@@ -143,18 +157,12 @@ class ShareVC: UIViewController, UITextViewDelegate {
     
     @IBAction func saveToDevice(_ sender: UISwitch) {
     }
-
-    @IBAction func postButton(_ sender: UIButton) {
-        self.sharePost {
-            self.dismiss(animated: true) {
-                self.tabBarController?.selectedIndex = 0
-            }
-        } onErr: { errorMessage in
-            print(errorMessage)
-        }
-    }
     
+    
+    @IBAction func draftsButton(_ sender: UIButton) {
+    }
 
+    // MARK: - Sharing Post
     
     func sharePost(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void){
         Api.Post.sharePost(encodedVideoURL: encodedVideoURL, selectedPhoto: selectedPhoto, textView: textView) {
@@ -166,14 +174,21 @@ class ShareVC: UIViewController, UITextViewDelegate {
 
         
     }
+    // MARK: - Save Video to Server
     
-    @IBAction func draftsButton(_ sender: UIButton) {
+    func saveToServer(){
+        saveVideoToServer(sourceURL: originalVideoUrl) {[weak self] (outputURL) in
+            self?.encodedVideoURL = outputURL
+        }
     }
+    
+ 
     
 }
 
+// MARK: - Helper Methods
+
 extension ShareVC {
-    // MARK: - Helper Methods
     private func hideTabBarAndNavigationBar() {
         self.tabBarController?.tabBar.isHidden = true
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -186,6 +201,9 @@ extension ShareVC {
     
     
 }
+
+// MARK: - UITextViewDelegate
+    
 extension ShareVC{
 
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -202,6 +220,8 @@ extension ShareVC{
     }
     
 }
+
+// MARK: - UIImage Extension for Rotation
 
 extension UIImage {
     func imageRotated(by radian: CGFloat) -> UIImage {
