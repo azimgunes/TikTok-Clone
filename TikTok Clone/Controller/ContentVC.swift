@@ -194,16 +194,7 @@ class ContentVC: UIViewController {
     }
     
     // MARK: - Helper Methods
-    private func hideTabBarAndNavigationBar() {
-        self.tabBarController?.tabBar.isHidden = true
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
 
-    private func showTabBarAndNavigationBar() {
-        self.tabBarController?.tabBar.isHidden = false
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     @IBAction func dismissButton(_ sender: UIButton) {
         tabBarController?.selectedIndex = 0
     }

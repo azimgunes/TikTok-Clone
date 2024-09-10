@@ -12,15 +12,16 @@ class PreviewVC: UIViewController {
     
     //MARK: Proporties
     
-    
     @IBOutlet weak var nextButtonTapped: UIButton!
-    
-    
+    @IBOutlet weak var thumbImageView: UIImageView!
+
+
     var currentPlayingVideo: Videos
     var recordedClips: [Videos] = []
     var viewWillDenitRestartVideo: (() -> Void)?
     var player: AVPlayer = AVPlayer()
     var playerLayer: AVPlayerLayer = AVPlayerLayer()
+    
     var urlForVid: [URL] = [] {
         didSet {
             print("outputUrlunWrapped:", urlForVid)
@@ -35,53 +36,54 @@ class PreviewVC: UIViewController {
         }
     }
     
-    @IBOutlet weak var thumbImageView: UIImageView!
     
     
     
-   
+    // MARK: - Lifecycle Methods
 
+
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+        loadRecordedClips()
         startPlayFirstClip()
-        hideStatusBar = true
-        recordedClips.forEach { clip in
-            urlForVid.append(clip.videoUrl)
-        }
-        print("\(recordedClips.count)")
-
+        print("Clip count: \(recordedClips.count)")
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarAndNavigationBar()
         player.play()
         hideStatusBar = true
-   
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarAndNavigationBar()
         player.pause()
-        
-       
     }
-    
+
     deinit {
-        print("PreviewVC was deineted")
-        (viewWillDenitRestartVideo)?()
+        print("PreviewVC was deinitialized")
+        viewWillDenitRestartVideo?()
     }
     
-    init?(coder: NSCoder, recordedClips: [Videos]){
-        self.currentPlayingVideo = recordedClips.first!
+    init?(coder: NSCoder, recordedClips: [Videos]) {
+        guard let firstClip = recordedClips.first else {
+            return nil
+        }
+        self.currentPlayingVideo = firstClip
         self.recordedClips = recordedClips
         super.init(coder: coder)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - Setup Methods
 
     func startPlayFirstClip(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -95,6 +97,16 @@ class PreviewVC: UIViewController {
         nextButtonTapped.layer.cornerRadius = 2
         nextButtonTapped.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 88/255, alpha: 1.0)
     }
+    
+    func loadRecordedClips() {
+         recordedClips.forEach { clip in
+             urlForVid.append(clip.videoUrl)
+         }
+     }
+    
+    // MARK: - Video Player Setup
+
+
     func setupPlayerView(with videoClip: Videos) {
         let player = AVPlayer(url: videoClip.videoUrl)
         let playerLayer = AVPlayerLayer(player: player)
@@ -109,6 +121,9 @@ class PreviewVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(avPlayerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
         mirrorPlayer(cameraPosition: videoClip.cameraPosition)
     }
+    
+    // MARK: - Video Playback End
+    
     func removePeriodicTimeObserver(){
         player.replaceCurrentItem(with: nil)
         playerLayer.removeFromSuperlayer()
@@ -133,6 +148,8 @@ class PreviewVC: UIViewController {
         }
     }
     
+    
+    //MARK: Camera
 
     func mirrorPlayer(cameraPosition: AVCaptureDevice.Position){
         if cameraPosition == .front {
@@ -142,12 +159,29 @@ class PreviewVC: UIViewController {
         }
         
     }
+    
+    //MARK: Button Actions
+    
     @IBAction func cancelButton(_ sender: UIButton) {
         hideStatusBar = true
         navigationController?.popViewController(animated: true)
     }
     
 
+    @IBAction func nextButton(_ sender: UIButton) {
+        mergeClips()
+        hideStatusBar = false
+        
+        let shareVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "ShareVC", creator: { coder -> ShareVC? in
+            ShareVC(coder: coder, videoUrl: self.currentPlayingVideo.videoUrl)
+                    })
+        shareVC.selectedPhoto = thumbImageView.image
+        navigationController?.pushViewController(shareVC, animated: true)
+        return
+    }
+    
+    //MARK: Merging
+    
     func mergeClips(){
         VideoCompisitionWriter().mergeMultiVideo(urls: urlForVid) { success, outputURL in
             if success {
@@ -166,33 +200,7 @@ class PreviewVC: UIViewController {
             }
         }
     }
-    @IBAction func nextButton(_ sender: UIButton) {
-        mergeClips()
-        hideStatusBar = false
-        
-        let shareVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "ShareVC", creator: { coder -> ShareVC? in
-            ShareVC(coder: coder, videoUrl: self.currentPlayingVideo.videoUrl)
-                    })
-        shareVC.selectedPhoto = thumbImageView.image
-        navigationController?.pushViewController(shareVC, animated: true)
-        return
-    }
-    
     
 }
 
 
-extension PreviewVC {
-    // MARK: - Helper Methods
-    private func hideTabBarAndNavigationBar() {
-        self.tabBarController?.tabBar.isHidden = true
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-
-    private func showTabBarAndNavigationBar() {
-        self.tabBarController?.tabBar.isHidden = false
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    
-}

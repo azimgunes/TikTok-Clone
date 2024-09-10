@@ -13,8 +13,21 @@ extension UIViewController {
     func hideKeyboard(){
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(dismissMyKeyboard))
         view.addGestureRecognizer(tapGesture)}
+    
+    
     @objc func dismissMyKeyboard(){
         view.endEditing(true)
     }
+    
+    func hideTabBarAndNavigationBar() {
+        self.tabBarController?.tabBar.isHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    func showTabBarAndNavigationBar() {
+        self.tabBarController?.tabBar.isHidden = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     
     }

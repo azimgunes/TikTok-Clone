@@ -186,22 +186,6 @@ class ShareVC: UIViewController, UITextViewDelegate {
     
 }
 
-// MARK: - Helper Methods
-
-extension ShareVC {
-    private func hideTabBarAndNavigationBar() {
-        self.tabBarController?.tabBar.isHidden = true
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-
-    private func showTabBarAndNavigationBar() {
-        self.tabBarController?.tabBar.isHidden = false
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    
-}
-
 // MARK: - UITextViewDelegate
     
 extension ShareVC{
