@@ -134,7 +134,6 @@
 				3CDF30082C6A7F260036A26E /* ProfileVC.swift */,
 				3CDF300A2C6A8FA00036A26E /* ContentVC.swift */,
 				3C069FCC2C7A7B4E00F918BA /* PreviewVC.swift */,
-				3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */,
 				3C22BA5F2C83B9630025633F /* ShareVC.swift */,
 			);
 			path = Controller;
@@ -190,6 +189,7 @@
 				3C9A82F82C6D0F8300A3BF5B /* Model */,
 				3C35F8CC2C6575E300522261 /* UserApi.swift */,
 				3CD7E3442C8A1B8900D66745 /* PostApi.swift */,
+				3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";

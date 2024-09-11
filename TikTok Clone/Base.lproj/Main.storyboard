@@ -492,7 +492,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="flipDidTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="fms-vr-MXJ"/>
+                                    <action selector="flipButtonTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="fms-vr-MXJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5mA-Di-Hm6">
@@ -517,7 +517,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="flipDidTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="VWt-zL-Sm7"/>
+                                    <action selector="flipButtonTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="VWt-zL-Sm7"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qar-dN-Peh">
@@ -539,7 +539,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="flipDidTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="lXP-Iv-MsG"/>
+                                    <action selector="flipButtonTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="lXP-Iv-MsG"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beauty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHJ-YV-i3H">
@@ -561,7 +561,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="flipDidTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="OaK-IL-3sO"/>
+                                    <action selector="flipButtonTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="OaK-IL-3sO"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Dw-c8-SVM">
@@ -581,7 +581,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="flipDidTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="q80-Fh-ZrI"/>
+                                    <action selector="flipButtonTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="q80-Fh-ZrI"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SIm-v3-9cQ">
@@ -661,7 +661,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="flipDidTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="Eqn-Wt-Tku"/>
+                                    <action selector="flipButtonTapped:" destination="kkB-zz-J1E" eventType="touchUpInside" id="Eqn-Wt-Tku"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsJ-Gw-b8b">

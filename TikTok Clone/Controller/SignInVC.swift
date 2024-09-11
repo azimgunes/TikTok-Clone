@@ -32,9 +32,9 @@ class SignInVC: UIViewController {
     
     @IBOutlet weak var signInButton: UIButton!
     
- 
+    
     //MARK: Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
@@ -42,9 +42,9 @@ class SignInVC: UIViewController {
         setupView()
         emailTextFieldFunc()
         passwordTextFieldFunc()
-
+        
     }
-
+    
     
     @IBAction func signInTapped(_ sender: UIButton) {
         self.view.endEditing(true)
@@ -57,9 +57,9 @@ class SignInVC: UIViewController {
         } onErr: { errorMesssage in
             print("ERROR \(errorMesssage)")
         }
-
+        
     }
-
+    
 }
 
 
@@ -71,11 +71,11 @@ extension SignInVC {
             if let sceneDelegate : SceneDelegate = (scene?.delegate as? SceneDelegate) {
                 sceneDelegate.configInitialVC()
             }        } onErr: { errorMesssage in
-            self.alertSigningFunc()
-            print(errorMesssage)
-           
-        }
-
+                self.alertSigningFunc()
+                print(errorMesssage)
+                
+            }
+        
     }
     
     func validateFields(){
@@ -120,7 +120,7 @@ extension SignInVC {
     
     func setupView(){
         signInButton.layer.cornerRadius = 10
-  
+        
     }
     
 }

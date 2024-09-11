@@ -8,7 +8,7 @@
 import UIKit
 
 class RegistrationVC: UIViewController {
-
+    
     
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
@@ -24,16 +24,16 @@ class RegistrationVC: UIViewController {
         setupView()
         // Do any additional setup after loading the view.
     }
-
+    
     func setupView(){
         facebookButton.layer.cornerRadius = 15
         signupButton.layer.cornerRadius = 15
         googleButton.layer.cornerRadius = 15
         loginButton.layer.cornerRadius = 15
-
+        
     }
     
-
+    
     @IBAction func signUpTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "toSignUpVC") as! SignUpVC

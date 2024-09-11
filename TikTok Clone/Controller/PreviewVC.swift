@@ -14,8 +14,8 @@ class PreviewVC: UIViewController {
     
     @IBOutlet weak var nextButtonTapped: UIButton!
     @IBOutlet weak var thumbImageView: UIImageView!
-
-
+    
+    
     var currentPlayingVideo: Videos
     var recordedClips: [Videos] = []
     var viewWillDenitRestartVideo: (() -> Void)?
@@ -36,12 +36,8 @@ class PreviewVC: UIViewController {
         }
     }
     
-    
-    
-    
-    // MARK: - Lifecycle Methods
 
-
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,20 +46,20 @@ class PreviewVC: UIViewController {
         startPlayFirstClip()
         print("Clip count: \(recordedClips.count)")
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarAndNavigationBar()
         player.play()
         hideStatusBar = true
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarAndNavigationBar()
         player.pause()
     }
-
+    
     deinit {
         print("PreviewVC was deinitialized")
         viewWillDenitRestartVideo?()
@@ -77,14 +73,14 @@ class PreviewVC: UIViewController {
         self.recordedClips = recordedClips
         super.init(coder: coder)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     
     // MARK: - Setup Methods
-
+    
     func startPlayFirstClip(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             guard let firstClip = self.recordedClips.first else {return}
@@ -99,14 +95,14 @@ class PreviewVC: UIViewController {
     }
     
     func loadRecordedClips() {
-         recordedClips.forEach { clip in
-             urlForVid.append(clip.videoUrl)
-         }
-     }
+        recordedClips.forEach { clip in
+            urlForVid.append(clip.videoUrl)
+        }
+    }
     
     // MARK: - Video Player Setup
-
-
+    
+    
     func setupPlayerView(with videoClip: Videos) {
         let player = AVPlayer(url: videoClip.videoUrl)
         let playerLayer = AVPlayerLayer(player: player)
@@ -150,7 +146,7 @@ class PreviewVC: UIViewController {
     
     
     //MARK: Camera
-
+    
     func mirrorPlayer(cameraPosition: AVCaptureDevice.Position){
         if cameraPosition == .front {
             thumbImageView.transform = CGAffineTransform(scaleX: -1, y: -1)
@@ -167,14 +163,14 @@ class PreviewVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-
+    
     @IBAction func nextButton(_ sender: UIButton) {
         mergeClips()
         hideStatusBar = false
         
         let shareVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "ShareVC", creator: { coder -> ShareVC? in
             ShareVC(coder: coder, videoUrl: self.currentPlayingVideo.videoUrl)
-                    })
+        })
         shareVC.selectedPhoto = thumbImageView.image
         navigationController?.pushViewController(shareVC, animated: true)
         return

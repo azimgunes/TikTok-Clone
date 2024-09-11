@@ -49,9 +49,9 @@ class ShareVC: UIViewController, UITextViewDelegate {
         saveToServer()
         
         view.backgroundColor = .white
-      
+        
     }
-
+    
     
     init?(coder: NSCoder, videoUrl: URL) {
         self.originalVideoUrl = videoUrl
@@ -66,7 +66,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
         super.viewWillAppear(animated)
         hideTabBarAndNavigationBar()
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarAndNavigationBar()
@@ -94,7 +94,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
         textView.text = placeholder
         textView.textColor = .lightGray
     }
-
+    
     
     func loadThumb(){
         if let thumbnailImage = self.thumbnailImageForFileUrl(originalVideoUrl) {
@@ -102,9 +102,9 @@ class ShareVC: UIViewController, UITextViewDelegate {
             thumbImageView.image = thumbnailImage.imageRotated(by: Double.pi/2)
         }
     }
-
+    
     // MARK: - Thumbnail Generator
-
+    
     
     func thumbnailImageForFileUrl(_ fileUrl: URL) -> UIImage? {
         let asset = AVAsset(url: fileUrl)
@@ -113,13 +113,13 @@ class ShareVC: UIViewController, UITextViewDelegate {
             let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 7, timescale: 1), actualTime: nil)
             return UIImage(cgImage: thumbnailCGImage)
         } catch {
-           print(error)
+            print(error)
         }
         return nil
     }
-
+    
     // MARK: - Button Actions
-
+    
     @IBAction func backToPreviewVC() {
         
         
@@ -142,7 +142,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
         }
     }
     
-
+    
     
     @IBAction func allowToComments(_ sender: UISwitch) {
     }
@@ -161,7 +161,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
     
     @IBAction func draftsButton(_ sender: UIButton) {
     }
-
+    
     // MARK: - Sharing Post
     
     func sharePost(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void){
@@ -171,7 +171,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
         } onErr: { errorMessage in
             onErr(errorMessage)
         }
-
+        
         
     }
     // MARK: - Save Video to Server
@@ -182,14 +182,14 @@ class ShareVC: UIViewController, UITextViewDelegate {
         }
     }
     
- 
+    
     
 }
 
 // MARK: - UITextViewDelegate
-    
-extension ShareVC{
 
+extension ShareVC{
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == .lightGray {
             textView.text = ""

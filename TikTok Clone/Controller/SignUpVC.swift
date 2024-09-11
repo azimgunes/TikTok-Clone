@@ -16,8 +16,8 @@ class SignUpVC: UIViewController {
     
     
     //MARK: Proporties
-    		
-
+    
+    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var signUpButton: UIButton!
     
@@ -46,7 +46,7 @@ class SignUpVC: UIViewController {
     }
     
     
-
+    
     func setupView(){
         
         signUpButton.layer.cornerRadius = 15
@@ -80,8 +80,8 @@ class SignUpVC: UIViewController {
         
         self.validateFields()
         self.signUp()
- 
-   
+        
+        
     }
     
     
@@ -162,6 +162,6 @@ extension SignUpVC{
         } onErr: { errorMesssage in
             print(errorMesssage)
         }
-
+        
     }
 }

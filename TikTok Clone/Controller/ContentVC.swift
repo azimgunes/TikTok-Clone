@@ -55,11 +55,11 @@ class ContentVC: UIViewController {
     
     @IBOutlet weak var discardButton: UIButton!
     
+    // MARK: - Properties
     
     let photoOutput = AVCapturePhotoOutput()
     let captureSession = AVCaptureSession()
     let movieOutput = AVCaptureMovieFileOutput()
-    
     var activeInput : AVCaptureDeviceInput!
     var outputUrl : URL!
     var currentCamDevice : AVCaptureDevice?
@@ -81,7 +81,6 @@ class ContentVC: UIViewController {
     
     // MARK: - Lifecycle Methods
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,13 +96,13 @@ class ContentVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarAndNavigationBar()
-   
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarAndNavigationBar()
-       
+        
     }
     
     // MARK: - Button Actions
@@ -112,95 +111,24 @@ class ContentVC: UIViewController {
         didTapRecord()
     }
     
-    func didTapRecord(){
-            
-        if movieOutput.isRecording == false {
-            startRecording()
-        } else {
-            stopRecording()
-        }
-    }
-
     @IBAction func discardButton(_ sender: UIButton) {
-        let alertVC = UIAlertController(title: "Discard Last Clip ?", message: nil, preferredStyle: .alert)
-        let discardAction = UIAlertAction(title: "Discard", style: .default) { [weak self] (_) in
-            self!.discardLastRecord()
- 
-        }
-        let keepAction = UIAlertAction(title: "Keep!", style: .cancel) { (_) in
-            
-            
-        }
-        alertVC.addAction(discardAction)
-        alertVC.addAction(keepAction)
-        present(alertVC, animated: true)
-        
+        showDiscardAlert()
     }
     
     @IBAction func saveButton(_ sender: UIButton) {
-        let previewVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "PreviewVC") { coder -> PreviewVC? in
-            PreviewVC(coder: coder, recordedClips: self.recordClips)
-        }
-        previewVC.viewWillDenitRestartVideo = { [weak self] in
-            guard let self = self else {return}
-            if self.setupCaptureSession() {
-                DispatchQueue.global(qos: .background).async {
-                    self.captureSession.stopRunning()
-                }
-            }
-            
-        }
-        navigationController?.pushViewController(previewVC, animated: true)
+        saveRecording()
     }
     
-    func discardLastRecord(){
-        print("Discarded")
-        outputUrl = nil
-        thumbnailImage = nil
-        recordClips.removeLast()
-        resetAllVisibilitytoId()
-        setNewOutputUrlThumImage()
-        segmentProView.removeLastSegment()
-         
-        
-        if recordClips.isEmpty == true {
-            resetTimersAndProgressToZero()
-        } else if recordClips.isEmpty == false {
-            calculateDurLeft()
-        }
-        
-    }
-    func calculateDurLeft(){
-        let timeToDiscard = videoDurOfLastClip
-        let currentCombTime = totalRecTimeInSecs
-        let newVideoDur = currentCombTime - timeToDiscard
-        totalRecTimeInSecs = newVideoDur
-        let countDownSec: Int = Int(currentMaxRecDur) - totalRecTimeInSecs / 10
-        timeCounterLabel.text = "\(countDownSec)"
+    @IBAction func flipButtonTapped(_ sender: UIButton) {
+        flipCamera()
     }
     
-    func setNewOutputUrlThumImage(){
-        outputUrl = recordClips.last?.videoUrl
-        let currentUrl: URL? = outputUrl
-        guard let currentUrlUnwrapped = currentUrl else {return}
-        guard let generatedThumbImage = genVideoThum(withfile: currentUrlUnwrapped) else {return}
-        if currentCamDevice?.position == .front {
-            
-            thumbnailImage = didGetPicture(generatedThumbImage, to: .upMirrored)
-            
-        }else {
-            thumbnailImage = generatedThumbImage
-        }
-    }
-    
-    // MARK: - Helper Methods
-
     @IBAction func dismissButton(_ sender: UIButton) {
         tabBarController?.selectedIndex = 0
     }
     
-
-
+    // MARK: - Camera Setup
+    
     func setupCaptureSession() -> Bool{
         captureSession.sessionPreset = AVCaptureSession.Preset.high
         
@@ -241,19 +169,81 @@ class ContentVC: UIViewController {
         return true
     }
     
-    
-    
-    func tempUrl() -> URL? {
-        let directory = NSTemporaryDirectory() as NSString
-        
-        if directory != "" {
-            let path = directory.appendingPathComponent(NSUUID().uuidString + ".mp4")
-            return URL(fileURLWithPath: path)
+    // MARK: - Management
+    func startRecording(){
+        if movieOutput.isRecording == false {
+            guard let connection = movieOutput.connection(with: .video) else {return}
+            if connection.isVideoOrientationSupported {
+                connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
+                let device = activeInput.device
+                if device.isSmoothAutoFocusEnabled {
+                    do {
+                        try device.lockForConfiguration()
+                        device.isSmoothAutoFocusEnabled = false
+                        device.unlockForConfiguration()
+                    } catch {
+                        print("CONFIG ERROR: \(error)")
+                    }
+                }
+                outputUrl = tempUrl()
+                movieOutput.startRecording(to: outputUrl, recordingDelegate: self)
+                animatedRecordButton()
+            }
         }
-        return nil
+        
     }
     
-    @IBAction func flipDidTapped(_ sender: UIButton) {
+    func stopRecording(){
+        if movieOutput.isRecording == true {
+            movieOutput.stopRecording()
+            animatedRecordButton()
+            stopTimer()
+            segmentProView.pauseProgress()
+            print("STOP COUNT")
+        }
+    }
+    
+    
+    
+    //MARK: Timer Methods
+    
+    func startTimer(){
+        videoDurOfLastClip = 0
+        stopTimer()
+        recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+            self?.timerTick()
+            
+        })
+    }
+    
+    func timerTick(){
+        totalRecTimeInSecs += 1
+        videoDurOfLastClip += 1
+        
+        
+        let timeLim = currentMaxRecDur * 10
+        if totalRecTimeInSecs == timeLim {
+            
+            didTapRecord()
+        }
+        let startTime = 0
+        let trimmedTime : Int = Int(currentMaxRecDur) - startTime
+        let positiveOrZero = max(totalRecTimeInSecs, 0)
+        let progress = Float(positiveOrZero) / Float(trimmedTime) / 10
+        segmentProView.setProgress(CGFloat(progress))
+        
+        let countDowmSec: Int = max(0, Int(currentMaxRecDur) - totalRecTimeInSecs / 10)
+        timeCounterLabel.text = "\(countDowmSec)s"
+    }
+    
+    func stopTimer(){
+        recordingTimer?.invalidate()
+    }
+    
+    
+    
+    //MARK: Camera Actions
+    func flipCamera(){
         captureSession.beginConfiguration()
         
         let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput
@@ -285,7 +275,6 @@ class ContentVC: UIViewController {
             }
         }
         captureSession.commitConfiguration()
-        
     }
     func getDeviceFront(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
@@ -293,49 +282,102 @@ class ContentVC: UIViewController {
     func getDeviceBack(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
     }
-    func startRecording(){
-        if movieOutput.isRecording == false {
-            guard let connection = movieOutput.connection(with: .video) else {return}
-            if connection.isVideoOrientationSupported {
-                connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
-                let device = activeInput.device
-                if device.isSmoothAutoFocusEnabled {
-                    do {
-                        try device.lockForConfiguration()
-                        device.isSmoothAutoFocusEnabled = false
-                        device.unlockForConfiguration()
-                    } catch {
-                        print("CONFIG ERROR: \(error)")
-                    }
-                }
-                outputUrl = tempUrl()
-                movieOutput.startRecording(to: outputUrl, recordingDelegate: self)
-                animatedRecordButton()
-            }
+    
+    // MARK: - Helper Methods
+    
+    func showDiscardAlert(){
+        let alertVC = UIAlertController(title: "Discard Last Clip ?", message: nil, preferredStyle: .alert)
+        let discardAction = UIAlertAction(title: "Discard", style: .default) { [weak self] (_) in
+            self!.discardLastRecord()
+            
         }
-   
-    }
-    func stopRecording(){
-        if movieOutput.isRecording == true {
-            movieOutput.stopRecording()
-            animatedRecordButton()
-            stopTimer()
-            segmentProView.pauseProgress()
-            print("STOP COUNT")
+        let keepAction = UIAlertAction(title: "Keep!", style: .cancel) { (_) in
+            
+            
         }
+        alertVC.addAction(discardAction)
+        alertVC.addAction(keepAction)
+        present(alertVC, animated: true)
     }
-    func animatedRecordButton(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: { [weak self] in
+    
+    func saveRecording(){
+        let previewVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "PreviewVC") { coder -> PreviewVC? in
+            PreviewVC(coder: coder, recordedClips: self.recordClips)
+        }
+        previewVC.viewWillDenitRestartVideo = { [weak self] in
             guard let self = self else {return}
-            if self.isRecording == false {
+            if self.setupCaptureSession() {
+                DispatchQueue.global(qos: .background).async {
+                    self.captureSession.stopRunning()
+                }
+            }
+            
+        }
+        navigationController?.pushViewController(previewVC, animated: true)
+    }
+    
+    func tempUrl() -> URL? {
+        let directory = NSTemporaryDirectory() as NSString
+        
+        if directory != "" {
+            let path = directory.appendingPathComponent(NSUUID().uuidString + ".mp4")
+            return URL(fileURLWithPath: path)
+        }
+        return nil
+    }
+    
+    
+    
+    func didTapRecord() {
+        if isRecording {
+            stopRecording()
+        } else {
+            startRecording()
+        }
+    }
+
+    
+    func discardLastRecord(){
+        print("Discarded")
+        outputUrl = nil
+        thumbnailImage = nil
+        recordClips.removeLast()
+        resetAllVisibilitytoId()
+        setNewOutputUrlThumImage()
+        segmentProView.removeLastSegment()
+        
+        
+        if recordClips.isEmpty == true {
+            resetTimersAndProgressToZero()
+        } else if recordClips.isEmpty == false {
+            calculateDurLeft()
+        }
+        
+    }
+    
+    
+    func resetTimersAndProgressToZero(){
+        totalRecTimeInSecs = 0
+        totalRecTimeInMins = 0
+        videoDurOfLastClip = 0
+        stopTimer()
+        segmentProView.setProgress(0)
+        timeCounterLabel.text = "\(currentMaxRecDur)"
+    }
+    
+    func animatedRecordButton(){
+        isRecording = !isRecording
+
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: { [weak self] in
+            guard let self = self else { return }
+            if self.isRecording {
                 self.captureButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
                 self.captureButton.layer.cornerRadius = 5
                 self.captureRingView.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
                 
                 self.saveButton.alpha = 0
                 self.discardButton.alpha = 0
-                
-                
+
                 [self.galleryButton, self.effectsButton, self.soundsView].forEach { subView in
                     subView?.isHidden = true
                 }
@@ -343,16 +385,17 @@ class ContentVC: UIViewController {
                 self.captureButton.transform = CGAffineTransform.identity
                 self.captureButton.layer.cornerRadius = 68/2
                 self.captureRingView.transform = CGAffineTransform.identity
-                
+
                 self.resetAllVisibilitytoId()
             }
-        } ) {[weak self] onComplete in
-            guard let self = self else {return}
-            self.isRecording = !self.isRecording
-        }
+        })
     }
-    func resetAllVisibilitytoId(){
+
     
+    
+    
+    func resetAllVisibilitytoId(){
+        
         if recordClips.isEmpty == true {
             [self.galleryButton, self.effectsButton, self.soundsView].forEach { subView in
                 subView?.isHidden = false
@@ -369,7 +412,35 @@ class ContentVC: UIViewController {
             print("THERE IS A RECORD")
         }
     }
+    
+    
+    
+    func calculateDurLeft(){
+        let timeToDiscard = videoDurOfLastClip
+        let currentCombTime = totalRecTimeInSecs
+        let newVideoDur = currentCombTime - timeToDiscard
+        totalRecTimeInSecs = newVideoDur
+        let countDownSec: Int = Int(currentMaxRecDur) - totalRecTimeInSecs / 10
+        timeCounterLabel.text = "\(countDownSec)"
+    }
+    
+    func setNewOutputUrlThumImage(){
+        outputUrl = recordClips.last?.videoUrl
+        let currentUrl: URL? = outputUrl
+        guard let currentUrlUnwrapped = currentUrl else {return}
+        guard let generatedThumbImage = genVideoThum(withfile: currentUrlUnwrapped) else {return}
+        if currentCamDevice?.position == .front {
+            
+            thumbnailImage = didGetPicture(generatedThumbImage, to: .upMirrored)
+            
+        }else {
+            thumbnailImage = generatedThumbImage
+        }
+    }
+    
 }
+
+// MARK: - AVCaptureFileOutputRecordingDelegate
 
 extension ContentVC: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
@@ -422,11 +493,13 @@ extension ContentVC: AVCaptureFileOutputRecordingDelegate {
     
 }
 
+//MARK: View Constraints
+
+
 extension ContentVC {
     
     
-    //MARK: Setup View
-
+    
     func setupView(){
         captureButton.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
         captureButton.layer.cornerRadius = 68/2
@@ -447,7 +520,7 @@ extension ContentVC {
         saveButton.alpha = 0
         discardButton.alpha = 0
         
-
+        
         view.addSubview(segmentProView)
         segmentProView.topAnchor.constraint(equalTo: view.topAnchor, constant: 55).isActive = true
         segmentProView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -456,57 +529,8 @@ extension ContentVC {
         segmentProView.translatesAutoresizingMaskIntoConstraints = false
         
         
-        
-        
-        
-        
         [self.captureButton, self.captureRingView, self.cancelButton, self.flipButton, self.flipLabel, self.speedLabel, self.speedButton, self.beautyLabel, self.beautyButton, self.filtersLabel, self.filtersButton, self.timerLabel, self.timerButton, self.galleryButton, self.effectsButton, self.soundsView, self.timeCounterLabel, self.flashLabel, self.flashButton, self.saveButton, self.discardButton].forEach { subView in
             subView?.layer.zPosition = 1
         }
     }
-}
-
-//MARK: TIMER
-
-extension ContentVC {
-    func startTimer(){
-        videoDurOfLastClip = 0
-        stopTimer()
-        recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
-            self?.timerTick()
-            
-        })
-    }
-    func timerTick(){
-        totalRecTimeInSecs += 1
-        videoDurOfLastClip += 1
-    
-        
-        let timeLim = currentMaxRecDur * 10
-        if totalRecTimeInSecs == timeLim {
-        
-            didTapRecord()
-        }
-        let startTime = 0
-        let trimmedTime : Int = Int(currentMaxRecDur) - startTime
-        let positiveOrZero = max(totalRecTimeInSecs, 0)
-        let progress = Float(positiveOrZero) / Float(trimmedTime) / 10
-        segmentProView.setProgress(CGFloat(progress))
-        
-        let countDowmSec: Int = max(0, Int(currentMaxRecDur) - totalRecTimeInSecs / 10)
-        timeCounterLabel.text = "\(countDowmSec)s"
-    }
-    
-    func resetTimersAndProgressToZero(){
-        totalRecTimeInSecs = 0
-        totalRecTimeInMins = 0
-        videoDurOfLastClip = 0
-        stopTimer()
-        segmentProView.setProgress(0)
-        timeCounterLabel.text = "\(currentMaxRecDur)"
-    }
-    func stopTimer(){
-        recordingTimer?.invalidate()
-    }
-    
 }
