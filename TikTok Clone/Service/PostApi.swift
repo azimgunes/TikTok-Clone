@@ -18,7 +18,7 @@ class PostApi {
             let storageRef = Storage.storage().reference(forURL: "gs://tiktok-clone-12238.appspot.com")
             let videoRef = storageRef.child("posts").child(videoIdString)
             let videoMetadata = StorageMetadata()
-            videoMetadata.contentType = "video/mp4" // İçerik türünü belirtin
+            videoMetadata.contentType = "video/mp4" 
             
             videoRef.putFile(from: encodedVideoURLUnwrapped, metadata: videoMetadata) { metadata, error in
                 if let error = error {
@@ -127,8 +127,26 @@ class PostApi {
         }
     }
     
-    
+    func observePost(completion: @escaping (Content) -> Void) {
+        Firestore.firestore().collection("Posts").addSnapshotListener { (querySnapshot, error) in
+            guard let snapshot = querySnapshot else {
+                print("Error fetching snapshots: \(error!)")
+                return
+            }
+
+            for diff in snapshot.documentChanges {
+                if diff.type == .added {
+                    let data = diff.document.data()
+                    let newPost = Content.transformPostVideo(dict: data, key: diff.document.documentID)
+                    completion(newPost)
+                }
+            }
+        }
+    }
+
 }
+
+
 
 
 extension UIImageView {

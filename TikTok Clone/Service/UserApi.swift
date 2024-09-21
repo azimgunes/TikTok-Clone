@@ -72,6 +72,21 @@ class UserApi: SignInVC {
             
         }
     }
+    
+
+    func observeUser(withId uid: String, completion: @escaping (User) -> Void) {
+        Firestore.firestore().collection("users").document(uid).getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let dict = document.data() {
+                    let user = User.transformUser(dict: dict, key: document.documentID)
+                    completion(user)
+                }
+            } else {
+                print("Document does not exist or there was an error: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+    }
+
     func logOut(){
         do {
             try Auth.auth().signOut()
@@ -84,4 +99,6 @@ class UserApi: SignInVC {
             sceneDelegate.configInitialVC()
         }
     }
-}
+    }
+
+
