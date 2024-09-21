@@ -452,6 +452,9 @@
                                         <size key="customSize" width="393" height="750"/>
                                         <connections>
                                             <outlet property="avatar" destination="JEf-0y-DdW" id="Sd9-eo-56R"/>
+                                            <outlet property="descriptionLabel" destination="jsd-4k-x2v" id="A2F-nM-ZdE"/>
+                                            <outlet property="postVideo" destination="fP0-Tm-tPL" id="Laq-aa-pt1"/>
+                                            <outlet property="usernameLabel" destination="GQA-7C-MD4" id="STu-0a-6sp"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1410,35 +1413,35 @@
         <image name="843786_whatsapp_icon" width="35" height="35"/>
         <image name="TikTok Icon " width="3000" height="3000"/>
         <image name="addition" width="512" height="512"/>
-        <image name="arrowshape.turn.up.right" catalog="system" width="128" height="109"/>
+        <image name="arrowshape.turn.up.right" catalog="system" width="128" height="104"/>
         <image name="bolt.slash" catalog="system" width="98" height="128"/>
-        <image name="bookmark.fill" catalog="system" width="115" height="128"/>
-        <image name="camera.filters" catalog="system" width="128" height="121"/>
-        <image name="camera.rotate" catalog="system" width="128" height="92"/>
+        <image name="bookmark.fill" catalog="system" width="110" height="128"/>
+        <image name="camera.filters" catalog="system" width="128" height="119"/>
+        <image name="camera.rotate" catalog="system" width="128" height="93"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
-        <image name="chevron.backward.circle" catalog="system" width="128" height="128"/>
-        <image name="delete.left" catalog="system" width="128" height="104"/>
-        <image name="ellipsis.message" catalog="system" width="128" height="121"/>
+        <image name="chevron.backward.circle" catalog="system" width="128" height="123"/>
+        <image name="delete.left" catalog="system" width="128" height="102"/>
+        <image name="ellipsis.message" catalog="system" width="128" height="116"/>
         <image name="face" width="5760" height="5075"/>
-        <image name="heart.fill" catalog="system" width="128" height="109"/>
-        <image name="homekit" catalog="system" width="128" height="106"/>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
+        <image name="homekit" catalog="system" width="128" height="104"/>
         <image name="icon2" width="512" height="512"/>
         <image name="instagram" width="35" height="35"/>
-        <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="128"/>
-        <image name="mediastick" catalog="system" width="128" height="52"/>
-        <image name="message.badge.circle.fill.rtl" catalog="system" width="128" height="128"/>
-        <image name="music.note" catalog="system" width="101" height="128"/>
+        <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="123"/>
+        <image name="mediastick" catalog="system" width="128" height="51"/>
+        <image name="message.badge.circle.fill.rtl" catalog="system" width="128" height="123"/>
+        <image name="music.note" catalog="system" width="96" height="128"/>
         <image name="music.note.list" catalog="system" width="128" height="115"/>
-        <image name="opticaldisc" catalog="system" width="128" height="128"/>
-        <image name="person.bubble" catalog="system" width="128" height="111"/>
-        <image name="photo.stack.fill" catalog="system" width="128" height="122"/>
-        <image name="plus.square" catalog="system" width="128" height="115"/>
-        <image name="record.circle" catalog="system" width="128" height="128"/>
-        <image name="slider.horizontal.3" catalog="system" width="128" height="103"/>
+        <image name="opticaldisc" catalog="system" width="128" height="123"/>
+        <image name="person.bubble" catalog="system" width="128" height="110"/>
+        <image name="photo.stack.fill" catalog="system" width="126" height="128"/>
+        <image name="plus.square" catalog="system" width="128" height="114"/>
+        <image name="record.circle" catalog="system" width="128" height="123"/>
+        <image name="slider.horizontal.3" catalog="system" width="128" height="99"/>
         <image name="social" width="35" height="35"/>
-        <image name="speedometer" catalog="system" width="128" height="128"/>
-        <image name="square.and.arrow.down" catalog="system" width="110" height="128"/>
-        <image name="timer" catalog="system" width="128" height="128"/>
+        <image name="speedometer" catalog="system" width="128" height="123"/>
+        <image name="square.and.arrow.down" catalog="system" width="112" height="128"/>
+        <image name="timer" catalog="system" width="128" height="123"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
