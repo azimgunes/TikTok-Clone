@@ -10,12 +10,23 @@ import UIKit
 class HomeCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var avatar: UIImageView!
-    
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var postVideo: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     
 
+    var post : Post? {
+        didSet{
+            updateView()
+
+        }
+    }
+    
+    var user: User? {
+        didSet {
+            setupUser()
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         avatar.layer.cornerRadius = 55/2
@@ -23,4 +34,14 @@ class HomeCollectionViewCell: UICollectionViewCell {
 
     }
 
+    func updateView(){
+        descriptionLabel.text = post?.description
+    }
+    
+    func setupUser(){
+        usernameLabel.text = user?.username
+        
+        guard let profileImageUrl = user?.profileImageUrl else {return}
+        avatar.loadImage(profileImageUrl)
+    }
 }

@@ -11,7 +11,8 @@ class HomeVC: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
-    
+    var posts = [Post]()
+    var users = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,7 @@ class HomeVC: UIViewController {
         collectionView.dataSource = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.backgroundColor = .white
+        loadPosts()
         
 
     }
@@ -35,19 +37,41 @@ class HomeVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
+    func loadPosts(){
+        Api.Post.observePost { post in
+            guard let postId = post.uid else {return}
+            self.fetchUser(uid: postId) {
+                self.posts.append(post)
+                self.posts.sort { post1, post2 -> Bool in
+                    return post1.creationDate! > post2.creationDate!
+                }
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    func fetchUser(uid: String, completed: @escaping() -> Void ){
+        Api.User.observeUser(withId: uid) { user in
+            self.users.append(user)
+            completed()
+        }
+    }
 
 }
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeCell", for: indexPath) as! HomeCollectionViewCell
+        let post = posts[indexPath.item]
+        let user = users[indexPath.item]
+        cell.post = post
+        cell.user = user
         
         cell.backgroundColor = UIColor.white
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return posts.count
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = collectionView.frame.size

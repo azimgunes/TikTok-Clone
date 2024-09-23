@@ -127,8 +127,24 @@ class PostApi {
         }
     }
     
+    func observePost(completion: @escaping (Post) -> Void) {
+        Firestore.firestore().collection("Posts").addSnapshotListener { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching posts: \(error.localizedDescription)")
+                return
+            }
 
-
+            guard let documents = querySnapshot?.documentChanges else { return }
+            
+            for documentChange in documents {
+                if documentChange.type == .added {
+                    let dict = documentChange.document.data()
+                    let newPost = Post.transformPostVideo(dict: dict, key: documentChange.document.documentID)
+                    completion(newPost)
+                }
+            }
+        }
+    }
 }
 
 

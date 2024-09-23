@@ -52,6 +52,8 @@
 		3C93E7FE2C56F038005CE406 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7FD2C56F038005CE406 /* FirebaseStorage */; };
 		3C93E8002C56F038005CE406 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7FF2C56F038005CE406 /* FirebaseStorageCombine-Community */; };
 		3C93E8022C56F038005CE406 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E8012C56F038005CE406 /* FirebaseVertexAI-Preview */; };
+		3C9607642CA193F600D472CA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9607632CA193F600D472CA /* Post.swift */; };
+		3C9607662CA1961800D472CA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9607652CA1961800D472CA /* User.swift */; };
 		3C9A13F52C51958300DDDB69 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A13F42C51958300DDDB69 /* SignInVC.swift */; };
 		3CAF5D172C9C5739003C925D /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAF5D162C9C5739003C925D /* HomeVC.swift */; };
 		3CAF5D1B2C9C5811003C925D /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAF5D1A2C9C5811003C925D /* HomeCollectionViewCell.swift */; };
@@ -81,6 +83,8 @@
 		3C7BDB4B2C4E5EB300082AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C7BDB4D2C4E5EB300082AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3C9607632CA193F600D472CA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		3C9607652CA1961800D472CA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3C9A13F42C51958300DDDB69 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		3CAF5D162C9C5739003C925D /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3CAF5D1A2C9C5811003C925D /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -183,8 +187,9 @@
 				3C7BDB4A2C4E5EB300082AD8 /* LaunchScreen.storyboard */,
 				3C7BDB4D2C4E5EB300082AD8 /* Info.plist */,
 				3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */,
-				3CE33E832C6B886F0083CE43 /* Helpers */,
 				3C9A82F42C6D0BFC00A3BF5B /* Service */,
+				3CE33E832C6B886F0083CE43 /* Helpers */,
+				3C9A82F82C6D0F8300A3BF5B /* Model */,
 				3C5AB2A32C7903AA00B17E7E /* View */,
 				3C005A6B2C4FD4B100E38A3C /* Controller */,
 			);
@@ -196,10 +201,8 @@
 			children = (
 				3C35F8CE2C657E8200522261 /* StorageService.swift */,
 				3C35F8CA2C6575B900522261 /* Api.swift */,
-				3C9A82F82C6D0F8300A3BF5B /* Model */,
-				3C35F8CC2C6575E300522261 /* UserApi.swift */,
 				3CD7E3442C8A1B8900D66745 /* PostApi.swift */,
-				3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */,
+				3C35F8CC2C6575E300522261 /* UserApi.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -207,6 +210,8 @@
 		3C9A82F82C6D0F8300A3BF5B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3C9607652CA1961800D472CA /* User.swift */,
+				3C9607632CA193F600D472CA /* Post.swift */,
 				3CD741632C721EF400B0AB38 /* Videos.swift */,
 			);
 			path = Model;
@@ -217,6 +222,7 @@
 			children = (
 				3CE33E842C6B887C0083CE43 /* Extensions.swift */,
 				3CDF30062C6A7DC80036A26E /* Reference.swift */,
+				3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -339,8 +345,10 @@
 				3C069FCD2C7A7B4E00F918BA /* PreviewVC.swift in Sources */,
 				3CE33E852C6B887C0083CE43 /* Extensions.swift in Sources */,
 				3C39190E2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift in Sources */,
+				3C9607662CA1961800D472CA /* User.swift in Sources */,
 				3CDF300B2C6A8FA00036A26E /* ContentVC.swift in Sources */,
 				3C22BA602C83B9630025633F /* ShareVC.swift in Sources */,
+				3C9607642CA193F600D472CA /* Post.swift in Sources */,
 				3CDF30072C6A7DC80036A26E /* Reference.swift in Sources */,
 				3CD741642C721EF400B0AB38 /* Videos.swift in Sources */,
 				3C5AB2A62C7903D300B17E7E /* ProgressView.swift in Sources */,
