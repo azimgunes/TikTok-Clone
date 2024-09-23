@@ -8,11 +8,14 @@
 import UIKit
 
 class HomeVC: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     var posts = [Post]()
     var users = [User]()
+    
+    @objc dynamic var currentIndex = 0
+    var oldAndNewIndices = (0,0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,19 +27,25 @@ class HomeVC: UIViewController {
         collectionView.backgroundColor = .white
         loadPosts()
         
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        if let cell = collectionView.visibleCells.first as? HomeCollectionViewCell {
+            cell.play()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        if let cell = collectionView.visibleCells.first as? HomeCollectionViewCell {
+            cell.pause()
+        }
     }
-
+    
     func loadPosts(){
         Api.Post.observePost { post in
             guard let postId = post.uid else {return}
@@ -55,7 +64,7 @@ class HomeVC: UIViewController {
             completed()
         }
     }
-
+    
 }
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -83,10 +92,30 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
-
-         return  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
+        
+        return  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? HomeCollectionViewCell {
+            oldAndNewIndices.1 = indexPath.item
+            currentIndex = indexPath.item
+            cell.pause()
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? HomeCollectionViewCell {
+            cell.stop()
+        }
+        
+    }
+}
 
+
+extension HomeVC: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let cell = self.collectionView.cellForItem(at: IndexPath(row: self.currentIndex, section: 0)) as? HomeCollectionViewCell
+        cell?.replay()
+    }
 }
