@@ -127,22 +127,7 @@ class PostApi {
         }
     }
     
-    func observePost(completion: @escaping (Content) -> Void) {
-        Firestore.firestore().collection("Posts").addSnapshotListener { (querySnapshot, error) in
-            guard let snapshot = querySnapshot else {
-                print("Error fetching snapshots: \(error!)")
-                return
-            }
 
-            for diff in snapshot.documentChanges {
-                if diff.type == .added {
-                    let data = diff.document.data()
-                    let newPost = Content.transformPostVideo(dict: data, key: diff.document.documentID)
-                    completion(newPost)
-                }
-            }
-        }
-    }
 
 }
 

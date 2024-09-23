@@ -10,10 +10,7 @@ import UIKit
 class HomeVC: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    var posts = [Content]()
-    var users = [User]()
-    
+
     
     
     override func viewDidLoad() {
@@ -24,7 +21,6 @@ class HomeVC: UIViewController {
         collectionView.dataSource = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.backgroundColor = .white
-        loadPosts()
         
 
     }
@@ -38,42 +34,20 @@ class HomeVC: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
-    func loadPosts(){
-        Api.Post.observePost { post in
-            guard let postId = post.postId else {return}
-            self.fetchUser(uid: postId) {
-                self.posts.append(post)
-                self.posts.sort { post1, post2  -> Bool in
-                    return post1.creationDate! > post2.creationDate!
-                }
-                self.collectionView.reloadData()
-            }
-        }
-    }
 
-    func fetchUser(uid: String, completion: @escaping() -> Void) {
-        Api.User.observeUser(withId: uid) { user in
-            self.users.append(user)
-            completion()
-        }
-    }
 
 }
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeCell", for: indexPath) as! HomeCollectionViewCell
-        let content = posts[indexPath.item]
-        let user = users[indexPath.item]
-        cell.user = user
-        cell.content = content
+        
         cell.backgroundColor = UIColor.white
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        return 10
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = collectionView.frame.size
