@@ -140,9 +140,6 @@
 		3C005A6B2C4FD4B100E38A3C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3C7BDB432C4E5EB100082AD8 /* RegistrationVC.swift */,
-				3C005A692C4FD4A200E38A3C /* SignUpVC.swift */,
-				3C9A13F42C51958300DDDB69 /* SignInVC.swift */,
 				3CDF30082C6A7F260036A26E /* ProfileVC.swift */,
 				3CDF300A2C6A8FA00036A26E /* ContentVC.swift */,
 				3C069FCC2C7A7B4E00F918BA /* PreviewVC.swift */,
@@ -156,9 +153,26 @@
 			isa = PBXGroup;
 			children = (
 				3C5AB2A52C7903D300B17E7E /* ProgressView.swift */,
-				3CAF5D1A2C9C5811003C925D /* HomeCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3C6456912CA3579B00FDB02A /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				3C7BDB432C4E5EB100082AD8 /* RegistrationVC.swift */,
+				3C005A692C4FD4A200E38A3C /* SignUpVC.swift */,
+				3C9A13F42C51958300DDDB69 /* SignInVC.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		3C6456932CA35AFA00FDB02A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3CAF5D1A2C9C5811003C925D /* HomeCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		3C7BDB332C4E5EB100082AD8 = {
@@ -180,6 +194,13 @@
 		3C7BDB3E2C4E5EB100082AD8 /* TikTok Clone */ = {
 			isa = PBXGroup;
 			children = (
+				3C6456912CA3579B00FDB02A /* Authentication */,
+				3C6456932CA35AFA00FDB02A /* Cell */,
+				3C9A82F42C6D0BFC00A3BF5B /* Service */,
+				3CE33E832C6B886F0083CE43 /* Helpers */,
+				3C9A82F82C6D0F8300A3BF5B /* Model */,
+				3C5AB2A32C7903AA00B17E7E /* View */,
+				3C005A6B2C4FD4B100E38A3C /* Controller */,
 				3C7BDB452C4E5EB100082AD8 /* Main.storyboard */,
 				3C7BDB482C4E5EB300082AD8 /* Assets.xcassets */,
 				3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */,
@@ -187,11 +208,6 @@
 				3C7BDB4A2C4E5EB300082AD8 /* LaunchScreen.storyboard */,
 				3C7BDB4D2C4E5EB300082AD8 /* Info.plist */,
 				3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */,
-				3C9A82F42C6D0BFC00A3BF5B /* Service */,
-				3CE33E832C6B886F0083CE43 /* Helpers */,
-				3C9A82F82C6D0F8300A3BF5B /* Model */,
-				3C5AB2A32C7903AA00B17E7E /* View */,
-				3C005A6B2C4FD4B100E38A3C /* Controller */,
 			);
 			path = "TikTok Clone";
 			sourceTree = "<group>";
@@ -203,6 +219,8 @@
 				3C35F8CA2C6575B900522261 /* Api.swift */,
 				3CD7E3442C8A1B8900D66745 /* PostApi.swift */,
 				3C35F8CC2C6575E300522261 /* UserApi.swift */,
+				3CDF30062C6A7DC80036A26E /* Reference.swift */,
+				3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -221,8 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				3CE33E842C6B887C0083CE43 /* Extensions.swift */,
-				3CDF30062C6A7DC80036A26E /* Reference.swift */,
-				3C39190D2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

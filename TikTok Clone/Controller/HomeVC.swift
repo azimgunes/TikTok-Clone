@@ -9,6 +9,8 @@ import UIKit
 
 class HomeVC: UIViewController {
     
+    //MARK: Proporties 
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var posts = [Post]()
@@ -17,14 +19,12 @@ class HomeVC: UIViewController {
     @objc dynamic var currentIndex = 0
     var oldAndNewIndices = (0,0)
     
+    
+    // MARK: - Lifecycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.automaticallyAdjustsScrollIndicatorInsets = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        collectionView.backgroundColor = .white
+        setupCollectionView()
         loadPosts()
         
         
@@ -46,6 +46,28 @@ class HomeVC: UIViewController {
         }
     }
     
+    // MARK: - Setup Methods
+    func setupCollectionView(){
+        
+        collectionView.automaticallyAdjustsScrollIndicatorInsets = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.collectionViewLayout = createFlowLayout()
+        collectionView.backgroundColor = .white
+        
+    }
+    
+    private func createFlowLayout() -> UICollectionViewFlowLayout {
+            let layout = UICollectionViewFlowLayout()
+            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = 0
+            layout.sectionInset = .zero
+            return layout
+        }
+    
+    // MARK: - Post Loading
+
+    
     func loadPosts(){
 
         Api.Post.observeFeedPost { post in
@@ -65,8 +87,12 @@ class HomeVC: UIViewController {
             completed()
         }
     }
+
     
 }
+
+// MARK: - Cell Playback Control, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -112,6 +138,8 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         
     }
 }
+
+// MARK: - UIScrollViewDelegate
 
 
 extension HomeVC: UIScrollViewDelegate {
