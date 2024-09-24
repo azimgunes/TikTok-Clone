@@ -47,7 +47,8 @@ class HomeVC: UIViewController {
     }
     
     func loadPosts(){
-        Api.Post.observePost { post in
+
+        Api.Post.observeFeedPost { post in
             guard let postId = post.uid else {return}
             self.fetchUser(uid: postId) {
                 self.posts.append(post)

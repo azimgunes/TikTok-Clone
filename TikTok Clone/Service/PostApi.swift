@@ -145,6 +145,25 @@ class PostApi {
             }
         }
     }
+    
+    func observeFeedPost(completion: @escaping (Post) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("Posts").getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching documents: \(error)")
+                return
+            }
+            
+            if let snapshot = snapshot {
+                let documents = snapshot.documents.reversed()
+                for document in documents {
+                    let data = document.data()
+                    let post = Post.transformPostVideo(dict: data, key: document.documentID)
+                    completion(post)
+                }
+            }
+        }
+    }
 }
 
 
