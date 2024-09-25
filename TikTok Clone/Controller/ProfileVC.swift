@@ -11,6 +11,8 @@ class ProfileVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var user: User?
+    
     
     
     
@@ -19,9 +21,17 @@ class ProfileVC: UIViewController {
 
         collectionView.delegate = self
         collectionView.dataSource = self
+        fetchUser()
         
     }
     
+    func fetchUser(){
+        Api.User.observeProfileUser { user in
+            self.user = user
+            self.collectionView.reloadData()
+            
+        }
+    }
     
     
     @IBAction func logOutButton(_ sender: Any) {
@@ -42,6 +52,11 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerCiewCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ProfileHeaderCRV", for: indexPath) as! ProfileHeaderCRV
+            headerCiewCell.setupView()
+            if let user = self.user {
+                headerCiewCell.user = user
+
+            }
             return headerCiewCell
             
         }

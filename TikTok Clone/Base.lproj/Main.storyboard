@@ -1464,6 +1464,12 @@
                                         <constraint firstItem="IJt-KH-0eI" firstAttribute="baseline" secondItem="jSZ-qZ-wKl" secondAttribute="baseline" id="ugD-V0-M9Q"/>
                                         <constraint firstItem="I1h-Eu-RL6" firstAttribute="baseline" secondItem="IJt-KH-0eI" secondAttribute="baseline" id="wz0-5w-Mg8"/>
                                     </constraints>
+                                    <connections>
+                                        <outlet property="collectButton" destination="3vc-vJ-xmx" id="Dcr-Re-mWF"/>
+                                        <outlet property="editButton" destination="0x3-tl-iGp" id="d2H-0J-NIe"/>
+                                        <outlet property="profileImage" destination="Rc9-Nn-3Jp" id="Lj1-aw-nrE"/>
+                                        <outlet property="usernameLabel" destination="Gzj-d9-dZd" id="Qul-ab-hBz"/>
+                                    </connections>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="Adw-Fa-cbf" id="R6w-6z-Eql"/>

@@ -91,6 +91,26 @@ class UserApi: SignInVC {
 
     }
 
+    
+    func observeProfileUser(completion: @escaping (User) -> Void){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        Firestore.firestore().collection("users").document(uid).getDocument { (document, error) in
+            if let error = error {
+                print("Error fetching document: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = document, document.exists, let dict = document.data() else {
+                print("Document does not exist")
+                return
+            }
+            
+            let user = User.transformUser(dict: dict, key: document.documentID)
+            completion(user)
+        }
+            }
+        
+
     func logOut(){
         do {
             try Auth.auth().signOut()
