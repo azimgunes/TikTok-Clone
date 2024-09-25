@@ -52,6 +52,8 @@
 		3C93E7FE2C56F038005CE406 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7FD2C56F038005CE406 /* FirebaseStorage */; };
 		3C93E8002C56F038005CE406 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7FF2C56F038005CE406 /* FirebaseStorageCombine-Community */; };
 		3C93E8022C56F038005CE406 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E8012C56F038005CE406 /* FirebaseVertexAI-Preview */; };
+		3C950D5B2CA4831D007452C4 /* ProfileHeaderCRV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C950D5A2CA4831D007452C4 /* ProfileHeaderCRV.swift */; };
+		3C950D5D2CA4837E007452C4 /* PostProfileCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C950D5C2CA4837E007452C4 /* PostProfileCVC.swift */; };
 		3C9607642CA193F600D472CA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9607632CA193F600D472CA /* Post.swift */; };
 		3C9607662CA1961800D472CA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9607652CA1961800D472CA /* User.swift */; };
 		3C9A13F52C51958300DDDB69 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A13F42C51958300DDDB69 /* SignInVC.swift */; };
@@ -83,6 +85,8 @@
 		3C7BDB4B2C4E5EB300082AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C7BDB4D2C4E5EB300082AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3C950D5A2CA4831D007452C4 /* ProfileHeaderCRV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCRV.swift; sourceTree = "<group>"; };
+		3C950D5C2CA4837E007452C4 /* PostProfileCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProfileCVC.swift; sourceTree = "<group>"; };
 		3C9607632CA193F600D472CA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		3C9607652CA1961800D472CA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3C9A13F42C51958300DDDB69 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 				3C7BDB482C4E5EB300082AD8 /* Assets.xcassets */,
 				3C7BDB3F2C4E5EB100082AD8 /* AppDelegate.swift */,
 				3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */,
+				3C950D5A2CA4831D007452C4 /* ProfileHeaderCRV.swift */,
+				3C950D5C2CA4837E007452C4 /* PostProfileCVC.swift */,
 				3C7BDB4A2C4E5EB300082AD8 /* LaunchScreen.storyboard */,
 				3C7BDB4D2C4E5EB300082AD8 /* Info.plist */,
 				3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */,
@@ -353,6 +359,7 @@
 			files = (
 				3CDF30092C6A7F260036A26E /* ProfileVC.swift in Sources */,
 				3C35F8CB2C6575B900522261 /* Api.swift in Sources */,
+				3C950D5B2CA4831D007452C4 /* ProfileHeaderCRV.swift in Sources */,
 				3C005A6A2C4FD4A200E38A3C /* SignUpVC.swift in Sources */,
 				3C7BDB442C4E5EB100082AD8 /* RegistrationVC.swift in Sources */,
 				3C7BDB402C4E5EB100082AD8 /* AppDelegate.swift in Sources */,
@@ -360,6 +367,7 @@
 				3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */,
 				3C069FCD2C7A7B4E00F918BA /* PreviewVC.swift in Sources */,
 				3CE33E852C6B887C0083CE43 /* Extensions.swift in Sources */,
+				3C950D5D2CA4837E007452C4 /* PostProfileCVC.swift in Sources */,
 				3C39190E2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift in Sources */,
 				3C9607662CA1961800D472CA /* User.swift in Sources */,
 				3CDF300B2C6A8FA00036A26E /* ContentVC.swift in Sources */,
