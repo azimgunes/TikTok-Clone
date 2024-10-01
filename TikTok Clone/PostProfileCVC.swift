@@ -9,4 +9,9 @@ import UIKit
 
 class PostProfileCVC: UICollectionViewCell {
     
+    @IBOutlet weak var imageView: UIImageView!
+    
+    func configure(with post: Post) {
+        imageView.loadImage(post.imageUrl) 
+    }
 }

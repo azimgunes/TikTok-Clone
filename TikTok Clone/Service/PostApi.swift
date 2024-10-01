@@ -101,7 +101,7 @@ class PostApi {
         let storageRef = Storage.storage().reference(forURL: "gs://tiktok-clone-12238.appspot.com")
         let imageRef = storageRef.child("post_images").child(photoIdString)
         let imageMetadata = StorageMetadata()
-        imageMetadata.contentType = "image/jpeg" // İçerik türünü belirtin
+        imageMetadata.contentType = "image/jpeg" 
         
         imageRef.putData(imageData, metadata: imageMetadata) { metadata, error in
             if let error = error {
@@ -126,8 +126,8 @@ class PostApi {
             }
         }
     }
-    
-    func observePost(completion: @escaping (Post) -> Void) {
+
+    func observePost(postId id: String, completion: @escaping (Post) -> Void) {
         Firestore.firestore().collection("Posts").addSnapshotListener { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching posts: \(error.localizedDescription)")

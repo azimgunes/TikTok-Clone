@@ -6,13 +6,19 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
+import SDWebImage
+
 
 class ProfileVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var user: User?
-    
+
+    var posts = [Post]()
+
     
     
     
@@ -22,9 +28,36 @@ class ProfileVC: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         fetchUser()
+        fetchAllPosts()
         
     }
     
+    func fetchAllPosts() {
+        
+        Firestore.firestore().collection("Posts").getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching posts: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                print("No posts found")
+                return
+            }
+            
+            for document in documents {
+                for post in self.posts {
+                     print("PostId: \(post.postId ?? ""), userId: \(post.uid ?? ""), description: \(post.description ?? "")")
+                 }
+                let data = document.data()
+                let post = Post.transformPostVideo(dict: data, key: document.documentID)
+                self.posts.append(post)
+                self.collectionView.reloadData()
+            }
+            
+        }
+    }
+
     func fetchUser(){
         Api.User.observeProfileUser { user in
             self.user = user
@@ -40,13 +73,31 @@ class ProfileVC: UIViewController {
     
 }
 
-extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let size = collectionView.frame.size
+        
+
+        return CGSize(width: size.width / 3 - 2, height: size.height / 3)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostProfileCVC", for: indexPath) as! PostProfileCVC
+        let post = posts[indexPath.item]
+        cell.configure(with: post)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -63,4 +114,16 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return UICollectionReusableView()
     }
     
+    
+}
+
+extension UIImageView {
+    func loadImage(_ urlString: String?) {
+        guard let string = urlString, let url = URL(string: string) else {
+            self.image = nil 
+            return
+        }
+
+        self.sd_setImage(with: url, placeholderImage: UIImage(named: "Space"))
+    }
 }
