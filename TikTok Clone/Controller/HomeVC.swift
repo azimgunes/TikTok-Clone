@@ -16,6 +16,9 @@ class HomeVC: UIViewController {
     var posts = [Post]()
     var users = [User]()
     
+    var user = [User]()
+
+    
     @objc dynamic var currentIndex = 0
     var oldAndNewIndices = (0,0)
     
@@ -74,10 +77,14 @@ class HomeVC: UIViewController {
             guard let postId = post.uid else {return}
             self.fetchUser(uid: postId) {
                 self.posts.append(post)
+                
                 self.posts.sort { post1, post2 -> Bool in
                     return post1.creationDate! > post2.creationDate!
                 }
-                self.collectionView.reloadData()
+                
+                if self.posts.count == self.users.count {  
+                              self.collectionView.reloadData()
+                          }
             }
         }
     }

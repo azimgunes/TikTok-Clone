@@ -158,7 +158,7 @@ extension SignUpVC: PHPickerViewControllerDelegate{
 extension SignUpVC{
     func signUp(){
         Api.User.signUp(withUsername: self.usernameTextField.text!, email: self.emailTextField.text!, password: self.passwordTextField.text!, image: self.image) {
-            print("TAMAM")
+            print("DONE")
         } onErr: { errorMesssage in
             print(errorMesssage)
         }

@@ -65,7 +65,13 @@ class ProfileVC: UIViewController {
             
         }
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "profileDetailSegue" {
+            let detailVC = segue.destination as! DetailVC
+            let postId = sender as! String
+            detailVC.postId = postId
+        }
+    }
     
     @IBAction func logOutButton(_ sender: Any) {
         Api.User.logOut()
@@ -97,7 +103,8 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostProfileCVC", for: indexPath) as! PostProfileCVC
         let post = posts[indexPath.item]
-        cell.configure(with: post)
+        cell.post = post
+        cell.delegate = self
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -126,4 +133,16 @@ extension UIImageView {
 
         self.sd_setImage(with: url, placeholderImage: UIImage(named: "Space"))
     }
+}
+
+
+
+extension ProfileVC: PostProfileCVCDelegate {
+    func toDetailVC(postId: String) {
+        print("Segue, postId: \(postId)")
+
+        performSegue(withIdentifier: "profileDetailSegue", sender: postId)
+    }
+    
+    
 }

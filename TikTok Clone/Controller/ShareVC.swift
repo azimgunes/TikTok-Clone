@@ -166,7 +166,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
     
     func sharePost(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void){
         Api.Post.sharePost(encodedVideoURL: encodedVideoURL, selectedPhoto: selectedPhoto, textView: textView) {
-            print("OKEYYYYYY")
+            print("SHARED.")
             onSuc()
         } onErr: { errorMessage in
             onErr(errorMessage)
