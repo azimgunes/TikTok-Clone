@@ -7,21 +7,31 @@
 
 import UIKit
 
-class ExploreTableViewController: UITableViewController {
+class ExploreTableViewController: UITableViewController, UISearchResultsUpdating{
+   
     
+    var searchResults : [User] = []
     var users : [User] = []
+    var searchController : UISearchController = UISearchController(searchResultsController: nil)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSetup()
       
         fetchUser()
+        setupSearch()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+ 
+    }
+    func setupSearch(){
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.barTintColor = .white
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
     }
 
     func fetchUser(){
@@ -32,23 +42,40 @@ class ExploreTableViewController: UITableViewController {
             
         }
     }
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        if searchController.searchBar.text == nil || searchController.searchBar.text?.isEmpty == true{
+            view.endEditing(true)
+        } else {
+            let textLowercased = searchController.searchBar.text!.lowercased()
+            filterContent(for: textLowercased)
+            
+        }
+        tableView.reloadData()
+    }
+    
+    func filterContent(for searchText: String){
+        searchResults = self.users.filter{
+            return $0.username?.lowercased().ranges(of: searchText) != nil
+        }
+        
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.users.count
+  
+        return searchController.isActive ? searchResults.count : self.users.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "exploreCell", for: indexPath) as! ExploreTableViewCell
      
-        let user = users[indexPath.row]
+        let user = searchController.isActive ? searchResults[indexPath.row] : users[indexPath.row]
         cell.user = user
         return cell
     }
@@ -56,25 +83,6 @@ class ExploreTableViewController: UITableViewController {
         return 70
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
 
     /*
     // Override to support rearranging the table view.
