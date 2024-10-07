@@ -8,11 +8,14 @@
 import UIKit
 
 class ExploreTableViewController: UITableViewController {
-
+    
+    var users : [User] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSetup()
       
+        fetchUser()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -21,6 +24,14 @@ class ExploreTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    func fetchUser(){
+        Api.User.observeUsers { user in
+        
+            self.users.append(user)
+            self.tableView.reloadData()
+            
+        }
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -30,14 +41,15 @@ class ExploreTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return self.users.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "exploreCell", for: indexPath) as! ExploreTableViewCell
-        cell.usernameLabel.text = "Azim Güneş"
-        cell.profileImage.image = UIImage(named: "face")
+     
+        let user = users[indexPath.row]
+        cell.user = user
         return cell
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

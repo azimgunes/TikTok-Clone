@@ -73,6 +73,23 @@ class UserApi: SignInVC {
         }
     }
 
+    func observeUsers(completion: @escaping (User) -> Void) {
+        let db = Firestore.firestore()
+        
+        db.collection("users").addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot else {
+                print("Error fetching users: \(error?.localizedDescription ?? "No error description")")
+                return
+            }
+            
+            for document in snapshot.documents {
+                let data = document.data()
+                let user = User.transformUser(dict: data, key: document.documentID)
+                completion(user)
+            }
+        }
+    }
+    
     func observeUser(withId uid: String, completion: @escaping (User) -> Void) {
         Firestore.firestore().collection("users").document(uid).getDocument { (document, error) in
             if let error = error {

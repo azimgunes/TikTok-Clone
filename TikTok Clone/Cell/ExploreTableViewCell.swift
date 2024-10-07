@@ -13,6 +13,12 @@ class ExploreTableViewCell: UITableViewCell {
     
     @IBOutlet weak var usernameLabel: UILabel!
     
+    var user: User? {
+        didSet{
+            loadData()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,11 +26,14 @@ class ExploreTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
         
         profileImage.layer.cornerRadius = 25
         
     }
 
+    func loadData() {
+        self.usernameLabel.text = user?.username
+        guard let profileImageUrl = user?.profileImageUrl else {return}
+        profileImage.loadImage(profileImageUrl)
+    }
 }
