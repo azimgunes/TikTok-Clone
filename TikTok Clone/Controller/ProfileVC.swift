@@ -30,6 +30,9 @@ class ProfileVC: UIViewController {
         fetchUser()
         fetchAllPosts()
         
+        overrideUserInterfaceStyle = .light
+
+        
     }
     
     func fetchAllPosts() {

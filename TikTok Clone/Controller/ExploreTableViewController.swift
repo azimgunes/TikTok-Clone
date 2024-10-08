@@ -44,9 +44,10 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     }
     func updateSearchResults(for searchController: UISearchController) {
         
-        if searchController.searchBar.text == nil || searchController.searchBar.text?.isEmpty == true{
+        if searchController.searchBar.text == nil || searchController.searchBar.text!.isEmpty {
             view.endEditing(true)
         } else {
+            print(searchController.searchBar.text)
             let textLowercased = searchController.searchBar.text!.lowercased()
             filterContent(for: textLowercased)
             
@@ -55,9 +56,10 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     }
     
     func filterContent(for searchText: String){
-        searchResults = self.users.filter{
-            return $0.username?.lowercased().ranges(of: searchText) != nil
+        searchResults = self.users.filter {
+            return $0.username!.lowercased().contains(searchText)
         }
+
         
     }
     // MARK: - Table view data source
@@ -67,8 +69,12 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-  
-        return searchController.isActive ? searchResults.count : self.users.count
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            tableView.backgroundView = nil
+            return searchResults.count
+        } else {
+            return 0
+        }
     }
 
     
@@ -84,36 +90,19 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     }
 
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     
     func tableViewSetup(){
 
         view.backgroundColor = .white
-        
         tableView.backgroundColor = .white
+         
+         let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+         noDataLabel.text = "Search for users"
+         noDataLabel.textColor = .gray
+         noDataLabel.textAlignment = .center
+         tableView.backgroundView = noDataLabel
+         tableView.separatorStyle = .none
 
     }
 
