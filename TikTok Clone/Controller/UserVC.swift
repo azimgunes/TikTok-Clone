@@ -34,7 +34,7 @@ class UserVC: UIViewController {
     
     func fetchPost() {
         let db = Firestore.firestore()
-        db.collection("User-Posts").whereField("userId", isEqualTo: userId).addSnapshotListener { querySnapshot, error in
+        db.collection("Posts").whereField("userId", isEqualTo: userId).addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 print("Error fetching posts: \(error?.localizedDescription ?? "Unknown error")")
                 return

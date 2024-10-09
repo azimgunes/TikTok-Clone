@@ -7,7 +7,9 @@
 
 import UIKit
 import AVFoundation
-
+protocol HomeCollectionViewCellDelegate{
+    func toUserVC(userId: String)
+}
 
 class HomeCollectionViewCell: UICollectionViewCell {
     
@@ -20,8 +22,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
     var queuePlayer: AVQueuePlayer?
     var playerLayer: AVPlayerLayer?
     var playbackLooper: AVPlayerLooper?
-    
     var isPlaying = false
+    var delegate: HomeCollectionViewCellDelegate?
     
     
     var post : Post? {
@@ -39,14 +41,27 @@ class HomeCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         avatar.layer.cornerRadius = 55/2
+        
+        let tapGestureForImage = UITapGestureRecognizer(target: self, action: #selector(avatarTouched))
+        avatar.isUserInteractionEnabled = true
+        avatar.addGestureRecognizer(tapGestureForImage)
+        avatar.clipsToBounds = true
+        
   
 
     }
+    
+    
 
     override func prepareForReuse() {
         super.prepareForReuse()
         playerLayer?.removeFromSuperlayer()
         queuePlayer?.pause()
+    }
+    @objc func avatarTouched(){
+        if let id = user?.uid {
+            delegate?.toUserVC(userId: id)
+        }
     }
     
     func updateView(){

@@ -454,6 +454,7 @@
                     <navigationItem key="navigationItem" id="GfP-SV-8zn"/>
                     <connections>
                         <outlet property="collectionView" destination="QG3-SZ-Hg9" id="oqc-6t-2YA"/>
+                        <segue destination="egJ-5D-IDQ" kind="show" identifier="fromHomeToUserVC" id="Ca6-8z-fsL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EOe-5L-E2o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1850,7 +1851,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="PostProfileCVC" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Ap-CW-hTi">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bjM-io-Gb0">
                                     <size key="itemSize" width="128" height="128"/>
@@ -2045,7 +2046,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sku-Q1-IpT"/>
+        <segue reference="LVq-6Q-6mH"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="843786_whatsapp_icon" width="35" height="35"/>

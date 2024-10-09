@@ -95,7 +95,15 @@ class HomeVC: UIViewController {
             completed()
         }
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      
+            if segue.identifier == "fromHomeToUserVC" {
+                let userVC = segue.destination as! UserVC
+                let userId = sender as! String
+                userVC.userId = userId
+            }
+        
+    }
     
 }
 
@@ -109,7 +117,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         let user = users[indexPath.item]
         cell.post = post
         cell.user = user
-        
+        cell.delegate = self
         cell.backgroundColor = UIColor.white
         return cell
     }
@@ -155,4 +163,12 @@ extension HomeVC: UIScrollViewDelegate {
         let cell = self.collectionView.cellForItem(at: IndexPath(row: self.currentIndex, section: 0)) as? HomeCollectionViewCell
         cell?.replay()
     }
+}
+
+extension HomeVC: HomeCollectionViewCellDelegate {
+    func toUserVC(userId: String) {
+        performSegue(withIdentifier: "fromHomeToUserVC", sender: userId)
+    }
+    
+    
 }
