@@ -26,6 +26,8 @@ class DetailVC: UIViewController {
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         
 
+        overrideUserInterfaceStyle = .light
+
     }
     func loadPost(){
         Api.Post.observePost(postId: postId) { post in

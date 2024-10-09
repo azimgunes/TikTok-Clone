@@ -102,7 +102,7 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     
     
     func tableViewSetup(){
-
+        overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         tableView.backgroundColor = .white
          

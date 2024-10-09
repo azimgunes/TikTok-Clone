@@ -501,6 +501,9 @@ extension ContentVC {
     
     
     func setupView(){
+        overrideUserInterfaceStyle = .light
+
+        
         captureButton.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
         captureButton.layer.cornerRadius = 68/2
         captureRingView.layer.borderColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0).cgColor

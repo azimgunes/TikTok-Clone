@@ -1323,7 +1323,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="PostProfileCVC" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F25-Ob-de4">
                                 <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sw7-IP-QwS">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sw7-IP-QwS">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="50" height="352"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1852,7 +1852,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="PostProfileCVC" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Ap-CW-hTi">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bjM-io-Gb0">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bjM-io-Gb0">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="50" height="352"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -2036,6 +2036,7 @@
                     <navigationItem key="navigationItem" id="h5y-TS-SDO"/>
                     <connections>
                         <outlet property="collectionView" destination="8Ap-CW-hTi" id="HuL-gL-b5s"/>
+                        <segue destination="iue-Lk-NDH" kind="show" identifier="fromProfileToDetailVC" id="LVq-6Q-6mH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgI-wU-8fb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2043,6 +2044,9 @@
             <point key="canvasLocation" x="2773" y="1342"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="sku-Q1-IpT"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="843786_whatsapp_icon" width="35" height="35"/>
         <image name="TikTok Icon " width="3000" height="3000"/>

@@ -48,6 +48,7 @@ class ShareVC: UIViewController, UITextViewDelegate {
         loadThumb()
         saveToServer()
         
+        overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         
     }

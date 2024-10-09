@@ -30,7 +30,8 @@ class HomeVC: UIViewController {
         setupCollectionView()
         loadPosts()
         
-        
+        overrideUserInterfaceStyle = .light
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

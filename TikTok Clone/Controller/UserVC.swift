@@ -25,42 +25,16 @@ class UserVC: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         fetchUser()
-        fetchAllPosts()
         fetchPost()
         
         
         overrideUserInterfaceStyle = .light
         
     }
-    func fetchAllPosts() {
-        
-        Firestore.firestore().collection("Posts").getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error fetching posts: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let documents = snapshot?.documents else {
-                print("No posts found")
-                return
-            }
-            
-            for document in documents {
-                for post in self.posts {
-                     print("PostId: \(post.postId ?? ""), userId: \(post.uid ?? ""), description: \(post.description ?? "")")
-                 }
-                let data = document.data()
-                let post = Post.transformPostVideo(dict: data, key: document.documentID)
-                self.posts.append(post)
-                self.collectionView.reloadData()
-            }
-            
-        }
-    }
     
     func fetchPost() {
         let db = Firestore.firestore()
-        db.collection("Posts").whereField("userId", isEqualTo: userId).addSnapshotListener { querySnapshot, error in
+        db.collection("User-Posts").whereField("userId", isEqualTo: userId).addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 print("Error fetching posts: \(error?.localizedDescription ?? "Unknown error")")
                 return
@@ -83,6 +57,14 @@ class UserVC: UIViewController {
         Api.User.observeUser(withId: userId) { user in
             self.user = user
             self.collectionView.reloadData()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "fromProfileToDetailVC" {
+            let detailVC = segue.destination as? DetailVC
+            let postId = sender as! String
+            detailVC?.postId = postId
         }
     }
 }
@@ -111,6 +93,7 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostProfileCVC", for: indexPath) as! PostProfileCVC
         let post = posts[indexPath.item]
         cell.post = post
+        cell.delegate = self
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -125,6 +108,14 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             
         }
         return UICollectionReusableView()
+    }
+    
+    
+}
+
+extension UserVC: PostProfileCVCDelegate {
+    func toDetailVC(postId: String) {
+        performSegue(withIdentifier: "fromProfileToDetailVC", sender: postId)
     }
     
     
