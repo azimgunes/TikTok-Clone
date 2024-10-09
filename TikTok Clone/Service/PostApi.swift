@@ -126,25 +126,20 @@ class PostApi {
             }
         }
     }
-
     func observePost(postId id: String, completion: @escaping (Post) -> Void) {
-        Firestore.firestore().collection("Posts").addSnapshotListener { (querySnapshot, error) in
+        Firestore.firestore().collection("Posts").document(id).addSnapshotListener { (documentSnapshot, error) in
             if let error = error {
-                print("Error fetching posts: \(error.localizedDescription)")
+                print("Error fetching post: \(error.localizedDescription)")
                 return
             }
 
-            guard let documents = querySnapshot?.documentChanges else { return }
-            
-            for documentChange in documents {
-                if documentChange.type == .added {
-                    let dict = documentChange.document.data()
-                    let newPost = Post.transformPostVideo(dict: dict, key: documentChange.document.documentID)
-                    completion(newPost)
-                }
-            }
+            guard let document = documentSnapshot else { return }
+            let dict = document.data() ?? [:]
+            let newPost = Post.transformPostVideo(dict: dict, key: document.documentID)
+            completion(newPost)
         }
     }
+
     
     func observeFeedPost(completion: @escaping (Post) -> Void) {
         let db = Firestore.firestore()

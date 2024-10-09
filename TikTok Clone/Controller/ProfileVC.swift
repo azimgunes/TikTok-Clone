@@ -36,30 +36,36 @@ class ProfileVC: UIViewController {
     }
     
     func fetchAllPosts() {
-        
-        Firestore.firestore().collection("Posts").getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error fetching posts: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let documents = snapshot?.documents else {
-                print("No posts found")
-                return
-            }
-            
-            for document in documents {
-                for post in self.posts {
-                     print("PostId: \(post.postId ?? ""), userId: \(post.uid ?? ""), description: \(post.description ?? "")")
-                 }
-                let data = document.data()
-                let post = Post.transformPostVideo(dict: data, key: document.documentID)
-                self.posts.append(post)
+        guard let currentUserUID = Auth.auth().currentUser?.uid else {
+            print("No user is logged in")
+            return
+        }
+
+        Firestore.firestore().collection("Posts")
+            .whereField("uid", isEqualTo: currentUserUID)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching posts: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    print("No posts found")
+                    return
+                }
+
+                self.posts.removeAll()
+
+                for document in documents {
+                    let data = document.data()
+                    let post = Post.transformPostVideo(dict: data, key: document.documentID)
+                    self.posts.append(post)
+                }
+                
                 self.collectionView.reloadData()
             }
-            
-        }
     }
+
 
     func fetchUser(){
         Api.User.observeProfileUser { user in
