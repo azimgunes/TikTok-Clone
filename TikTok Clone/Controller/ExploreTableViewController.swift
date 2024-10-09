@@ -88,6 +88,15 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? ExploreTableViewCell {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let userVC = storyboard.instantiateViewController(withIdentifier: "UserVC") as! UserVC
+            userVC.userId = cell.user!.uid!
+            self.navigationController?.pushViewController(userVC, animated: true)
+        }
+    }
 
 
     

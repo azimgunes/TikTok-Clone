@@ -21,6 +21,7 @@ class ExploreTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 
@@ -28,6 +29,7 @@ class ExploreTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         profileImage.layer.cornerRadius = 25
+
         
     }
 
