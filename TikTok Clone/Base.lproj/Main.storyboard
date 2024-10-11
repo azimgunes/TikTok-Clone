@@ -1506,14 +1506,7 @@
                             <constraint firstItem="F25-Ob-de4" firstAttribute="bottom" secondItem="H9y-cz-yp7" secondAttribute="bottom" id="l3T-9y-4Ef"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="7hB-i4-OCI">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" style="done" id="h7m-J9-ZIV">
-                            <color key="tintColor" systemColor="systemRedColor"/>
-                            <connections>
-                                <action selector="logOutButton:" destination="Adw-Fa-cbf" id="vV3-cz-rfI"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="7hB-i4-OCI"/>
                     <connections>
                         <outlet property="collectionView" destination="F25-Ob-de4" id="fPO-lt-5WV"/>
                         <segue destination="iue-Lk-NDH" kind="show" identifier="profileDetailSegue" id="sku-Q1-IpT"/>

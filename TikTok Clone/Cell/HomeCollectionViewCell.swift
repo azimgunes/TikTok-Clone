@@ -38,19 +38,25 @@ class HomeCollectionViewCell: UICollectionViewCell {
             setupUser()
         }
     }
+
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to set audio session category.")
+        }
+
         avatar.layer.cornerRadius = 55/2
-        
+
         let tapGestureForImage = UITapGestureRecognizer(target: self, action: #selector(avatarTouched))
         avatar.isUserInteractionEnabled = true
         avatar.addGestureRecognizer(tapGestureForImage)
         avatar.clipsToBounds = true
-        
-  
-
     }
-    
+
     
 
     override func prepareForReuse() {
@@ -58,6 +64,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         playerLayer?.removeFromSuperlayer()
         queuePlayer?.pause()
     }
+    
     @objc func avatarTouched(){
         if let id = user?.uid {
             delegate?.toUserVC(userId: id)

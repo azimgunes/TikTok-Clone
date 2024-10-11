@@ -89,9 +89,7 @@ class ProfileVC: UIViewController {
         }
     }
     
-    @IBAction func logOutButton(_ sender: Any) {
-        Api.User.logOut()
-    }
+
     
     
     @IBAction func editProfileButton(_ sender: UIButton) {

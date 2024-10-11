@@ -105,7 +105,117 @@ class UserApi: SignInVC {
             onSuc()
         }
     }
+    func deleteAccount() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
 
+        let db = Firestore.firestore()
+            let storage = Storage.storage()
+
+            // Firestore'da kullanıcının users koleksiyonundaki belgesini sil
+            db.collection("users").document(uid).delete { error in
+                if let error = error {
+                    print("Error removing user document from users collection: \(error.localizedDescription)")
+                } else {
+                    print("User document successfully removed from users collection!")
+                }
+            }
+
+            // Kullanıcının Posts koleksiyonundaki tüm belgeleri sil
+            db.collection("Posts").whereField("uid", isEqualTo: uid).getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching user's posts: \(error.localizedDescription)")
+                } else {
+                    guard let documents = snapshot?.documents else { return }
+                    for document in documents {
+                        document.reference.delete { error in
+                            if let error = error {
+                                print("Error deleting post: \(error.localizedDescription)")
+                            } else {
+                                print("Post successfully deleted")
+                            }
+                        }
+                    }
+                }
+            }
+
+            // User-Posts koleksiyonundaki ilgili kullanıcının tüm belgelerini sil
+            db.collection("User-Posts").document(uid).collection("userPosts").getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching user's posts in User-Posts collection: \(error.localizedDescription)")
+                } else {
+                    guard let documents = snapshot?.documents else { return }
+                    for document in documents {
+                        document.reference.delete { error in
+                            if let error = error {
+                                print("Error deleting user post: \(error.localizedDescription)")
+                            } else {
+                                print("User post successfully deleted")
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Firebase Authentication'dan kullanıcıyı sil
+            Auth.auth().currentUser?.delete { error in
+                if let error = error {
+                    print("Error deleting user from Auth: \(error.localizedDescription)")
+                } else {
+                    print("User successfully deleted from Auth")
+                }
+            }
+
+            // Storage'dan profil resmi, posts ve post_images klasörlerini sil
+            let storageRef = storage.reference()
+
+            // Profil resmini sil
+            let profileRef = storageRef.child("profile").child(uid)
+            profileRef.delete { error in
+                if let error = error {
+                    print("Error deleting profile image: \(error.localizedDescription)")
+                } else {
+                    print("Profile image successfully deleted")
+                }
+            }
+
+            // Posts klasöründeki dosyaları sil
+            let postsRef = storageRef.child("posts").child(uid)
+            postsRef.listAll { (result, error) in
+                if let error = error {
+                    print("Error listing posts: \(error.localizedDescription)")
+                } else {
+                    for item in result!.items {
+                        item.delete { error in
+                            if let error = error {
+                                print("Error deleting post file: \(error.localizedDescription)")
+                            } else {
+                                print("Post file successfully deleted")
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Post images klasöründeki dosyaları sil
+            let postImagesRef = storageRef.child("post_images").child(uid)
+            postImagesRef.listAll { (result, error) in
+                if let error = error {
+                    print("Error listing post images: \(error.localizedDescription)")
+                } else {
+                    for item in result!.items {
+                        item.delete { error in
+                            if let error = error {
+                                print("Error deleting post image: \(error.localizedDescription)")
+                            } else {
+                                print("Post image file successfully deleted")
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    
     func observeUser(withId uid: String, completion: @escaping (User) -> Void) {
         Firestore.firestore().collection("users").document(uid).getDocument { (document, error) in
             if let error = error {
@@ -133,6 +243,7 @@ class UserApi: SignInVC {
                 return
             }
             
+            
             guard let document = document, document.exists, let dict = document.data() else {
                 print("Document does not exist")
                 return
@@ -141,6 +252,8 @@ class UserApi: SignInVC {
             let user = User.transformUser(dict: dict, key: document.documentID)
             completion(user)
         }
+
+
             }
         
 

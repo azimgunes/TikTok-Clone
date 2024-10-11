@@ -19,16 +19,16 @@ class EditVC: UIViewController {
     @IBOutlet weak var signOutButton: UIButton!
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        
         setupView()
         observeData()
         overrideUserInterfaceStyle = .light
-
-
+        
+        
     }
     func setupView(){
         profileImage.layer.cornerRadius = 50
@@ -46,10 +46,18 @@ class EditVC: UIViewController {
         
     }
     @IBAction func signOutButton(_ sender: Any) {
+        Api.User.logOut()
+
     }
     
-
+    
     @IBAction func deleteAccountButton(_ sender: Any) {
+        
+        
+        Api.User.deleteAccount()
+        Api.User.logOut()
+        
+        
     }
     
     @IBAction func saveButton(_ sender: Any) {
@@ -65,7 +73,7 @@ class EditVC: UIViewController {
         } onErr: { errorMessage in
             print("Error: \(errorMessage)")
         }
-
+        
     }
     
 }
