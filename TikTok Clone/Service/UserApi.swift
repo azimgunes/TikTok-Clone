@@ -89,7 +89,23 @@ class UserApi: SignInVC {
             }
         }
     }
-    
+
+    func saveUserProfile(dict: [String: Any], onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(uid)
+        
+        userRef.updateData(dict) { error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                onErr(error.localizedDescription)
+                return
+            }
+            onSuc()
+        }
+    }
+
     func observeUser(withId uid: String, completion: @escaping (User) -> Void) {
         Firestore.firestore().collection("users").document(uid).getDocument { (document, error) in
             if let error = error {

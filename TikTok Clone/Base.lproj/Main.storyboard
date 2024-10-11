@@ -1609,7 +1609,14 @@
                             <constraint firstItem="RIq-6S-dMa" firstAttribute="leading" secondItem="GWD-nO-l3a" secondAttribute="leading" constant="30" id="zp5-sD-XTR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="3kD-N8-pdO"/>
+                    <navigationItem key="navigationItem" id="3kD-N8-pdO">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="QMD-rg-8K7">
+                            <color key="tintColor" red="0.73333334920000004" green="0.19607841970000001" blue="0.34509804840000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="saveButton:" destination="aZs-T6-blc" id="Y79-PE-gWm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="profileImage" destination="Lrw-8h-hes" id="xY1-jL-D5m"/>
                         <outlet property="signOutButton" destination="h1X-Ag-lJG" id="5bb-sP-n3R"/>

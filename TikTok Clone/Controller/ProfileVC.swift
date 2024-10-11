@@ -35,6 +35,13 @@ class ProfileVC: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchUser()
+    }
+
+    
     func fetchAllPosts() {
         guard let currentUserUID = Auth.auth().currentUser?.uid else {
             print("No user is logged in")
