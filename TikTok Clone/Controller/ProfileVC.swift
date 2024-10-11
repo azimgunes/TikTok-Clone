@@ -86,6 +86,15 @@ class ProfileVC: UIViewController {
         Api.User.logOut()
     }
     
+    
+    @IBAction func editProfileButton(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let editVC = storyboard.instantiateViewController(withIdentifier: "EditVC") as! EditVC
+        self.navigationController?.pushViewController(editVC, animated: true)
+        
+        
+    }
+    
 }
 
 extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

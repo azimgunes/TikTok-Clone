@@ -25,6 +25,7 @@
 		3C7BDB472C4E5EB100082AD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7BDB452C4E5EB100082AD8 /* Main.storyboard */; };
 		3C7BDB492C4E5EB300082AD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C7BDB482C4E5EB300082AD8 /* Assets.xcassets */; };
 		3C7BDB4C2C4E5EB300082AD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7BDB4A2C4E5EB300082AD8 /* LaunchScreen.storyboard */; };
+		3C8A26D52CB9658C00FC11D1 /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8A26D42CB9658C00FC11D1 /* EditVC.swift */; };
 		3C93E7C92C56EE1F005CE406 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */; };
 		3C93E7CC2C56F038005CE406 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7CB2C56F038005CE406 /* FirebaseAnalytics */; };
 		3C93E7CE2C56F038005CE406 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7CD2C56F038005CE406 /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -90,6 +91,7 @@
 		3C7BDB482C4E5EB300082AD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C7BDB4B2C4E5EB300082AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C7BDB4D2C4E5EB300082AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C8A26D42CB9658C00FC11D1 /* EditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
 		3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C950D5A2CA4831D007452C4 /* ProfileHeaderCRV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCRV.swift; sourceTree = "<group>"; };
 		3C950D5C2CA4837E007452C4 /* PostProfileCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProfileCVC.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				3C4931872CB6CA9000E9E220 /* UserVC.swift */,
 				3C35C4D02CB00540008C178A /* DetailVC.swift */,
 				3CD6AEB62CB1EC4D00978E5B /* ExploreTableViewController.swift */,
+				3C8A26D42CB9658C00FC11D1 /* EditVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				3C7BDB402C4E5EB100082AD8 /* AppDelegate.swift in Sources */,
 				3C7BDB422C4E5EB100082AD8 /* SceneDelegate.swift in Sources */,
 				3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */,
+				3C8A26D52CB9658C00FC11D1 /* EditVC.swift in Sources */,
 				3C069FCD2C7A7B4E00F918BA /* PreviewVC.swift in Sources */,
 				3CE33E852C6B887C0083CE43 /* Extensions.swift in Sources */,
 				3CD6AEB92CB1ED1B00978E5B /* ExploreTableViewCell.swift in Sources */,
