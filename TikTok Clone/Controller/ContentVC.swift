@@ -335,7 +335,7 @@ class ContentVC: UIViewController {
             startRecording()
         }
     }
-
+    
     
     func discardLastRecord(){
         print("Discarded")
@@ -367,7 +367,7 @@ class ContentVC: UIViewController {
     
     func animatedRecordButton(){
         isRecording = !isRecording
-
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: { [weak self] in
             guard let self = self else { return }
             if self.isRecording {
@@ -377,7 +377,7 @@ class ContentVC: UIViewController {
                 
                 self.saveButton.alpha = 0
                 self.discardButton.alpha = 0
-
+                
                 [self.galleryButton, self.effectsButton, self.soundsView].forEach { subView in
                     subView?.isHidden = true
                 }
@@ -385,12 +385,12 @@ class ContentVC: UIViewController {
                 self.captureButton.transform = CGAffineTransform.identity
                 self.captureButton.layer.cornerRadius = 68/2
                 self.captureRingView.transform = CGAffineTransform.identity
-
+                
                 self.resetAllVisibilitytoId()
             }
         })
     }
-
+    
     
     
     
@@ -502,7 +502,7 @@ extension ContentVC {
     
     func setupView(){
         overrideUserInterfaceStyle = .light
-
+        
         
         captureButton.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
         captureButton.layer.cornerRadius = 68/2

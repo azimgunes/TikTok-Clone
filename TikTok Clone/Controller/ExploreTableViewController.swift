@@ -8,40 +8,62 @@
 import UIKit
 
 class ExploreTableViewController: UITableViewController, UISearchResultsUpdating{
-   
     
+    //MARK: Properties
     var searchResults : [User] = []
     var users : [User] = []
     var searchController : UISearchController = UISearchController(searchResultsController: nil)
     
     
+    //MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSetup()
-      
+        
         fetchUser()
         setupSearch()
-
- 
+        
+        
     }
+    
+    //MARK: Setup Methods
     func setupSearch(){
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        
         searchController.searchBar.placeholder = "Search"
         searchController.searchBar.barTintColor = .white
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
     }
-
+    
+    
+    func tableViewSetup(){
+        overrideUserInterfaceStyle = .light
+        view.backgroundColor = .white
+        tableView.backgroundColor = .white
+        
+        let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        noDataLabel.text = "Search for users"
+        noDataLabel.textColor = .gray
+        noDataLabel.textAlignment = .center
+        tableView.backgroundView = noDataLabel
+        tableView.separatorStyle = .none
+        
+    }
+    
+    //MARK: DATA Fetching
+    
     func fetchUser(){
         Api.User.observeUsers { user in
-        
+            
             self.users.append(user)
             self.tableView.reloadData()
             
         }
     }
+    
+    //MARK: UI Searc Result Process
     func updateSearchResults(for searchController: UISearchController) {
         
         if searchController.searchBar.text == nil || searchController.searchBar.text!.isEmpty {
@@ -59,15 +81,19 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
         searchResults = self.users.filter {
             return $0.username!.lowercased().contains(searchText)
         }
-
+        
         
     }
-    // MARK: - Table view data source
-
+    
+    
+    // MARK: - Table View Data Source/Delegate
+    
+    //Data Source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
             tableView.backgroundView = nil
@@ -76,15 +102,18 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
             return 0
         }
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "exploreCell", for: indexPath) as! ExploreTableViewCell
-     
+        
         let user = searchController.isActive ? searchResults[indexPath.row] : users[indexPath.row]
         cell.user = user
         return cell
     }
+    
+    //Delegate
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
@@ -97,22 +126,9 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
             self.navigationController?.pushViewController(userVC, animated: true)
         }
     }
-
-
     
     
-    func tableViewSetup(){
-        overrideUserInterfaceStyle = .light
-        view.backgroundColor = .white
-        tableView.backgroundColor = .white
-         
-         let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-         noDataLabel.text = "Search for users"
-         noDataLabel.textColor = .gray
-         noDataLabel.textAlignment = .center
-         tableView.backgroundView = noDataLabel
-         tableView.separatorStyle = .none
-
-    }
-
+    
+    
+    
 }

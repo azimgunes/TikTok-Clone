@@ -58,25 +58,6 @@ class PostApi {
                                     onErr("Failed document ID")
                                     return
                                 }
-                                
-                                let userPostRef = Firestore.firestore().collection("User-Posts").document(uid)
-                                
-                                userPostRef.setData([uid: uid], merge: true) { error in
-                                    if let error = error {
-                                        onErr("Error updating: \(error.localizedDescription)")
-                                    } else {
-                                        print("User-Posts updated")
-                                        onSuc()
-                                        
-                                        userPostRef.updateData([documentID: 1]) { error in
-                                            if let error = error {
-                                                onErr("Error updating: \(error.localizedDescription)")
-                                            } else {
-                                                print("Successfully updated")
-                                            }
-                                        }
-                                    }
-                                }
                             }
                         }
                         

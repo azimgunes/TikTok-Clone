@@ -13,41 +13,45 @@ import SDWebImage
 
 class ProfileVC: UIViewController {
     
+    //MARK: Properties/Outlets
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var user: User?
-
+    
     var posts = [Post]()
-
     
-    
+    //MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        setupCollectionView()
         fetchUser()
         fetchAllPosts()
-        
         overrideUserInterfaceStyle = .light
-
+        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         fetchUser()
     }
-
+    
+    //MARK: Setup Methods
+    func setupCollectionView(){
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    //MARK: DATA
     
     func fetchAllPosts() {
         guard let currentUserUID = Auth.auth().currentUser?.uid else {
             print("No user is logged in")
             return
         }
-
+        
         Firestore.firestore().collection("Posts")
             .whereField("uid", isEqualTo: currentUserUID)
             .getDocuments { (snapshot, error) in
@@ -55,14 +59,14 @@ class ProfileVC: UIViewController {
                     print("Error fetching posts: \(error.localizedDescription)")
                     return
                 }
-
+                
                 guard let documents = snapshot?.documents else {
                     print("No posts found")
                     return
                 }
-
+                
                 self.posts.removeAll()
-
+                
                 for document in documents {
                     let data = document.data()
                     let post = Post.transformPostVideo(dict: data, key: document.documentID)
@@ -72,8 +76,8 @@ class ProfileVC: UIViewController {
                 self.collectionView.reloadData()
             }
     }
-
-
+    
+    
     func fetchUser(){
         Api.User.observeProfileUser { user in
             self.user = user
@@ -81,6 +85,9 @@ class ProfileVC: UIViewController {
             
         }
     }
+    
+    // MARK: - Prepare for Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "profileDetailSegue" {
             let detailVC = segue.destination as! DetailVC
@@ -89,8 +96,8 @@ class ProfileVC: UIViewController {
         }
     }
     
-
     
+    //MARK: Actions
     
     @IBAction func editProfileButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -101,20 +108,23 @@ class ProfileVC: UIViewController {
     }
     
 }
+// MARK: - Collection View Data Source/Delegate, and FlowLayout
 
 extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    //FlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         let size = collectionView.frame.size
         
-
+        
         return CGSize(width: size.width / 3 - 2, height: size.height / 3)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
     
+    //Data Source/Delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
@@ -130,13 +140,16 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         cell.delegate = self
         return cell
     }
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerCiewCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ProfileHeaderCRV", for: indexPath) as! ProfileHeaderCRV
             headerCiewCell.setupView()
             if let user = self.user {
                 headerCiewCell.user = user
-
+                
             }
             return headerCiewCell
             
@@ -146,24 +159,26 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     
 }
+// MARK: - Extension for Image Loading
 
 extension UIImageView {
     func loadImage(_ urlString: String?) {
         guard let string = urlString, let url = URL(string: string) else {
-            self.image = nil 
+            self.image = nil
             return
         }
-
+        
         self.sd_setImage(with: url, placeholderImage: UIImage(named: "Space"))
     }
 }
 
 
+//MARK: PostProfileCVCDelegate
 
 extension ProfileVC: PostProfileCVCDelegate {
     func toDetailVC(postId: String) {
         print("Segue, postId: \(postId)")
-
+        
         performSegue(withIdentifier: "profileDetailSegue", sender: postId)
     }
     

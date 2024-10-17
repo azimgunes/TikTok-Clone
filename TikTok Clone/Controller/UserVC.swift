@@ -10,27 +10,34 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class UserVC: UIViewController {
-
+    
+    //MARK: Properties/Outlets
+    
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var user: User?
-
+    
     var posts = [Post]()
     
     var userId = ""
     
+    //MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        setupCollectionView()
         fetchUser()
         fetchPost()
-        
-        
         overrideUserInterfaceStyle = .light
         
     }
+    //MARK: Setup Methods
+    func setupCollectionView(){
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    //MARK: DATA
     
     func fetchPost() {
         let db = Firestore.firestore()
@@ -49,16 +56,18 @@ class UserVC: UIViewController {
             }
         }
     }
-
     
-   
-
+    
+    
+    
     func fetchUser(){
         Api.User.observeUser(withId: userId) { user in
             self.user = user
             self.collectionView.reloadData()
         }
     }
+    
+    // MARK: - Prepare for Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "fromProfileToDetailVC" {
@@ -68,13 +77,16 @@ class UserVC: UIViewController {
         }
     }
 }
-extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
+// MARK: - Collection View Data Source/Delegate, and FlowLayout
+
+extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    //Flow Layout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let size = collectionView.frame.size
         
-
+        
         return CGSize(width: size.width / 3 - 2, height: size.height / 3)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -84,6 +96,8 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    //Data Source/Delegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
@@ -102,7 +116,7 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             headerCiewCell.setupView()
             if let user = self.user {
                 headerCiewCell.user = user
-
+                
             }
             return headerCiewCell
             
@@ -112,6 +126,9 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     
 }
+
+//MARK: PostProfileCVCDelegate
+
 
 extension UserVC: PostProfileCVCDelegate {
     func toDetailVC(postId: String) {

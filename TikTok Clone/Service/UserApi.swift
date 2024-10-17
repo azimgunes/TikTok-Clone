@@ -138,25 +138,8 @@ class UserApi: SignInVC {
                 }
             }
 
-            // User-Posts koleksiyonundaki ilgili kullanıcının tüm belgelerini sil
-            db.collection("User-Posts").document(uid).collection("userPosts").getDocuments { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching user's posts in User-Posts collection: \(error.localizedDescription)")
-                } else {
-                    guard let documents = snapshot?.documents else { return }
-                    for document in documents {
-                        document.reference.delete { error in
-                            if let error = error {
-                                print("Error deleting user post: \(error.localizedDescription)")
-                            } else {
-                                print("User post successfully deleted")
-                            }
-                        }
-                    }
-                }
-            }
+            
 
-            // Firebase Authentication'dan kullanıcıyı sil
             Auth.auth().currentUser?.delete { error in
                 if let error = error {
                     print("Error deleting user from Auth: \(error.localizedDescription)")
@@ -165,10 +148,8 @@ class UserApi: SignInVC {
                 }
             }
 
-            // Storage'dan profil resmi, posts ve post_images klasörlerini sil
             let storageRef = storage.reference()
 
-            // Profil resmini sil
             let profileRef = storageRef.child("profile").child(uid)
             profileRef.delete { error in
                 if let error = error {
@@ -178,7 +159,6 @@ class UserApi: SignInVC {
                 }
             }
 
-            // Posts klasöründeki dosyaları sil
             let postsRef = storageRef.child("posts").child(uid)
             postsRef.listAll { (result, error) in
                 if let error = error {
@@ -196,7 +176,6 @@ class UserApi: SignInVC {
                 }
             }
 
-            // Post images klasöründeki dosyaları sil
             let postImagesRef = storageRef.child("post_images").child(uid)
             postImagesRef.listAll { (result, error) in
                 if let error = error {

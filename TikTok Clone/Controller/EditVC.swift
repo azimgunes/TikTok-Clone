@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class EditVC: UIViewController {
     
+    //MARK: Properties 
     
     @IBOutlet weak var profileImage: UIImageView!
     
@@ -18,7 +19,7 @@ class EditVC: UIViewController {
     
     @IBOutlet weak var signOutButton: UIButton!
     
-    
+    //MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +31,16 @@ class EditVC: UIViewController {
         
         
     }
+    
+    //MARK: Setup
     func setupView(){
         profileImage.layer.cornerRadius = 50
         signOutButton.layer.cornerRadius = 35/2
         profileImage.contentMode = .scaleAspectFill
         
     }
+    
+    //MARK: DATA
     func observeData(){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
@@ -45,9 +50,11 @@ class EditVC: UIViewController {
         }
         
     }
+    
+    //MARK: Action Methods
     @IBAction func signOutButton(_ sender: Any) {
         Api.User.logOut()
-
+        
     }
     
     

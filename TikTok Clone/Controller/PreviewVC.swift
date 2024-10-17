@@ -36,7 +36,7 @@ class PreviewVC: UIViewController {
         }
     }
     
-
+    
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
@@ -93,7 +93,7 @@ class PreviewVC: UIViewController {
         nextButtonTapped.layer.cornerRadius = 2
         nextButtonTapped.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 88/255, alpha: 1.0)
         overrideUserInterfaceStyle = .light
-
+        
     }
     
     func loadRecordedClips() {

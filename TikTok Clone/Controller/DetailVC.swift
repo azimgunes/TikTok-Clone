@@ -9,26 +9,31 @@ import UIKit
 
 class DetailVC: UIViewController {
     
+    //MARK: Properties/Outlets
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var postId = ""
     var post = Post()
     var user = User()
     
-
-
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadPost()
+        setupCollectionView()
+        overrideUserInterfaceStyle = .light
         
+    }
+    
+    //MARK: Setup
+    func setupCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
-        loadPost()
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        
-
-        overrideUserInterfaceStyle = .light
-
     }
+    
+    //MARK: DATA
     func loadPost(){
         Api.Post.observePost(postId: postId) { post in
             guard let postUid = post.uid else {return}
@@ -48,9 +53,12 @@ class DetailVC: UIViewController {
         }
         
     }
-
-
+    
+    
 }
+// MARK: - Collection View Data Source/Delegate, and FlowLayout
+
+//Data Source/Delegate
 extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
@@ -62,6 +70,8 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         cell.user = user
         return cell
     }
+    
+    //Flow Layout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = collectionView.frame.size

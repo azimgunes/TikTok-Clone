@@ -17,21 +17,21 @@ class HomeVC: UIViewController {
     var users = [User]()
     
     var user = [User]()
-
+    
     
     @objc dynamic var currentIndex = 0
     var oldAndNewIndices = (0,0)
     
     
     // MARK: - Lifecycle Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         loadPosts()
         
         overrideUserInterfaceStyle = .light
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,18 +62,18 @@ class HomeVC: UIViewController {
     }
     
     private func createFlowLayout() -> UICollectionViewFlowLayout {
-            let layout = UICollectionViewFlowLayout()
-            layout.minimumLineSpacing = 0
-            layout.minimumInteritemSpacing = 0
-            layout.sectionInset = .zero
-            return layout
-        }
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.sectionInset = .zero
+        return layout
+    }
     
     // MARK: - Post Loading
-
+    
     
     func loadPosts(){
-
+        
         Api.Post.observeFeedPost { post in
             guard let postId = post.uid else {return}
             self.fetchUser(uid: postId) {
@@ -84,8 +84,8 @@ class HomeVC: UIViewController {
                 }
                 
                 if self.posts.count == self.users.count {  
-                              self.collectionView.reloadData()
-                          }
+                    self.collectionView.reloadData()
+                }
             }
         }
     }
@@ -96,12 +96,12 @@ class HomeVC: UIViewController {
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
-            if segue.identifier == "fromHomeToUserVC" {
-                let userVC = segue.destination as! UserVC
-                let userId = sender as! String
-                userVC.userId = userId
-            }
+        
+        if segue.identifier == "fromHomeToUserVC" {
+            let userVC = segue.destination as! UserVC
+            let userId = sender as! String
+            userVC.userId = userId
+        }
         
     }
     
