@@ -15,7 +15,7 @@ import PhotosUI
 class SignUpVC: UIViewController {
     
     
-    //MARK: Proporties
+    //MARK: Properties/Outlets
     
     
     @IBOutlet weak var profileImageView: UIImageView!
@@ -45,6 +45,7 @@ class SignUpVC: UIViewController {
         passwordTextFieldFunc()
     }
     
+    //MARK: Setup
     
     
     func setupView(){
@@ -56,6 +57,8 @@ class SignUpVC: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
         profileImageView.addGestureRecognizer(tapGesture)
     }
+    
+    //MARK: Controls
     
     func validateFields(){
         guard let username = self.usernameTextField.text, !username.isEmpty else {
@@ -75,6 +78,7 @@ class SignUpVC: UIViewController {
         }
     }
     
+    //MARK: Actions
     
     @IBAction func signUp(_ sender: UIButton) {
         
@@ -125,7 +129,7 @@ extension SignUpVC {
     }
     
 }
-
+//MARK: PHPickerViewControllerDelegate
 
 extension SignUpVC: PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -154,11 +158,16 @@ extension SignUpVC: PHPickerViewControllerDelegate{
     }
 }
 
+//MARK: DATA Function
 
 extension SignUpVC{
     func signUp(){
         Api.User.signUp(withUsername: self.usernameTextField.text!, email: self.emailTextField.text!, password: self.passwordTextField.text!, image: self.image) {
-            print("DONE")
+            let scene = UIApplication.shared.connectedScenes.first
+            if let sceneDelegate : SceneDelegate = (scene?.delegate as? SceneDelegate) {
+                sceneDelegate.configInitialVC()
+            } 
+            
         } onErr: { errorMesssage in
             print(errorMesssage)
         }

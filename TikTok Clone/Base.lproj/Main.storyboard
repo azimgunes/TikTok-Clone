@@ -21,7 +21,7 @@
                                 <rect key="frame" x="128" y="82" width="136" height="119"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up to TikTok" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYB-cG-yPY">
-                                <rect key="frame" x="117" y="236" width="159" height="21"/>
+                                <rect key="frame" x="117" y="270" width="159" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="PTw-dw-NtK"/>
                                 </constraints>
@@ -30,7 +30,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a profile, follow other accounts, make your own videos, and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuZ-XQ-WsN">
-                                <rect key="frame" x="46.666666666666657" y="272" width="300" height="50"/>
+                                <rect key="frame" x="46.666666666666657" y="306" width="300" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="f2E-WF-8KX"/>
                                     <constraint firstAttribute="width" constant="300" id="yJ0-ZA-bgX"/>
@@ -40,7 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzA-jy-uOb">
-                                <rect key="frame" x="80" y="352" width="233" height="35"/>
+                                <rect key="frame" x="80" y="386" width="233" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="8Wl-hx-6K9"/>
@@ -53,7 +53,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnG-5B-m6p">
-                                <rect key="frame" x="80" y="443" width="233" height="35"/>
+                                <rect key="frame" x="80" y="477" width="233" height="35"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="QDl-hr-Nho"/>
@@ -63,7 +63,7 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Login with Facebook"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5e-sZ-eBj">
-                                <rect key="frame" x="80" y="493" width="233" height="35"/>
+                                <rect key="frame" x="80" y="527" width="233" height="35"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="f2b-L5-tfJ"/>
@@ -73,7 +73,7 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Login with Google"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zc-0u-jgy">
-                                <rect key="frame" x="184.66666666666666" y="407" width="23.666666666666657" height="21"/>
+                                <rect key="frame" x="184.66666666666666" y="441" width="23.666666666666657" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="0Lq-Yw-SAc"/>
                                 </constraints>
@@ -82,7 +82,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xML-nC-BiB">
-                                <rect key="frame" x="80" y="606" width="233" height="35"/>
+                                <rect key="frame" x="80" y="640" width="233" height="35"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="YKe-4n-tl8"/>
@@ -95,7 +95,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you have an account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcH-M9-qXa">
-                                <rect key="frame" x="116.66666666666667" y="577" width="159.66666666666663" height="21"/>
+                                <rect key="frame" x="116.66666666666667" y="611" width="159.66666666666663" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="lka-PH-lh1"/>
                                 </constraints>
@@ -104,7 +104,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8Q-iU-mhH">
-                                <rect key="frame" x="123" y="798" width="147" height="35"/>
+                                <rect key="frame" x="123" y="832" width="147" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Term Of Service"/>
                             </button>
@@ -264,6 +264,7 @@
                         <outlet property="signUpButton" destination="2RD-vY-0NR" id="wii-Q3-GVV"/>
                         <outlet property="usernameContainer" destination="85Y-3d-X5q" id="uAl-fQ-o3x"/>
                         <outlet property="usernameTextField" destination="aWV-Eq-BiZ" id="zcM-Pj-V6J"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="fromSignUptoRegistration" modalPresentationStyle="fullScreen" id="WaM-fI-oAl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xB0-YL-g6X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2165,6 +2166,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="sku-Q1-IpT"/>
+        <segue reference="WaM-fI-oAl"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="843786_whatsapp_icon" width="35" height="35"/>

@@ -9,21 +9,24 @@ import UIKit
 
 class RegistrationVC: UIViewController {
     
+    //MARK: Properties/Outlets
+    
     
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     
+    //MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         overrideUserInterfaceStyle = .light
         self.navigationController?.navigationBar.tintColor = .black
         setupView()
-        // Do any additional setup after loading the view.
     }
+    
+    //MARK: Setup
     
     func setupView(){
         facebookButton.layer.cornerRadius = 15
@@ -33,6 +36,7 @@ class RegistrationVC: UIViewController {
         
     }
     
+    //MARK: Action Methods
     
     @IBAction func signUpTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

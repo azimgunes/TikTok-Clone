@@ -14,7 +14,7 @@ import PhotosUI
 class SignInVC: UIViewController {
     
     
-    //MARK: Proporties
+    //MARK: Properties/Outlets
     
     
     @IBOutlet weak var iconImageView: UIImageView!
@@ -45,6 +45,7 @@ class SignInVC: UIViewController {
         
     }
     
+    //MARK: Actions
     
     @IBAction func signInTapped(_ sender: UIButton) {
         self.view.endEditing(true)
@@ -64,6 +65,7 @@ class SignInVC: UIViewController {
 
 
 extension SignInVC {
+    //MARK: DATA Function
     
     func signIn(onSuc: @escaping() -> Void, onErr: @escaping(_ errorMesssage: String) -> Void){
         Api.User.signIn(email: self.emailTextField.text!, password: self.passwordTextField.text!) {
@@ -78,6 +80,9 @@ extension SignInVC {
         
     }
     
+    //MARK: Controls
+    
+    
     func validateFields(){
         guard let email = self.emailTextField.text, !email.isEmpty else {
             alertFunc()
@@ -88,6 +93,9 @@ extension SignInVC {
             return
         }
     }
+    
+    //MARK: Helpers
+    
     
     func emailTextFieldFunc(){
         emailContainer.layer.borderWidth = 0.8
@@ -105,6 +113,9 @@ extension SignInVC {
         passwordTextField.borderStyle = .none
         
     }
+    
+    //MARK: Actions
+    
     func alertFunc(){
         let alert = UIAlertController(title: "Error!", message: "Make sure you fill in the blank fields and try again.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Try Again!", style: UIAlertAction.Style.default, handler: nil))
