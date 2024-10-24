@@ -18,6 +18,9 @@ class HomeVC: UIViewController {
     
     var user = [User]()
     
+    var activeVideoCell: HomeCollectionViewCell?
+    
+    
     
     @objc dynamic var currentIndex = 0
     var oldAndNewIndices = (0,0)
@@ -32,13 +35,16 @@ class HomeVC: UIViewController {
         
         overrideUserInterfaceStyle = .light
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTappedOutside(_:)))
+                   self.view.addGestureRecognizer(tapGesture)
     }
     
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         if let cell = collectionView.visibleCells.first as? HomeCollectionViewCell {
-            cell.play()
+            cell.playVideo()
         }
     }
     
@@ -46,9 +52,21 @@ class HomeVC: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         if let cell = collectionView.visibleCells.first as? HomeCollectionViewCell {
-            cell.pause()
+            cell.pauseVideo()
         }
     }
+    
+    //MARK: Actions
+    
+    @objc func viewTappedOutside(_ gesture: UITapGestureRecognizer) {
+            let tapLocation = gesture.location(in: self.view)
+            if let tappedView = self.view.hitTest(tapLocation, with: nil), tappedView.isDescendant(of: collectionView) {
+            } else {
+                activeVideoCell?.stopVideo()
+                activeVideoCell = nil
+            }
+        }
+    
     
     // MARK: - Setup Methods
     func setupCollectionView(){
@@ -119,6 +137,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         cell.user = user
         cell.delegate = self
         cell.backgroundColor = UIColor.white
+        cell.updateView()
         return cell
     }
     
@@ -144,12 +163,17 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         if let cell = cell as? HomeCollectionViewCell {
             oldAndNewIndices.1 = indexPath.item
             currentIndex = indexPath.item
-            cell.pause()
+            
+            activeVideoCell = cell
+            cell.playVideo()
         }
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? HomeCollectionViewCell {
-            cell.stop()
+            cell.stopVideo()
+            if activeVideoCell == cell {
+                          activeVideoCell = nil
+                      }
         }
         
     }
@@ -161,7 +185,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
 extension HomeVC: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let cell = self.collectionView.cellForItem(at: IndexPath(row: self.currentIndex, section: 0)) as? HomeCollectionViewCell
-        cell?.replay()
+        cell?.replayVideo()
     }
 }
 

@@ -63,6 +63,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         playerLayer?.removeFromSuperlayer()
         queuePlayer?.pause()
+        stopVideo()
     }
     
     @objc func avatarTouched(){
@@ -98,31 +99,31 @@ class HomeCollectionViewCell: UICollectionViewCell {
         avatar.loadImage(profileImageUrl)
     }
     
-    func replay(){
+    func replayVideo(){
         if isPlaying {
             self.queuePlayer?.seek(to: .zero)
             self.queuePlayer?.play()
-            play()
+            playVideo()
         }
         
     }
     
-    func play(){
+    func playVideo(){
         if !isPlaying {
             self.queuePlayer?.play()
             isPlaying = true
         }
     }
     
-    func pause(){
+    func pauseVideo(){
         if isPlaying {
             self.queuePlayer?.pause()
             isPlaying = false
         }
         
     }
-    func stop(){
+    func stopVideo(){
         self.queuePlayer?.pause()
-        self.queuePlayer?.seek(to: CMTime.init(seconds: 0, preferredTimescale: 1))
+        self.queuePlayer?.seek(to: .zero)
     }
 }

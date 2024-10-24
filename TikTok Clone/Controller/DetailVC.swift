@@ -17,6 +17,10 @@ class DetailVC: UIViewController {
     var post = Post()
     var user = User()
     
+    var activeVideoCell: HomeCollectionViewCell?
+
+  
+    
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +28,39 @@ class DetailVC: UIViewController {
         setupCollectionView()
         overrideUserInterfaceStyle = .light
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTappedOutside(_:)))
+                   self.view.addGestureRecognizer(tapGesture)
+        
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        if let cell = collectionView.visibleCells.first as? HomeCollectionViewCell {
+            cell.playVideo()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        if let cell = collectionView.visibleCells.first as? HomeCollectionViewCell {
+            cell.pauseVideo()
+        }
+    }
+    //MARK: Actions
+    
+    @objc func viewTappedOutside(_ gesture: UITapGestureRecognizer) {
+            let tapLocation = gesture.location(in: self.view)
+            if let tappedView = self.view.hitTest(tapLocation, with: nil), tappedView.isDescendant(of: collectionView) {
+            } else {
+                activeVideoCell?.stopVideo()
+                activeVideoCell = nil
+            }
+        }
+    
+
     //MARK: Setup
     func setupCollectionView(){
         collectionView.delegate = self
@@ -68,6 +103,7 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeCell", for: indexPath) as! HomeCollectionViewCell
         cell.post = post
         cell.user = user
+        cell.updateView()
         return cell
     }
     
@@ -82,5 +118,23 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? HomeCollectionViewCell {
+          
+            
+            activeVideoCell = cell
+            cell.playVideo()
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? HomeCollectionViewCell {
+            cell.stopVideo()
+            if activeVideoCell == cell {
+                          activeVideoCell = nil
+                      }
+        }
+        
     }
 }
