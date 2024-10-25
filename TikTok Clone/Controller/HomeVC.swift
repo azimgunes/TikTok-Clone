@@ -33,7 +33,9 @@ class HomeVC: UIViewController {
         setupCollectionView()
         loadPosts()
         
-        overrideUserInterfaceStyle = .light
+
+        tabBarController?.tabBar.barTintColor = .black 
+        tabBarController?.tabBar.tintColor = .white
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTappedOutside(_:)))
                    self.view.addGestureRecognizer(tapGesture)
@@ -75,7 +77,7 @@ class HomeVC: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = createFlowLayout()
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .black
         
     }
     
@@ -136,7 +138,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         cell.post = post
         cell.user = user
         cell.delegate = self
-        cell.backgroundColor = UIColor.white
+        cell.backgroundColor = UIColor.black
         cell.updateView()
         return cell
     }
