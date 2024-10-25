@@ -18,8 +18,8 @@ class DetailVC: UIViewController {
     var user = User()
     
     var activeVideoCell: HomeCollectionViewCell?
-
-  
+    
+    
     
     //MARK: Lifecycle
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ class DetailVC: UIViewController {
         overrideUserInterfaceStyle = .light
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTappedOutside(_:)))
-                   self.view.addGestureRecognizer(tapGesture)
+        self.view.addGestureRecognizer(tapGesture)
         
     }
     
@@ -52,15 +52,15 @@ class DetailVC: UIViewController {
     //MARK: Actions
     
     @objc func viewTappedOutside(_ gesture: UITapGestureRecognizer) {
-            let tapLocation = gesture.location(in: self.view)
-            if let tappedView = self.view.hitTest(tapLocation, with: nil), tappedView.isDescendant(of: collectionView) {
-            } else {
-                activeVideoCell?.stopVideo()
-                activeVideoCell = nil
-            }
+        let tapLocation = gesture.location(in: self.view)
+        if let tappedView = self.view.hitTest(tapLocation, with: nil), tappedView.isDescendant(of: collectionView) {
+        } else {
+            activeVideoCell?.stopVideo()
+            activeVideoCell = nil
         }
+    }
     
-
+    
     //MARK: Setup
     func setupCollectionView(){
         collectionView.delegate = self
@@ -122,7 +122,7 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? HomeCollectionViewCell {
-          
+            
             
             activeVideoCell = cell
             cell.playVideo()
@@ -132,8 +132,8 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         if let cell = cell as? HomeCollectionViewCell {
             cell.stopVideo()
             if activeVideoCell == cell {
-                          activeVideoCell = nil
-                      }
+                activeVideoCell = nil
+            }
         }
         
     }

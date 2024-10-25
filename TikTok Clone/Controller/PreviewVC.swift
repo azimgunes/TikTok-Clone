@@ -45,6 +45,9 @@ class PreviewVC: UIViewController {
         loadRecordedClips()
         startPlayFirstClip()
         print("Clip count: \(recordedClips.count)")
+        
+        setupTapGesture()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,12 +60,13 @@ class PreviewVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarAndNavigationBar()
-        player.pause()
+        stopVideo()
     }
     
     deinit {
         print("PreviewVC was deinitialized")
         viewWillDenitRestartVideo?()
+        stopVideo()
     }
     
     init?(coder: NSCoder, recordedClips: [Videos]) {
@@ -80,6 +84,19 @@ class PreviewVC: UIViewController {
     
     
     // MARK: - Setup Methods
+    
+    func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideVideo(_:)))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTapOutsideVideo(_ gesture: UITapGestureRecognizer) {
+           let tapLocation = gesture.location(in: self.view)
+           
+           if !thumbImageView.frame.contains(tapLocation) {
+               stopVideo()
+           }
+       }
     
     func startPlayFirstClip(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -125,7 +142,17 @@ class PreviewVC: UIViewController {
     func removePeriodicTimeObserver(){
         player.replaceCurrentItem(with: nil)
         playerLayer.removeFromSuperlayer()
+        
     }
+    
+    // MARK: - Stop Video
+
+    func stopVideo() {
+        player.pause()
+        player.replaceCurrentItem(with: nil)
+        playerLayer.removeFromSuperlayer()
+    }
+    
     @objc func avPlayerItemDidPlayToEndTime(notification: Notification){
         if let currentIndex = recordedClips.firstIndex(of: currentPlayingVideo) {
             let nextIndex = currentIndex + 1
@@ -162,6 +189,7 @@ class PreviewVC: UIViewController {
     
     @IBAction func cancelButton(_ sender: UIButton) {
         hideStatusBar = true
+        stopVideo()
         navigationController?.popViewController(animated: true)
     }
     
@@ -169,6 +197,7 @@ class PreviewVC: UIViewController {
     @IBAction func nextButton(_ sender: UIButton) {
         mergeClips()
         hideStatusBar = false
+        stopVideo()
         
         let shareVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "ShareVC", creator: { coder -> ShareVC? in
             ShareVC(coder: coder, videoUrl: self.currentPlayingVideo.videoUrl)

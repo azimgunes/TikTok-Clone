@@ -161,20 +161,20 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? HomeCollectionViewCell {
-            oldAndNewIndices.1 = indexPath.item
-            currentIndex = indexPath.item
-            
-            activeVideoCell = cell
-            cell.playVideo()
-        }
+                activeVideoCell?.stopVideo()
+                
+                activeVideoCell = cell
+                cell.playVideo()
+            }
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? HomeCollectionViewCell {
-            cell.stopVideo()
-            if activeVideoCell == cell {
-                          activeVideoCell = nil
-                      }
-        }
+              cell.stopVideo()
+              
+              if activeVideoCell == cell {
+                  activeVideoCell = nil
+              }
+          }
         
     }
 }
@@ -183,9 +183,14 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
 
 
 extension HomeVC: UIScrollViewDelegate {
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let cell = self.collectionView.cellForItem(at: IndexPath(row: self.currentIndex, section: 0)) as? HomeCollectionViewCell
-        cell?.replayVideo()
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let visibleIndexPath = collectionView.indexPathsForVisibleItems.first,
+           let cell = collectionView.cellForItem(at: visibleIndexPath) as? HomeCollectionViewCell {
+            
+            activeVideoCell?.stopVideo()
+            activeVideoCell = cell
+            cell.playVideo()
+        }
     }
 }
 

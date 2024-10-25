@@ -62,8 +62,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         playerLayer?.removeFromSuperlayer()
-        queuePlayer?.pause()
         stopVideo()
+        
     }
     
     @objc func avatarTouched(){
