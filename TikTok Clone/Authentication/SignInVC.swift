@@ -17,7 +17,7 @@ class SignInVC: UIViewController {
     //MARK: Properties/Outlets
     
     
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var signBackground: UIImageView!
     
     @IBOutlet weak var emailContainer: UIView!
     
@@ -43,6 +43,9 @@ class SignInVC: UIViewController {
         emailTextFieldFunc()
         passwordTextFieldFunc()
         
+        
+    
+        
     }
     
     //MARK: Actions
@@ -60,6 +63,13 @@ class SignInVC: UIViewController {
         }
         
     }
+    
+    @IBAction func registerButton(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "toSignUpVC") as! SignUpVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     
 }
 
@@ -131,6 +141,14 @@ extension SignInVC {
     
     func setupView(){
         signInButton.layer.cornerRadius = 10
+        
+        signBackground.clipsToBounds = true
+        signBackground.contentMode = .scaleAspectFill
+        signBackground.layer.cornerRadius = 100
+        signBackground.layer.maskedCorners = [.layerMinXMaxYCorner]
+        view.addSubview(signBackground)
+        
+        signBackground.layer.zPosition = -1
         
     }
     

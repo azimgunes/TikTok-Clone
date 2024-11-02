@@ -13,8 +13,6 @@ class RegistrationVC: UIViewController {
     
     
     @IBOutlet weak var signupButton: UIButton!
-    @IBOutlet weak var facebookButton: UIButton!
-    @IBOutlet weak var googleButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     
     //MARK: Lifecycle
@@ -29,9 +27,8 @@ class RegistrationVC: UIViewController {
     //MARK: Setup
     
     func setupView(){
-        facebookButton.layer.cornerRadius = 15
+  
         signupButton.layer.cornerRadius = 15
-        googleButton.layer.cornerRadius = 15
         loginButton.layer.cornerRadius = 15
         
     }
