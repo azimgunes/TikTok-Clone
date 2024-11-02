@@ -31,6 +31,10 @@ class ProfileVC: UIViewController {
         overrideUserInterfaceStyle = .light
         
         
+        tabBarController?.tabBar.barTintColor =  .white
+        tabBarController?.tabBar.tintColor = .black
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

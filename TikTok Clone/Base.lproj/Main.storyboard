@@ -1103,6 +1103,7 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Post"/>
                                 <connections>
                                     <action selector="postButton:" destination="VwG-lj-F86" eventType="touchUpInside" id="SUb-QK-oaT"/>
+                                    <segue destination="S6t-0q-TwI" kind="push" id="T6D-jq-HoA"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="eq2-vV-zSn">
@@ -1301,7 +1302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7Q-XD-hiV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3794.6564885496182" y="2019.7183098591549"/>
+            <point key="canvasLocation" x="3741" y="2020"/>
         </scene>
         <!--Inbox-->
         <scene sceneID="ldu-CO-chB">
@@ -1726,6 +1727,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ypB-k9-Hjc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="homekit" catalog="system" id="mXN-NX-dqD"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="6cC-yY-s64"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vze-hN-4kn">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1957,7 +1959,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="PostProfileCVC" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Ap-CW-hTi">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bjM-io-Gb0">
                                     <size key="itemSize" width="128" height="128"/>
@@ -2170,7 +2172,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sku-Q1-IpT"/>
+        <segue reference="LVq-6Q-6mH"/>
+        <segue reference="T6D-jq-HoA"/>
         <segue reference="WaM-fI-oAl"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import AVFoundation
 
+
 class ShareVC: UIViewController, UITextViewDelegate {
     
     //MARK: Proporties
@@ -136,7 +137,11 @@ class ShareVC: UIViewController, UITextViewDelegate {
     @IBAction func postButton(_ sender: UIButton) {
         self.sharePost {
             self.dismiss(animated: true) {
-                self.tabBarController?.selectedIndex = 0
+                if let tabBarController = self.tabBarController {
+                    let targetVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeVC")
+                    tabBarController.navigationController?.pushViewController(targetVC!, animated: true)
+                }
+
             }
         } onErr: { errorMessage in
             print(errorMessage)
