@@ -51,7 +51,7 @@ class SignUpVC: UIViewController {
     func setupView(){
         
         signUpButton.layer.cornerRadius = 15
-        profileImageView.layer.cornerRadius = 60
+       
         profileImageView.clipsToBounds = true
         profileImageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
@@ -84,6 +84,18 @@ class SignUpVC: UIViewController {
         
         self.validateFields()
         self.signUp()
+        
+        
+    }
+    
+    
+    @IBAction func toLogin(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "toSignInVC") as! SignInVC
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
         
         
     }
