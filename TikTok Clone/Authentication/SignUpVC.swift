@@ -51,7 +51,8 @@ class SignUpVC: UIViewController {
     func setupView(){
         
         signUpButton.layer.cornerRadius = 15
-       
+        
+        profileImageView.layer.cornerRadius = 60
         profileImageView.clipsToBounds = true
         profileImageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
