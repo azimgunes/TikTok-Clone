@@ -62,8 +62,10 @@
 		3C9A13F52C51958300DDDB69 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A13F42C51958300DDDB69 /* SignInVC.swift */; };
 		3CAF5D172C9C5739003C925D /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAF5D162C9C5739003C925D /* HomeVC.swift */; };
 		3CAF5D1B2C9C5811003C925D /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAF5D1A2C9C5811003C925D /* HomeCollectionViewCell.swift */; };
-		3CC1273E2CDFBA0700B4D993 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC1273D2CDFBA0700B4D993 /* ChatVC.swift */; };
-		3CC127402CDFBD1300B4D993 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC1273F2CDFBD1300B4D993 /* MessageCell.swift */; };
+		3CC1273E2CDFBA0700B4D993 /* ChatListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC1273D2CDFBA0700B4D993 /* ChatListVC.swift */; };
+		3CC127402CDFBD1300B4D993 /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC1273F2CDFBD1300B4D993 /* ChatListCell.swift */; };
+		3CC127422CDFCF4500B4D993 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC127412CDFCF4500B4D993 /* ChatVC.swift */; };
+		3CC127442CDFD62400B4D993 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC127432CDFD62400B4D993 /* MessageCell.swift */; };
 		3CD6AEB72CB1EC4D00978E5B /* ExploreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD6AEB62CB1EC4D00978E5B /* ExploreTableViewController.swift */; };
 		3CD6AEB92CB1ED1B00978E5B /* ExploreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD6AEB82CB1ED1B00978E5B /* ExploreTableViewCell.swift */; };
 		3CD741642C721EF400B0AB38 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD741632C721EF400B0AB38 /* Videos.swift */; };
@@ -102,8 +104,10 @@
 		3C9A13F42C51958300DDDB69 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		3CAF5D162C9C5739003C925D /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3CAF5D1A2C9C5811003C925D /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
-		3CC1273D2CDFBA0700B4D993 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
-		3CC1273F2CDFBD1300B4D993 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		3CC1273D2CDFBA0700B4D993 /* ChatListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListVC.swift; sourceTree = "<group>"; };
+		3CC1273F2CDFBD1300B4D993 /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
+		3CC127412CDFCF4500B4D993 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		3CC127432CDFD62400B4D993 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		3CD6AEB62CB1EC4D00978E5B /* ExploreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewController.swift; sourceTree = "<group>"; };
 		3CD6AEB82CB1ED1B00978E5B /* ExploreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewCell.swift; sourceTree = "<group>"; };
 		3CD741632C721EF400B0AB38 /* Videos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Videos.swift; sourceTree = "<group>"; };
@@ -167,7 +171,8 @@
 				3C35C4D02CB00540008C178A /* DetailVC.swift */,
 				3CD6AEB62CB1EC4D00978E5B /* ExploreTableViewController.swift */,
 				3C8A26D42CB9658C00FC11D1 /* EditVC.swift */,
-				3CC1273D2CDFBA0700B4D993 /* ChatVC.swift */,
+				3CC1273D2CDFBA0700B4D993 /* ChatListVC.swift */,
+				3CC127412CDFCF4500B4D993 /* ChatVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -194,9 +199,10 @@
 			isa = PBXGroup;
 			children = (
 				3CAF5D1A2C9C5811003C925D /* HomeCollectionViewCell.swift */,
+				3CC127432CDFD62400B4D993 /* MessageCell.swift */,
 				3CD6AEB82CB1ED1B00978E5B /* ExploreTableViewCell.swift */,
 				3C950D5C2CA4837E007452C4 /* PostProfileCVC.swift */,
-				3CC1273F2CDFBD1300B4D993 /* MessageCell.swift */,
+				3CC1273F2CDFBD1300B4D993 /* ChatListCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -385,19 +391,21 @@
 				3C005A6A2C4FD4A200E38A3C /* SignUpVC.swift in Sources */,
 				3C7BDB442C4E5EB100082AD8 /* RegistrationVC.swift in Sources */,
 				3C35C4D12CB00540008C178A /* DetailVC.swift in Sources */,
-				3CC127402CDFBD1300B4D993 /* MessageCell.swift in Sources */,
+				3CC127402CDFBD1300B4D993 /* ChatListCell.swift in Sources */,
 				3C4931882CB6CA9000E9E220 /* UserVC.swift in Sources */,
 				3C7BDB402C4E5EB100082AD8 /* AppDelegate.swift in Sources */,
 				3C7BDB422C4E5EB100082AD8 /* SceneDelegate.swift in Sources */,
+				3CC127442CDFD62400B4D993 /* MessageCell.swift in Sources */,
 				3C35F8CF2C657E8200522261 /* StorageService.swift in Sources */,
 				3C8A26D52CB9658C00FC11D1 /* EditVC.swift in Sources */,
+				3CC127422CDFCF4500B4D993 /* ChatVC.swift in Sources */,
 				3C069FCD2C7A7B4E00F918BA /* PreviewVC.swift in Sources */,
 				3CE33E852C6B887C0083CE43 /* Extensions.swift in Sources */,
 				3CD6AEB92CB1ED1B00978E5B /* ExploreTableViewCell.swift in Sources */,
 				3C950D5D2CA4837E007452C4 /* PostProfileCVC.swift in Sources */,
 				3C39190E2C81F5D300B6E1F5 /* VideoCompisitionWriter.swift in Sources */,
 				3C9607662CA1961800D472CA /* User.swift in Sources */,
-				3CC1273E2CDFBA0700B4D993 /* ChatVC.swift in Sources */,
+				3CC1273E2CDFBA0700B4D993 /* ChatListVC.swift in Sources */,
 				3CDF300B2C6A8FA00036A26E /* ContentVC.swift in Sources */,
 				3C22BA602C83B9630025633F /* ShareVC.swift in Sources */,
 				3C9607642CA193F600D472CA /* Post.swift in Sources */,

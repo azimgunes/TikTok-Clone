@@ -36,6 +36,8 @@ class HomeVC: UIViewController {
 
         tabBarController?.tabBar.barTintColor = .black 
         tabBarController?.tabBar.tintColor = .white
+        tabBarController?.tabBar.backgroundColor = .black
+
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTappedOutside(_:)))
                    self.view.addGestureRecognizer(tapGesture)

@@ -7,27 +7,28 @@
 
 import UIKit
 
-class MessageCell: UITableViewCell {
+class ChatListCell: UITableViewCell {
     
-    @IBOutlet weak var profileImage: UIImageView!
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    
     
     @IBOutlet weak var usernameLabel: UILabel!
     
+    
     @IBOutlet weak var messageLabel: UILabel!
     
-
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        profileImage.layer.cornerRadius = 25
     
-        // Initialization code
+        profileImageView.layer.cornerRadius = 25
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }
