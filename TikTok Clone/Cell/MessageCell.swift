@@ -9,7 +9,7 @@ import UIKit
 
 class MessageCell: UITableViewCell {
     
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var usernameLabel: UILabel!
     
@@ -19,7 +19,7 @@ class MessageCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        profileImage.layer.cornerRadius = 25
+        profileImageView.layer.cornerRadius = 25
     
         // Initialization code
     }
@@ -29,5 +29,6 @@ class MessageCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+   
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0RC-7W-iX5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
@@ -1915,7 +1915,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="messageLabel" destination="lT9-Ez-tzV" id="Fep-fx-1cW"/>
-                                            <outlet property="profileImage" destination="WIA-SO-ldP" id="cWJ-BF-6ic"/>
+                                            <outlet property="profileImageView" destination="WIA-SO-ldP" id="cWJ-BF-6ic"/>
                                             <outlet property="usernameLabel" destination="53b-3W-ksu" id="9CU-wx-WAY"/>
                                         </connections>
                                     </tableViewCell>
@@ -1938,13 +1938,18 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Send" titleAlignment="center">
                                     <fontDescription key="titleFontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="sendButtonTapped:" destination="0RC-7W-iX5" eventType="touchUpInside" id="6m3-S5-a7r"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="G71-pz-FtA"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="Lui-SJ-H48" id="qAk-5O-Gob"/>
+                        <outlet property="chatTableView" destination="Lui-SJ-H48" id="qAk-5O-Gob"/>
+                        <outlet property="messageTextField" destination="Mm6-C2-TWH" id="JXc-4Z-7LU"/>
+                        <outlet property="sendButton" destination="zxz-2g-dXJ" id="2Ea-ai-vy4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0e7-al-H0w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

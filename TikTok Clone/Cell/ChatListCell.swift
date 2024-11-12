@@ -23,12 +23,26 @@ class ChatListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     
-        profileImageView.layer.cornerRadius = 25
-    }
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+             profileImageView.clipsToBounds = true    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
     }
-
+    func configure(with user: ChatUser) {
+         usernameLabel.text = user.username
+        if let url = URL(string: user.profileImageUrl) {
+             // Profil resmini asenkron olarak yükleme (örn. URLSession veya bir kütüphane kullanabilirsiniz)
+             URLSession.shared.dataTask(with: url) { data, _, error in
+                 guard let data = data, error == nil else { return }
+                 DispatchQueue.main.async {
+                     self.profileImageView.image = UIImage(data: data)
+                 }
+             }.resume()
+         } else {
+             // Varsayılan bir profil resmi eklemek isterseniz
+             profileImageView.image = UIImage(named: "defaultProfileImage")
+         }
+     }
 }
