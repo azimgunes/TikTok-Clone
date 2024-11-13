@@ -66,6 +66,9 @@ extension ChatListVC: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
         let user = users[indexPath.row]
         cell.usernameLabel?.text = user.username
+        let url = URL(string: user.profileImageUrl)
+        cell.profileImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "default option"))
+     
         return cell
     }
     

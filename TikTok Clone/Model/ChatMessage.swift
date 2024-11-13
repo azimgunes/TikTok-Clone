@@ -11,8 +11,8 @@ import FirebaseFirestore
 
 struct ChatMessage {
     var text: String
-     var timestamp: Date
-     var senderId: String
-     var receiverId: String
+    var timestamp: Timestamp
+    var senderId: String
+    var receiverId: String
 }
 

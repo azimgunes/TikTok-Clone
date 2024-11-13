@@ -11,4 +11,5 @@ struct ChatUser {
     var uid: String
     var username: String
     var profileImageUrl: String
+
 }

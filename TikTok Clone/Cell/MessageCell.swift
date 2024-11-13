@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import SDWebImage
+import FirebaseAuth
+import FirebaseFirestore
 
 class MessageCell: UITableViewCell {
     
-    @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var usernameLabel: UILabel!
     
@@ -19,15 +21,11 @@ class MessageCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        profileImageView.layer.cornerRadius = 25
-    
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
    
