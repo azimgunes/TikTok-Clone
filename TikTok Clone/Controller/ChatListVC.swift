@@ -1,5 +1,5 @@
 //
-//  ChatVC.swift
+//  ChatListVC.swift
 //  TikTok Clone
 //
 //  Created by Azim Güneş on 9.11.2024.
@@ -12,30 +12,34 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class ChatListVC: UIViewController {
-
-
+    
+    
     @IBOutlet weak var tableView: UITableView!
-
+    
     
     
     var users = [ChatUser]()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+        fetchUsers()
+    }
+    
+    func setupView(){
         
         tableView.dataSource = self
         tableView.delegate = self
+        overrideUserInterfaceStyle = .light
         
         tabBarController?.tabBar.barTintColor =  .white
         tabBarController?.tabBar.tintColor = .black
         tabBarController?.tabBar.backgroundColor = .white
         
-
-        
-                
-                fetchUsers()
+        navigationController?.navigationBar.barTintColor = .white
     }
+    
     func fetchUsers() {
         let db = Firestore.firestore()
         db.collection("users").getDocuments { (snapshot, error) in
@@ -53,8 +57,8 @@ class ChatListVC: UIViewController {
             self.tableView.reloadData()
         }
     }
-
-
+    
+    
 }
 
 extension ChatListVC: UITableViewDataSource, UITableViewDelegate {
@@ -68,7 +72,7 @@ extension ChatListVC: UITableViewDataSource, UITableViewDelegate {
         cell.usernameLabel?.text = user.username
         let url = URL(string: user.profileImageUrl)
         cell.profileImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "default option"))
-     
+        
         return cell
     }
     
