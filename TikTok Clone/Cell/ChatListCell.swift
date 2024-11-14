@@ -17,19 +17,18 @@ class ChatListCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     
     
-    @IBOutlet weak var messageLabel: UILabel!
-    
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        profileImageView.layer.cornerRadius = 15
+        profileImageView.clipsToBounds = true
+    }
     
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-             profileImageView.clipsToBounds = true    }
     
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
 }

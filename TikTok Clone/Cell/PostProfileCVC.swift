@@ -24,8 +24,8 @@ class PostProfileCVC: UICollectionViewCell {
             updateView()
         }
     }
-
-
+    
+    
     
     func updateView(){
         guard let postThumbımage = post?.imageUrl else {return}
@@ -39,14 +39,14 @@ class PostProfileCVC: UICollectionViewCell {
         
         print("update view is working")
     }
-
     
-
+    
+    
     @objc func toDetail(){
         if let id = post?.postId {
             delegate?.toDetailVC(postId: id)
             
-          
+            
             print("ImageView clicked")
             print("selected postId: \(id)")
         }

@@ -28,6 +28,8 @@ class EditVC: UIViewController {
         setupView()
         observeData()
         overrideUserInterfaceStyle = .light
+        navigationController?.navigationBar.tintColor = .black
+        
         
         
     }

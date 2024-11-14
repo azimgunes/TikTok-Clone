@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExploreTableViewController: UITableViewController, UISearchResultsUpdating{
+class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
     
     //MARK: Properties
     var searchResults : [User] = []
@@ -23,6 +23,8 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
         
         fetchUser()
         setupSearch()
+        
+        navigationController?.navigationBar.tintColor = .black
         
         
     }

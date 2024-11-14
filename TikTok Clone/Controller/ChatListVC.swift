@@ -38,6 +38,7 @@ class ChatListVC: UIViewController {
         tabBarController?.tabBar.backgroundColor = .white
         
         navigationController?.navigationBar.barTintColor = .white
+        
     }
     
     func fetchUsers() {

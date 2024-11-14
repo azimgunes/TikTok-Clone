@@ -28,13 +28,10 @@ class ProfileVC: UIViewController {
         setupCollectionView()
         fetchUser()
         fetchAllPosts()
+        
         overrideUserInterfaceStyle = .light
-        
-        
         tabBarController?.tabBar.barTintColor =  .white
         tabBarController?.tabBar.tintColor = .black
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
