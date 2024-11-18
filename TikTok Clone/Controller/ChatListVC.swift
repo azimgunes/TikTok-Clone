@@ -11,7 +11,31 @@ import FirebaseStorage
 import FirebaseFirestore
 import FirebaseAuth
 
-class ChatListVC: UIViewController {
+class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return users.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
+        let user = users[indexPath.row]
+        cell.usernameLabel?.text = user.username
+        let url = URL(string: user.profileImageUrl)
+        cell.profileImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "default option"))
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedUser = users[indexPath.row]
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let chatVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
+            chatVC.selectedUser = selectedUser
+            navigationController?.pushViewController(chatVC, animated: true)
+        }
+    }
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -42,48 +66,43 @@ class ChatListVC: UIViewController {
     }
     
     func fetchUsers() {
+        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+        
         let db = Firestore.firestore()
-        db.collection("users").getDocuments { (snapshot, error) in
-            guard let documents = snapshot?.documents, error == nil else { return }
-            
-            for document in documents {
-                let data = document.data()
-                let user = ChatUser(
-                    uid: data["uid"] as! String,
-                    username: data["username"] as! String,
-                    profileImageUrl: data["profileImageUrl"] as? String ?? ""
-                )
-                self.users.append(user)
+        
+        
+        db.collection("messages")
+            .whereField("senderID", isEqualTo: currentUserID)
+            .addSnapshotListener { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else { return }
+                
+                var usersWithMessages = Set<String>()
+                
+                for document in documents {
+                    let data = document.data()
+                    if let receiverID = data["receiverID"] as? String {
+                        usersWithMessages.insert(receiverID)
+                    }
+                }
+                let db = Firestore.firestore()
+                db.collection("users") .whereField("uid", in: Array(usersWithMessages)).getDocuments { (snapshot, error) in
+                    guard let documents = snapshot?.documents, error == nil else { return }
+                    
+                    for document in documents {
+                        let data = document.data()
+                        let user = ChatUser(
+                            uid: data["uid"] as! String,
+                            username: data["username"] as! String,
+                            profileImageUrl: data["profileImageUrl"] as? String ?? ""
+                        )
+                        self.users.append(user)
+                    }
+                    self.users = self.users
+                    self.tableView.reloadData()
+                }
             }
-            self.tableView.reloadData()
-        }
-    }
-    
-    
-}
 
-extension ChatListVC: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatListCell", for: indexPath) as! ChatListCell
-        let user = users[indexPath.row]
-        cell.usernameLabel?.text = user.username
-        let url = URL(string: user.profileImageUrl)
-        cell.profileImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "default option"))
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedUser = users[indexPath.row]
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let chatVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
-            chatVC.selectedUser = selectedUser
-            navigationController?.pushViewController(chatVC, animated: true)
-        }
-    }
 }
