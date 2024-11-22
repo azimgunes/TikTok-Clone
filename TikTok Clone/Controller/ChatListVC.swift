@@ -69,40 +69,56 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         guard let currentUserID = Auth.auth().currentUser?.uid else { return }
         
         let db = Firestore.firestore()
-        
-        
         db.collection("messages")
             .whereField("senderID", isEqualTo: currentUserID)
-            .addSnapshotListener { snapshot, error in
-                guard let documents = snapshot?.documents, error == nil else { return }
+            .addSnapshotListener { senderSnapshot, error in
+                guard let senderDocs = senderSnapshot?.documents, error == nil else { return }
                 
                 var usersWithMessages = Set<String>()
                 
-                for document in documents {
+                for document in senderDocs {
                     let data = document.data()
                     if let receiverID = data["receiverID"] as? String {
                         usersWithMessages.insert(receiverID)
                     }
                 }
-                let db = Firestore.firestore()
-                db.collection("users") .whereField("uid", in: Array(usersWithMessages)).getDocuments { (snapshot, error) in
-                    guard let documents = snapshot?.documents, error == nil else { return }
-                    
-                    for document in documents {
-                        let data = document.data()
-                        let user = ChatUser(
-                            uid: data["uid"] as! String,
-                            username: data["username"] as! String,
-                            profileImageUrl: data["profileImageUrl"] as? String ?? ""
-                        )
-                        self.users.append(user)
+                
+                db.collection("messages")
+                    .whereField("receiverID", isEqualTo: currentUserID)
+                    .addSnapshotListener { receiverSnapshot, error in
+                        guard let receiverDocs = receiverSnapshot?.documents, error == nil else { return }
+                        
+                        for document in receiverDocs {
+                            let data = document.data()
+                            if let senderID = data["senderID"] as? String {
+                                usersWithMessages.insert(senderID)
+                            }
+                        }
+                        
+                        db.collection("users")
+                            .whereField("uid", in: Array(usersWithMessages))
+                            .getDocuments { (snapshot, error) in
+                                guard let documents = snapshot?.documents, error == nil else { return }
+                                
+                                self.users = []
+                                
+                                for document in documents {
+                                    let data = document.data()
+                                    let user = ChatUser(
+                                        uid: data["uid"] as! String,
+                                        username: data["username"] as! String,
+                                        profileImageUrl: data["profileImageUrl"] as? String ?? ""
+                                    )
+                                    self.users.append(user)
+                                }
+                                
+                                DispatchQueue.main.async {
+                                    self.tableView.reloadData()
+                                }
+                            }
                     }
-                    self.users = self.users
-                    self.tableView.reloadData()
-                }
             }
-
-        
     }
+
     
 }
