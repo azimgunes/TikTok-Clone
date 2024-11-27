@@ -32,7 +32,7 @@ class MessageCell: UITableViewCell {
     
     func configure(with message: ChatMessage, currentUserID: String, selectedUser: ChatUser) {
         if message.senderId == currentUserID {
-            senderMessage.text = "" + message.text + " "
+            senderMessage.text = "  " + message.text + "   "
             senderUsername.text = " " + "You" +  " "
             senderUsername.isHidden = false
             senderMessage.isHidden = false
@@ -44,7 +44,7 @@ class MessageCell: UITableViewCell {
             receiverUsername.isHidden = true
             receiverMessage.isHidden = true
         } else {
-            receiverMessage.text = " " + message.text + "    "
+            receiverMessage.text = "    " + message.text + "        "
             receiverUsername.text = "    " + selectedUser.username + "    "
             receiverUsername.isHidden = false
             receiverMessage.isHidden = false
@@ -57,14 +57,14 @@ class MessageCell: UITableViewCell {
     }
     
     func setupCell(){
-        receiverMessage.layer.borderColor = UIColor.red.cgColor
-        receiverMessage.layer.borderWidth = 0.3
+        receiverMessage.layer.borderColor = UIColor.systemBlue.cgColor
+        receiverMessage.layer.borderWidth = 0.2
         receiverMessage.adjustsFontSizeToFitWidth = true
         receiverMessage.layer.cornerRadius = 7
         receiverMessage.layer.masksToBounds = true
         
         senderMessage.layer.borderColor = UIColor.red.cgColor
-        senderMessage.layer.borderWidth = 0.3
+        senderMessage.layer.borderWidth = 0.2
         senderMessage.adjustsFontSizeToFitWidth = true
         senderMessage.layer.cornerRadius = 7
         senderMessage.layer.masksToBounds = true

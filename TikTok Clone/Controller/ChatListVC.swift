@@ -64,6 +64,7 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         navigationController?.navigationBar.barTintColor = .white
         
     }
+
     
     func fetchUsers() {
            guard let currentUserID = Auth.auth().currentUser?.uid else { return }
@@ -94,6 +95,8 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                                    usersWithMessages.insert(senderID)
                                }
                            }
+                           
+                           usersWithMessages.remove(currentUserID)
                            
                            db.collection("users")
                                .whereField("uid", in: Array(usersWithMessages))
