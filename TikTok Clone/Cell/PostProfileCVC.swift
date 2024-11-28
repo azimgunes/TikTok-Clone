@@ -38,6 +38,8 @@ class PostProfileCVC: UICollectionViewCell {
         imageView.isUserInteractionEnabled = true
         
         print("update view is working")
+        
+ 
     }
     
     

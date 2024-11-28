@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+
 
 class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
     
@@ -56,14 +59,17 @@ class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
     
     //MARK: DATA Fetching
     
-    func fetchUser(){
+    func fetchUser() {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        
         Api.User.observeUsers { user in
-            
-            self.users.append(user)
-            self.tableView.reloadData()
-            
+            if user.uid != currentUserId {
+                self.users.append(user)
+                self.tableView.reloadData()
+            }
         }
     }
+
     
     //MARK: UI Searc Result Process
     func updateSearchResults(for searchController: UISearchController) {

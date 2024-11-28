@@ -44,6 +44,7 @@ class UserVC: UIViewController {
         db.collection("Posts").whereField("uid", isEqualTo: userId).addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 print("Error fetching posts: \(error?.localizedDescription ?? "Unknown error")")
+                
                 return
             }
             
@@ -66,6 +67,21 @@ class UserVC: UIViewController {
             self.collectionView.reloadData()
         }
     }
+    
+    @IBAction func messageButtonTapped(_ sender: UIBarButtonItem) {
+        guard let currentUser = user else { return }
+        
+        let chatUser = ChatUser(uid: currentUser.uid ?? "",
+                                username: currentUser.username ?? "",
+                                profileImageUrl: currentUser.profileImageUrl ?? "")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let chatVC = storyboard.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
+            chatVC.selectedUser = chatUser
+            navigationController?.pushViewController(chatVC, animated: true)
+        }
+    }
+    
     
     // MARK: - Prepare for Segue
     

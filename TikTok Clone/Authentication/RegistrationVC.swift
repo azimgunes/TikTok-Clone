@@ -19,15 +19,15 @@ class RegistrationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        overrideUserInterfaceStyle = .light
-        self.navigationController?.navigationBar.tintColor = .black
+ 
         setupView()
     }
     
     //MARK: Setup
     
     func setupView(){
-  
+        overrideUserInterfaceStyle = .light
+        self.navigationController?.navigationBar.tintColor = .black
         signupButton.layer.cornerRadius = 15
         loginButton.layer.cornerRadius = 15
         

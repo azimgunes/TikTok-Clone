@@ -22,7 +22,7 @@ class ChatListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        profileImageView.layer.cornerRadius = 15
+        profileImageView.layer.cornerRadius = 25.7
         profileImageView.clipsToBounds = true
     }
     

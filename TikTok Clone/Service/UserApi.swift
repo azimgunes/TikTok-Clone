@@ -86,6 +86,7 @@ class UserApi: SignInVC {
                 let data = document.data()
                 let user = User.transformUser(dict: data, key: document.documentID)
                 completion(user)
+                
             }
         }
     }
@@ -111,7 +112,6 @@ class UserApi: SignInVC {
         let db = Firestore.firestore()
             let storage = Storage.storage()
 
-            // Firestore'da kullanıcının users koleksiyonundaki belgesini sil
             db.collection("users").document(uid).delete { error in
                 if let error = error {
                     print("Error removing user document from users collection: \(error.localizedDescription)")
@@ -120,7 +120,6 @@ class UserApi: SignInVC {
                 }
             }
 
-            // Kullanıcının Posts koleksiyonundaki tüm belgeleri sil
             db.collection("Posts").whereField("uid", isEqualTo: uid).getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error fetching user's posts: \(error.localizedDescription)")
