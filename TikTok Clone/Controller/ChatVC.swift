@@ -26,9 +26,10 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         setupView()
         hideKeyboard()
         fetchMessages()
-
+        vcSettings()
         title = selectedUser?.username
-     
+        
+        navigationController?.navigationBar.tintColor = .black
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -117,13 +118,6 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         chatTableView.delegate = self
         
         view.backgroundColor = .white
-        overrideUserInterfaceStyle = .light
-        
-        tabBarController?.tabBar.barTintColor =  .white
-        tabBarController?.tabBar.tintColor = .black
-        tabBarController?.tabBar.backgroundColor = .white
-        
-        navigationController?.navigationBar.barTintColor = .white
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)

@@ -49,19 +49,14 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         super.viewDidLoad()
         setupView()
         fetchUsers()
+        vcSettings()
     }
     
     func setupView(){
         
         tableView.dataSource = self
         tableView.delegate = self
-        overrideUserInterfaceStyle = .light
-        
-        tabBarController?.tabBar.barTintColor =  .white
-        tabBarController?.tabBar.tintColor = .black
-        tabBarController?.tabBar.backgroundColor = .white
-        
-        navigationController?.navigationBar.barTintColor = .white
+  
         
     }
 

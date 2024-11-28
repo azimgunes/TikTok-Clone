@@ -29,5 +29,15 @@ extension UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    func vcSettings(){
+        overrideUserInterfaceStyle = .light
+        
+        tabBarController?.tabBar.barTintColor =  .white
+        tabBarController?.tabBar.tintColor = .black
+        tabBarController?.tabBar.backgroundColor = .white
+        
+        navigationController?.navigationBar.barTintColor = .white
+
+    }
     
     }

@@ -23,12 +23,10 @@ class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSetup()
-        
+        vcSettings()
         fetchUser()
         setupSearch()
-        
-        navigationController?.navigationBar.tintColor = .black
-        
+                
         
     }
     
@@ -47,6 +45,8 @@ class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
         overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         tableView.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .black
+
         
         let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
         noDataLabel.text = "Search for users"

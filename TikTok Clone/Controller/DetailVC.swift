@@ -66,6 +66,9 @@ class DetailVC: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        
+        navigationController?.navigationBar.tintColor = .black
+
     }
     
     //MARK: DATA

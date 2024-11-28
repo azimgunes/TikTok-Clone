@@ -29,9 +29,7 @@ class ProfileVC: UIViewController {
         fetchUser()
         fetchAllPosts()
         
-        overrideUserInterfaceStyle = .light
-        tabBarController?.tabBar.barTintColor =  .white
-        tabBarController?.tabBar.tintColor = .black
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +41,11 @@ class ProfileVC: UIViewController {
     func setupCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        vcSettings()
+        
+        navigationController?.navigationBar.tintColor = .black
+
     }
     
     //MARK: DATA

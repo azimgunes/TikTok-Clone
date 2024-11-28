@@ -30,7 +30,6 @@ class ProfileHeaderCRV: UICollectionReusableView {
         profileImage.layer.borderColor = UIColor.lightGray.cgColor
         editButton.layer.borderColor = UIColor.lightGray.cgColor
         editButton.layer.borderWidth = 0.8
-        editButton.backgroundColor = .white
         editButton.layer.cornerRadius = 5
         collectButton.layer.borderColor = UIColor.lightGray.cgColor
         collectButton.layer.borderWidth = 0.8

@@ -29,13 +29,14 @@ class UserVC: UIViewController {
         setupCollectionView()
         fetchUser()
         fetchPost()
-        overrideUserInterfaceStyle = .light
-        
+        vcSettings()
     }
     //MARK: Setup Methods
     func setupCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        navigationController?.navigationBar.barTintColor = .black
     }
     //MARK: DATA
     
