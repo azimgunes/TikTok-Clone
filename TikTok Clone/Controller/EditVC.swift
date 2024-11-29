@@ -19,6 +19,11 @@ class EditVC: UIViewController {
     
     @IBOutlet weak var signOutButton: UIButton!
     
+    
+    @IBOutlet weak var logOutButton: UIButton!
+    
+    
+    
     //MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -37,9 +42,12 @@ class EditVC: UIViewController {
     
     //MARK: Setup
     func setupView(){
-        profileImage.layer.cornerRadius = 50
+        profileImage.layer.cornerRadius = 70
+        profileImage.layer.borderWidth = 2
+        profileImage.layer.borderColor = UIColor(#colorLiteral(red: 1, green: 0.1987546384, blue: 0.3715653121, alpha: 0.887598303)).cgColor
         signOutButton.layer.cornerRadius = 35/2
         profileImage.contentMode = .scaleAspectFill
+        logOutButton.layer.cornerRadius = 15
         
     }
     
@@ -55,22 +63,7 @@ class EditVC: UIViewController {
     }
     
     //MARK: Action Methods
-    @IBAction func signOutButton(_ sender: Any) {
-        Api.User.logOut()
-        
-    }
-    
-    
-    @IBAction func deleteAccountButton(_ sender: Any) {
-        
-        
-        Api.User.deleteAccount()
-        Api.User.logOut()
-        
-        
-    }
-    
-    @IBAction func saveButton(_ sender: Any) {
+    @IBAction func SaveButtonTapped(_ sender: Any) {
         var dict = Dictionary<String, Any>()
         if let username = usernameTextField.text, !username.isEmpty {
             dict["username"] = username
@@ -84,6 +77,25 @@ class EditVC: UIViewController {
             print("Error: \(errorMessage)")
         }
         
+    }
+    
+    
+    @IBAction func deleteAccountButton(_ sender: Any) {
+        
+        
+        Api.User.deleteAccount()
+        Api.User.logOut()
+        
+        
+    }
+    
+    @IBAction func signOutTapped(_ sender: Any) {
+      print("NIL!")
+    }
+    
+    
+    @IBAction func logOutButtonTapped(_ sender: UIButton) {
+        Api.User.logOut()
     }
     
 }
