@@ -9,8 +9,9 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    //
+class ChatVC: UIViewController {
+    
+    //MARK: Properties/Outlets
     
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var messageTextField: UITextField!
@@ -19,7 +20,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var selectedUser: ChatUser?
     var messages = [ChatMessage]()
     
-    //
+    //MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +28,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         hideKeyboard()
         fetchMessages()
         vcSettings()
-        title = selectedUser?.username
         
-        navigationController?.navigationBar.tintColor = .black
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -39,6 +38,25 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    //MARK: Setup Methods
+    
+    func setupView(){
+        
+        title = selectedUser?.username
+        
+        navigationController?.navigationBar.tintColor = .black
+        
+        chatTableView.dataSource = self
+        chatTableView.delegate = self
+        
+        view.backgroundColor = .white
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight = keyboardSize.height
@@ -46,7 +64,11 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    //
+    @objc func keyboardWillHide(_ notification: Notification) {
+        self.view.frame.origin.y = 0
+    }
+    
+    //MARK: Data & Service
     
     func fetchMessages() {
         guard let currentUserID = Auth.auth().currentUser?.uid,
@@ -85,7 +107,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     
-    
+    //MARK: Actions
     
     @IBAction func sendButtonTapped(_ sender: UIButton) {
         guard let text = messageTextField.text, !text.isEmpty else { return }
@@ -111,24 +133,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    //
-    
-    func setupView(){
-        chatTableView.dataSource = self
-        chatTableView.delegate = self
-        
-        view.backgroundColor = .white
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
     
     
-    @objc func keyboardWillHide(_ notification: Notification) {
-        self.view.frame.origin.y = 0
-    }
-    
-    //
+}
+
+//MARK: UITableViewDataSource, UITableViewDelegate
+
+extension ChatVC: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }

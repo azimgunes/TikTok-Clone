@@ -47,7 +47,7 @@ class PreviewVC: UIViewController {
         print("Clip count: \(recordedClips.count)")
         
         setupTapGesture()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,12 +91,12 @@ class PreviewVC: UIViewController {
     }
     
     @objc func handleTapOutsideVideo(_ gesture: UITapGestureRecognizer) {
-           let tapLocation = gesture.location(in: self.view)
-           
-           if !thumbImageView.frame.contains(tapLocation) {
-               stopVideo()
-           }
-       }
+        let tapLocation = gesture.location(in: self.view)
+        
+        if !thumbImageView.frame.contains(tapLocation) {
+            stopVideo()
+        }
+    }
     
     func startPlayFirstClip(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -146,7 +146,7 @@ class PreviewVC: UIViewController {
     }
     
     // MARK: - Stop Video
-
+    
     func stopVideo() {
         player.pause()
         player.replaceCurrentItem(with: nil)

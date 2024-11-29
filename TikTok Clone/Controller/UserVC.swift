@@ -31,6 +31,7 @@ class UserVC: UIViewController {
         fetchPost()
         vcSettings()
     }
+    
     //MARK: Setup Methods
     func setupCollectionView(){
         collectionView.delegate = self
@@ -68,6 +69,8 @@ class UserVC: UIViewController {
             self.collectionView.reloadData()
         }
     }
+    
+    //MARK: Actions 
     
     @IBAction func messageButtonTapped(_ sender: UIBarButtonItem) {
         guard let currentUser = user else { return }

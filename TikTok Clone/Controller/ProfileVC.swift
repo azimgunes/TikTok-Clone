@@ -28,8 +28,9 @@ class ProfileVC: UIViewController {
         setupCollectionView()
         fetchUser()
         fetchAllPosts()
+        vcSettings()
         
-      
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,11 +42,8 @@ class ProfileVC: UIViewController {
     func setupCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        vcSettings()
-        
         navigationController?.navigationBar.tintColor = .black
-
+        
     }
     
     //MARK: DATA

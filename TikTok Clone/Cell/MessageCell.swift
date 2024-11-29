@@ -78,5 +78,5 @@ class MessageCell: UITableViewCell {
         senderUsername.layer.masksToBounds = true
         senderUsername.layer.cornerRadius = 7
     }
-
+    
 }

@@ -13,7 +13,7 @@ class ProgressView : UIView {
         self.width = width
         super.init(frame: CGRect.zero)
         DrawPaths()
-
+        
     }
     
     required init?(coder: NSCoder) {
@@ -34,7 +34,7 @@ class ProgressView : UIView {
     }()
     
     fileprivate let trackLayer: CAShapeLayer = {
-       let trackerLayer = CAShapeLayer()
+        let trackerLayer = CAShapeLayer()
         trackerLayer.strokeColor = UIColor.darkGray.withAlphaComponent(0.2).cgColor
         trackerLayer.lineWidth = 4
         trackerLayer.strokeEnd = 1

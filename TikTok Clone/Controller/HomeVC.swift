@@ -33,17 +33,17 @@ class HomeVC: UIViewController {
         setupCollectionView()
         loadPosts()
         
-
+        
         tabBarController?.tabBar.barTintColor = .black 
         tabBarController?.tabBar.tintColor = .white
         tabBarController?.tabBar.backgroundColor = .black
-
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTappedOutside(_:)))
-                   self.view.addGestureRecognizer(tapGesture)
+        self.view.addGestureRecognizer(tapGesture)
     }
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -63,13 +63,13 @@ class HomeVC: UIViewController {
     //MARK: Actions
     
     @objc func viewTappedOutside(_ gesture: UITapGestureRecognizer) {
-            let tapLocation = gesture.location(in: self.view)
-            if let tappedView = self.view.hitTest(tapLocation, with: nil), tappedView.isDescendant(of: collectionView) {
-            } else {
-                activeVideoCell?.stopVideo()
-                activeVideoCell = nil
-            }
+        let tapLocation = gesture.location(in: self.view)
+        if let tappedView = self.view.hitTest(tapLocation, with: nil), tappedView.isDescendant(of: collectionView) {
+        } else {
+            activeVideoCell?.stopVideo()
+            activeVideoCell = nil
         }
+    }
     
     
     // MARK: - Setup Methods
@@ -91,7 +91,7 @@ class HomeVC: UIViewController {
         return layout
     }
     
-    // MARK: - Post Loading
+    // MARK: - DATA & SERVICE
     
     
     func loadPosts(){
@@ -117,6 +117,9 @@ class HomeVC: UIViewController {
             completed()
         }
     }
+    
+    //MARK: Prepare For Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "fromHomeToUserVC" {
@@ -165,20 +168,20 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? HomeCollectionViewCell {
-                activeVideoCell?.stopVideo()
-                
-                activeVideoCell = cell
-                cell.playVideo()
-            }
+            activeVideoCell?.stopVideo()
+            
+            activeVideoCell = cell
+            cell.playVideo()
+        }
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? HomeCollectionViewCell {
-              cell.stopVideo()
-              
-              if activeVideoCell == cell {
-                  activeVideoCell = nil
-              }
-          }
+            cell.stopVideo()
+            
+            if activeVideoCell == cell {
+                activeVideoCell = nil
+            }
+        }
         
     }
 }
@@ -197,6 +200,7 @@ extension HomeVC: UIScrollViewDelegate {
         }
     }
 }
+//MARK: HomeCollectionViewCellDelegate
 
 extension HomeVC: HomeCollectionViewCellDelegate {
     func toUserVC(userId: String) {

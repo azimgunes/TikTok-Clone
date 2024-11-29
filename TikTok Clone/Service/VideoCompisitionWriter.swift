@@ -29,12 +29,12 @@ class VideoCompisitionWriter: NSObject {
         exportSession = AVAssetExportSession(asset: mixCompisition, presetName: AVAssetExportPresetHighestQuality)
         exportSession?.outputURL = outputURL
         exportSession?.shouldOptimizeForNetworkUse = true
-    
+        
         exportSession?.outputFileType = AVFileType.mp4
         
         var exportProgressBarTimer = Timer()
         guard let exportSessionUnwrapped = exportSession else { exportProgressBarTimer.invalidate()
-        return
+            return
         }
         exportProgressBarTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { timer in
             let progress = Float((exportSessionUnwrapped.progress));

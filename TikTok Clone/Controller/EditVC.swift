@@ -34,7 +34,7 @@ class EditVC: UIViewController {
         observeData()
         overrideUserInterfaceStyle = .light
         navigationController?.navigationBar.tintColor = .black
-     
+        
         
         
         
@@ -81,16 +81,30 @@ class EditVC: UIViewController {
     
     
     @IBAction func deleteAccountButton(_ sender: Any) {
+        let alert = UIAlertController(title: "Oppss!!", message: "Make sure you wanna delete your account.", preferredStyle: UIAlertController.Style.alert)
+        let firstButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.deleteAccount()
+        }
+        let secondButton = UIAlertAction(title: "Cancel", style: .default) { _ in
+            self.dismiss(animated: true)
+        }
+        alert.addAction(firstButton)
+        alert.addAction(secondButton
+        )
+        self.present(alert, animated: true, completion: nil)
         
-        
-        Api.User.deleteAccount()
-        Api.User.logOut()
+  
         
         
     }
     
+    func deleteAccount() {
+        Api.User.deleteAccount()
+        Api.User.logOut()
+    }
+    
     @IBAction func signOutTapped(_ sender: Any) {
-      print("NIL!")
+        print("NIL!")
     }
     
     

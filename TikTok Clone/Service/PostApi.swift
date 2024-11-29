@@ -113,14 +113,14 @@ class PostApi {
                 print("Error fetching post: \(error.localizedDescription)")
                 return
             }
-
+            
             guard let document = documentSnapshot else { return }
             let dict = document.data() ?? [:]
             let newPost = Post.transformPostVideo(dict: dict, key: document.documentID)
             completion(newPost)
         }
     }
-
+    
     
     func observeFeedPost(completion: @escaping (Post) -> Void) {
         let db = Firestore.firestore()
@@ -140,7 +140,7 @@ class PostApi {
             }
         }
     }
-
+    
 }
 
 
@@ -152,7 +152,7 @@ extension UIImageView {
         guard let string = urlString else {return}
         
         guard let url = URL(string: string) else {return}
-
+        
         self.sd_setImage(with: url) { image, error, type, url in
             if onSuc != nil, error == nil {
                 onSuc!(image!)

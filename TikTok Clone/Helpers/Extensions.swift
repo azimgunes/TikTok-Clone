@@ -23,7 +23,7 @@ extension UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
-
+    
     func showTabBarAndNavigationBar() {
         self.tabBarController?.tabBar.isHidden = false
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -37,7 +37,7 @@ extension UIViewController {
         tabBarController?.tabBar.backgroundColor = .white
         
         navigationController?.navigationBar.barTintColor = .white
-
+        
     }
     
-    }
+}

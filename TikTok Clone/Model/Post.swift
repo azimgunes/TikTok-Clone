@@ -31,7 +31,7 @@ class Post {
         
         let creationDouble = dict["creationDate"] as? Double ?? 0
         post.creationDate = Date(timeIntervalSince1970: creationDouble)
-
+        
         return post
     }
 }

@@ -26,7 +26,7 @@ class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
         vcSettings()
         fetchUser()
         setupSearch()
-                
+        
         
     }
     
@@ -46,7 +46,7 @@ class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
         view.backgroundColor = .white
         tableView.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .black
-
+        
         
         let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
         noDataLabel.text = "Search for users"
@@ -69,7 +69,7 @@ class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
             }
         }
     }
-
+    
     
     //MARK: UI Searc Result Process
     func updateSearchResults(for searchController: UISearchController) {

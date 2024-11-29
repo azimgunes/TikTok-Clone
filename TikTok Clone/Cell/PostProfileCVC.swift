@@ -39,7 +39,7 @@ class PostProfileCVC: UICollectionViewCell {
         
         print("update view is working")
         
- 
+        
     }
     
     

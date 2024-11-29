@@ -39,40 +39,40 @@ class UserApi: SignInVC {
                 print("ERROR: \(error!.localizedDescription)")
                 return
             }
-                if let authData = result {
-                    print("USER: \(authData.user.email!)")
-                    var dictionary: Dictionary<String, Any> = [
-                        
-                        "uid": authData.user.uid,
-                        "email": authData.user.email!,
-                        "username": username,
-                        "profileImageUrl": "",
-                        "status": "",
-                    ]
+            if let authData = result {
+                print("USER: \(authData.user.email!)")
+                var dictionary: Dictionary<String, Any> = [
                     
-                    let storageRef = Storage.storage().reference(forURL: "gs://tiktok-clone-12238.appspot.com")
-                    let storageProfile = storageRef.child("profile").child(authData.user.uid)
-                    
-                    let metaData = StorageMetadata()
-                    metaData.contentType = "image/jpeg"
-                    
-                    StorageService.savePhoto(username: username, uid: authData.user.uid, data: imageData, metadata: metaData, storageProfileRef: storageProfile, dict: dictionary) {
-                        onSuc()
-                    }onErr: { errorMesssage in
-                        onErr(errorMesssage)
-                    }
-
-                    
-                    guard let userUid = result?.user.uid else {return}
-
-                    Firestore.firestore().collection("users").document(userUid).setData(dictionary)
-                    print("\(authData.user.email!) sended to Firestore.")
-                    
+                    "uid": authData.user.uid,
+                    "email": authData.user.email!,
+                    "username": username,
+                    "profileImageUrl": "",
+                    "status": "",
+                ]
+                
+                let storageRef = Storage.storage().reference(forURL: "gs://tiktok-clone-12238.appspot.com")
+                let storageProfile = storageRef.child("profile").child(authData.user.uid)
+                
+                let metaData = StorageMetadata()
+                metaData.contentType = "image/jpeg"
+                
+                StorageService.savePhoto(username: username, uid: authData.user.uid, data: imageData, metadata: metaData, storageProfileRef: storageProfile, dict: dictionary) {
+                    onSuc()
+                }onErr: { errorMesssage in
+                    onErr(errorMesssage)
                 }
+                
+                
+                guard let userUid = result?.user.uid else {return}
+                
+                Firestore.firestore().collection("users").document(userUid).setData(dictionary)
+                print("\(authData.user.email!) sended to Firestore.")
+                
+            }
             
         }
     }
-
+    
     func observeUsers(completion: @escaping (User) -> Void) {
         let db = Firestore.firestore()
         
@@ -90,7 +90,7 @@ class UserApi: SignInVC {
             }
         }
     }
-
+    
     func saveUserProfile(dict: [String: Any], onSuc: @escaping() -> Void, onErr: @escaping(_ errorMessage: String) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -108,91 +108,91 @@ class UserApi: SignInVC {
     }
     func deleteAccount() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-
+        
         let db = Firestore.firestore()
-            let storage = Storage.storage()
-
-            db.collection("users").document(uid).delete { error in
-                if let error = error {
-                    print("Error removing user document from users collection: \(error.localizedDescription)")
-                } else {
-                    print("User document successfully removed from users collection!")
-                }
+        let storage = Storage.storage()
+        
+        db.collection("users").document(uid).delete { error in
+            if let error = error {
+                print("Error removing user document from users collection: \(error.localizedDescription)")
+            } else {
+                print("User document successfully removed from users collection!")
             }
-
-            db.collection("Posts").whereField("uid", isEqualTo: uid).getDocuments { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching user's posts: \(error.localizedDescription)")
-                } else {
-                    guard let documents = snapshot?.documents else { return }
-                    for document in documents {
-                        document.reference.delete { error in
-                            if let error = error {
-                                print("Error deleting post: \(error.localizedDescription)")
-                            } else {
-                                print("Post successfully deleted")
-                            }
+        }
+        
+        db.collection("Posts").whereField("uid", isEqualTo: uid).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching user's posts: \(error.localizedDescription)")
+            } else {
+                guard let documents = snapshot?.documents else { return }
+                for document in documents {
+                    document.reference.delete { error in
+                        if let error = error {
+                            print("Error deleting post: \(error.localizedDescription)")
+                        } else {
+                            print("Post successfully deleted")
                         }
                     }
                 }
             }
-
-            
-
-            Auth.auth().currentUser?.delete { error in
-                if let error = error {
-                    print("Error deleting user from Auth: \(error.localizedDescription)")
-                } else {
-                    print("User successfully deleted from Auth")
-                }
+        }
+        
+        
+        
+        Auth.auth().currentUser?.delete { error in
+            if let error = error {
+                print("Error deleting user from Auth: \(error.localizedDescription)")
+            } else {
+                print("User successfully deleted from Auth")
             }
-
-            let storageRef = storage.reference()
-
-            let profileRef = storageRef.child("profile").child(uid)
-            profileRef.delete { error in
-                if let error = error {
-                    print("Error deleting profile image: \(error.localizedDescription)")
-                } else {
-                    print("Profile image successfully deleted")
-                }
+        }
+        
+        let storageRef = storage.reference()
+        
+        let profileRef = storageRef.child("profile").child(uid)
+        profileRef.delete { error in
+            if let error = error {
+                print("Error deleting profile image: \(error.localizedDescription)")
+            } else {
+                print("Profile image successfully deleted")
             }
-
-            let postsRef = storageRef.child("posts").child(uid)
-            postsRef.listAll { (result, error) in
-                if let error = error {
-                    print("Error listing posts: \(error.localizedDescription)")
-                } else {
-                    for item in result!.items {
-                        item.delete { error in
-                            if let error = error {
-                                print("Error deleting post file: \(error.localizedDescription)")
-                            } else {
-                                print("Post file successfully deleted")
-                            }
+        }
+        
+        let postsRef = storageRef.child("posts").child(uid)
+        postsRef.listAll { (result, error) in
+            if let error = error {
+                print("Error listing posts: \(error.localizedDescription)")
+            } else {
+                for item in result!.items {
+                    item.delete { error in
+                        if let error = error {
+                            print("Error deleting post file: \(error.localizedDescription)")
+                        } else {
+                            print("Post file successfully deleted")
                         }
                     }
                 }
             }
-
-            let postImagesRef = storageRef.child("post_images").child(uid)
-            postImagesRef.listAll { (result, error) in
-                if let error = error {
-                    print("Error listing post images: \(error.localizedDescription)")
-                } else {
-                    for item in result!.items {
-                        item.delete { error in
-                            if let error = error {
-                                print("Error deleting post image: \(error.localizedDescription)")
-                            } else {
-                                print("Post image file successfully deleted")
-                            }
+        }
+        
+        let postImagesRef = storageRef.child("post_images").child(uid)
+        postImagesRef.listAll { (result, error) in
+            if let error = error {
+                print("Error listing post images: \(error.localizedDescription)")
+            } else {
+                for item in result!.items {
+                    item.delete { error in
+                        if let error = error {
+                            print("Error deleting post image: \(error.localizedDescription)")
+                        } else {
+                            print("Post image file successfully deleted")
                         }
                     }
                 }
             }
+        }
     }
-
+    
     
     func observeUser(withId uid: String, completion: @escaping (User) -> Void) {
         Firestore.firestore().collection("users").document(uid).getDocument { (document, error) in
@@ -209,9 +209,9 @@ class UserApi: SignInVC {
             let user = User.transformUser(dict: dict, key: document.documentID)
             completion(user)
         }
-
+        
     }
-
+    
     
     func observeProfileUser(completion: @escaping (User) -> Void){
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -230,11 +230,11 @@ class UserApi: SignInVC {
             let user = User.transformUser(dict: dict, key: document.documentID)
             completion(user)
         }
-
-
-            }
         
-
+        
+    }
+    
+    
     func logOut(){
         do {
             try Auth.auth().signOut()
@@ -247,6 +247,6 @@ class UserApi: SignInVC {
             sceneDelegate.configInitialVC()
         }
     }
-    }
+}
 
 

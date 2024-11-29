@@ -265,9 +265,9 @@
 			isa = PBXGroup;
 			children = (
 				3C9607652CA1961800D472CA /* User.swift */,
+				3C9607632CA193F600D472CA /* Post.swift */,
 				3C0DC0DF2CE35AA200E2C482 /* ChatUser.swift */,
 				3C0DC0E12CE35ADE00E2C482 /* ChatMessage.swift */,
-				3C9607632CA193F600D472CA /* Post.swift */,
 				3CD741632C721EF400B0AB38 /* Videos.swift */,
 			);
 			path = Model;
