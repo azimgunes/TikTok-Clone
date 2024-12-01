@@ -33,8 +33,7 @@ class HomeVC: UIViewController {
         setupCollectionView()
         loadPosts()
         
-        
-        tabBarController?.tabBar.barTintColor = .black 
+        tabBarController?.tabBar.barTintColor = .black
         tabBarController?.tabBar.tintColor = .white
         tabBarController?.tabBar.backgroundColor = .black
         
@@ -42,6 +41,7 @@ class HomeVC: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTappedOutside(_:)))
         self.view.addGestureRecognizer(tapGesture)
     }
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,12 +105,15 @@ class HomeVC: UIViewController {
                     return post1.creationDate! > post2.creationDate!
                 }
                 
-                if self.posts.count == self.users.count {  
-                    self.collectionView.reloadData()
+                if self.posts.count == self.users.count {
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
                 }
             }
         }
     }
+    
     func fetchUser(uid: String, completed: @escaping() -> Void ){
         Api.User.observeUser(withId: uid) { user in
             self.users.append(user)
@@ -129,6 +132,7 @@ class HomeVC: UIViewController {
         }
         
     }
+    
     
 }
 
@@ -177,7 +181,6 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? HomeCollectionViewCell {
             cell.stopVideo()
-            
             if activeVideoCell == cell {
                 activeVideoCell = nil
             }
@@ -191,9 +194,9 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
 
 extension HomeVC: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if let visibleIndexPath = collectionView.indexPathsForVisibleItems.first,
+        let visibleIndexPaths = collectionView.indexPathsForVisibleItems
+        if let visibleIndexPath = visibleIndexPaths.first,
            let cell = collectionView.cellForItem(at: visibleIndexPath) as? HomeCollectionViewCell {
-            
             activeVideoCell?.stopVideo()
             activeVideoCell = cell
             cell.playVideo()

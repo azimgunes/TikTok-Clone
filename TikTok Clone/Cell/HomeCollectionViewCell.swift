@@ -63,7 +63,10 @@ class HomeCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         playerLayer?.removeFromSuperlayer()
         stopVideo()
-        
+        queuePlayer?.pause()
+        queuePlayer = nil
+        playbackLooper = nil
+        isPlaying = false
     }
     
     @objc func avatarTouched(){
@@ -87,7 +90,10 @@ class HomeCollectionViewCell: UICollectionViewCell {
             
             playerLayer.videoGravity = .resizeAspectFill
             playerLayer.frame = contentView.bounds
-            postVideo.layer.insertSublayer(playerLayer, at: 3)
+            
+            if playerLayer.superlayer == nil {
+                postVideo.layer.insertSublayer(playerLayer, at: 0)
+            }
             queuePlayer.play()
         }
     }
@@ -107,6 +113,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         }
         
     }
+    
     
     func playVideo(){
         if !isPlaying {
