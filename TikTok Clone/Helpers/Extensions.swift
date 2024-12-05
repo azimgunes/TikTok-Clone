@@ -10,6 +10,9 @@ import UIKit
 
 
 extension UIViewController {
+    
+    //MARK: Keyboard Helper
+    
     func hideKeyboard(){
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(dismissMyKeyboard))
         view.addGestureRecognizer(tapGesture)}
@@ -18,6 +21,8 @@ extension UIViewController {
     @objc func dismissMyKeyboard(){
         view.endEditing(true)
     }
+    
+    //MARK: Tab Bar Helper
     
     func hideTabBarAndNavigationBar() {
         self.tabBarController?.tabBar.isHidden = true
@@ -28,6 +33,8 @@ extension UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
+    //MARK: UI Settings Helper
     
     func vcSettings(){
         overrideUserInterfaceStyle = .light

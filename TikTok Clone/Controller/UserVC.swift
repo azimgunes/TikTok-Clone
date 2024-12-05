@@ -31,7 +31,7 @@ class UserVC: UIViewController {
         fetchPost()
         vcSettings()
         navigationController?.navigationBar.tintColor = .black
-
+        
     }
     
     //MARK: Setup Methods

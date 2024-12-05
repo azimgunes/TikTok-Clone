@@ -185,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				3C5AB2A52C7903D300B17E7E /* ProgressView.swift */,
+				3C950D5A2CA4831D007452C4 /* ProfileHeaderCRV.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -277,7 +278,6 @@
 			isa = PBXGroup;
 			children = (
 				3CE33E842C6B887C0083CE43 /* Extensions.swift */,
-				3C950D5A2CA4831D007452C4 /* ProfileHeaderCRV.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

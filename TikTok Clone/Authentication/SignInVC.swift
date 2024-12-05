@@ -138,6 +138,7 @@ extension SignInVC {
         self.present(alert, animated: true, completion: nil)
     }
     
+    //MARK: Setup Methods
     
     func setupView(){
         signInButton.layer.cornerRadius = 10

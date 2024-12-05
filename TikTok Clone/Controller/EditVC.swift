@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class EditVC: UIViewController {
     
-    //MARK: Properties 
+    //MARK: Properties/Outlets
     
     @IBOutlet weak var profileImage: UIImageView!
     
@@ -80,7 +80,7 @@ class EditVC: UIViewController {
     }
     
     
-    @IBAction func deleteAccountButton(_ sender: Any) {
+    @IBAction func deleteAccountButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: "Oppss!!", message: "Make sure you wanna delete your account.", preferredStyle: UIAlertController.Style.alert)
         let firstButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.deleteAccount()
@@ -93,7 +93,7 @@ class EditVC: UIViewController {
         )
         self.present(alert, animated: true, completion: nil)
         
-  
+        
         
         
     }
@@ -103,7 +103,7 @@ class EditVC: UIViewController {
         Api.User.logOut()
     }
     
-    @IBAction func signOutTapped(_ sender: Any) {
+    @IBAction func nonFuncButtonTapped(_ sender: Any) {
         print("NIL!")
     }
     

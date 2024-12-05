@@ -9,7 +9,7 @@ import UIKit
 
 class HomeVC: UIViewController {
     
-    //MARK: Proporties 
+    //MARK: Properties/Outlets
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -19,8 +19,6 @@ class HomeVC: UIViewController {
     var user = [User]()
     
     var activeVideoCell: HomeCollectionViewCell?
-    
-    
     
     @objc dynamic var currentIndex = 0
     var oldAndNewIndices = (0,0)
@@ -32,10 +30,6 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         loadPosts()
-        
-        tabBarController?.tabBar.barTintColor = .black
-        tabBarController?.tabBar.tintColor = .white
-        tabBarController?.tabBar.backgroundColor = .black
         
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTappedOutside(_:)))
@@ -81,18 +75,14 @@ class HomeVC: UIViewController {
         collectionView.collectionViewLayout = createFlowLayout()
         collectionView.backgroundColor = .black
         
+        tabBarController?.tabBar.barTintColor = .black
+        tabBarController?.tabBar.tintColor = .white
+        tabBarController?.tabBar.backgroundColor = .black
+        
     }
     
-    private func createFlowLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.sectionInset = .zero
-        return layout
-    }
     
     // MARK: - DATA & SERVICE
-    
     
     func loadPosts(){
         
@@ -186,6 +176,16 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             }
         }
         
+    }
+    
+    //Flow Layout
+    
+    private func createFlowLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.sectionInset = .zero
+        return layout
     }
 }
 

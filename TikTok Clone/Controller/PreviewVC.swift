@@ -10,7 +10,7 @@ import AVKit
 
 class PreviewVC: UIViewController {
     
-    //MARK: Proporties
+    //MARK: Properties/Outlets
     
     @IBOutlet weak var nextButtonTapped: UIButton!
     @IBOutlet weak var thumbImageView: UIImageView!
@@ -44,8 +44,6 @@ class PreviewVC: UIViewController {
         setupView()
         loadRecordedClips()
         startPlayFirstClip()
-        print("Clip count: \(recordedClips.count)")
-        
         setupTapGesture()
         
     }
@@ -84,28 +82,6 @@ class PreviewVC: UIViewController {
     
     
     // MARK: - Setup Methods
-    
-    func setupTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideVideo(_:)))
-        view.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func handleTapOutsideVideo(_ gesture: UITapGestureRecognizer) {
-        let tapLocation = gesture.location(in: self.view)
-        
-        if !thumbImageView.frame.contains(tapLocation) {
-            stopVideo()
-        }
-    }
-    
-    func startPlayFirstClip(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            guard let firstClip = self.recordedClips.first else {return}
-            self.currentPlayingVideo = firstClip
-            self.setupPlayerView(with: firstClip)
-            
-        }
-    }
     func setupView(){
         nextButtonTapped.layer.cornerRadius = 2
         nextButtonTapped.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 88/255, alpha: 1.0)
@@ -113,11 +89,11 @@ class PreviewVC: UIViewController {
         
     }
     
-    func loadRecordedClips() {
-        recordedClips.forEach { clip in
-            urlForVid.append(clip.videoUrl)
-        }
+    func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideVideo(_:)))
+        view.addGestureRecognizer(tapGesture)
     }
+    
     
     // MARK: - Video Player Setup
     
@@ -135,6 +111,22 @@ class PreviewVC: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(avPlayerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
         mirrorPlayer(cameraPosition: videoClip.cameraPosition)
+    }
+    
+    
+    func loadRecordedClips() {
+        recordedClips.forEach { clip in
+            urlForVid.append(clip.videoUrl)
+        }
+    }
+    
+    func startPlayFirstClip(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            guard let firstClip = self.recordedClips.first else {return}
+            self.currentPlayingVideo = firstClip
+            self.setupPlayerView(with: firstClip)
+            
+        }
     }
     
     // MARK: - Video Playback End
@@ -172,6 +164,16 @@ class PreviewVC: UIViewController {
             }
         }
     }
+    
+    
+    @objc func handleTapOutsideVideo(_ gesture: UITapGestureRecognizer) {
+        let tapLocation = gesture.location(in: self.view)
+        
+        if !thumbImageView.frame.contains(tapLocation) {
+            stopVideo()
+        }
+    }
+    
     
     
     //MARK: Camera

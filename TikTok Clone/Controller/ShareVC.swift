@@ -12,7 +12,7 @@ import AVFoundation
 
 class ShareVC: UIViewController, UITextViewDelegate {
     
-    //MARK: Proporties
+    //MARK: Properties/Outlets
     
     
     let originalVideoUrl: URL
@@ -149,24 +149,6 @@ class ShareVC: UIViewController, UITextViewDelegate {
     }
     
     
-    
-    @IBAction func allowToComments(_ sender: UISwitch) {
-    }
-    
-    
-    @IBAction func allawDeuts(_ sender: UISwitch) {
-    }
-    
-    @IBAction func allowAdding(_ sender: UISwitch) {
-    }
-    
-    
-    @IBAction func saveToDevice(_ sender: UISwitch) {
-    }
-    
-    
-    @IBAction func draftsButton(_ sender: UIButton) {
-    }
     
     // MARK: - Sharing Post
     

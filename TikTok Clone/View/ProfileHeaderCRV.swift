@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileHeaderCRV: UICollectionReusableView {
     
+    //MARK: Properties/Outlets
+    
     @IBOutlet weak var usernameLabel: UILabel!
     
     @IBOutlet weak var profileImage: UIImageView!
@@ -23,6 +25,7 @@ class ProfileHeaderCRV: UICollectionReusableView {
         }
     }
     
+    //MARK: Setup Methods 
     
     func setupView(){
         profileImage.layer.cornerRadius = 50

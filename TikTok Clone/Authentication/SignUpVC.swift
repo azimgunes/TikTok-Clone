@@ -45,7 +45,7 @@ class SignUpVC: UIViewController {
         passwordTextFieldFunc()
     }
     
-    //MARK: Setup
+    //MARK: Setup Methods
     
     
     func setupView(){
@@ -100,8 +100,6 @@ class SignUpVC: UIViewController {
         
         
     }
-    
-    
     
     
 }
@@ -179,7 +177,7 @@ extension SignUpVC{
             let scene = UIApplication.shared.connectedScenes.first
             if let sceneDelegate : SceneDelegate = (scene?.delegate as? SceneDelegate) {
                 sceneDelegate.configInitialVC()
-            } 
+            }
             
         } onErr: { errorMesssage in
             print(errorMesssage)

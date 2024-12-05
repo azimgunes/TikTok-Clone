@@ -12,7 +12,8 @@ import FirebaseAuth
 
 class ExploreTableVC: UITableViewController, UISearchResultsUpdating{
     
-    //MARK: Properties
+    //MARK: Properties/Outlets
+    
     var searchResults : [User] = []
     var users : [User] = []
     var searchController : UISearchController = UISearchController(searchResultsController: nil)
