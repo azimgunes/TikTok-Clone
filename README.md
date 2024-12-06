@@ -1,4 +1,4 @@
-# **Let's Communicate**
+# **TikTok Clone**
 
 The TikTok Clone app is a platform where users can share and discover short videos. It uses UICollectionView and UITableView to create dynamic video feeds and user lists, while media content is handled with AVFoundation. Images are efficiently cached using SDWebImage, ensuring smooth performance. User profiles and videos are managed in real-time with Firebase Firestore, providing a seamless and interactive experience. On the UI side, UIKit is utilized, and the user interface is designed using Storyboard, allowing for a visually structured and intuitive development process.
 
