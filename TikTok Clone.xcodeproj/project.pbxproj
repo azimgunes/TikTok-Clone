@@ -28,7 +28,7 @@
 		3C7BDB492C4E5EB300082AD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C7BDB482C4E5EB300082AD8 /* Assets.xcassets */; };
 		3C7BDB4C2C4E5EB300082AD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7BDB4A2C4E5EB300082AD8 /* LaunchScreen.storyboard */; };
 		3C8A26D52CB9658C00FC11D1 /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8A26D42CB9658C00FC11D1 /* EditVC.swift */; };
-		3C93E7C92C56EE1F005CE406 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */; };
+		3C8B14C72D862F1500E15E82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C8B14C62D862F1500E15E82 /* GoogleService-Info.plist */; };
 		3C93E7CC2C56F038005CE406 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7CB2C56F038005CE406 /* FirebaseAnalytics */; };
 		3C93E7CE2C56F038005CE406 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7CD2C56F038005CE406 /* FirebaseAnalyticsOnDeviceConversion */; };
 		3C93E7D02C56F038005CE406 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C93E7CF2C56F038005CE406 /* FirebaseAnalyticsSwift */; };
@@ -100,7 +100,7 @@
 		3C7BDB4B2C4E5EB300082AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C7BDB4D2C4E5EB300082AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C8A26D42CB9658C00FC11D1 /* EditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
-		3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3C8B14C62D862F1500E15E82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C950D5A2CA4831D007452C4 /* ProfileHeaderCRV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCRV.swift; sourceTree = "<group>"; };
 		3C950D5C2CA4837E007452C4 /* PostProfileCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProfileCVC.swift; sourceTree = "<group>"; };
 		3C9607632CA193F600D472CA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 				3C7BDB412C4E5EB100082AD8 /* SceneDelegate.swift */,
 				3C7BDB4A2C4E5EB300082AD8 /* LaunchScreen.storyboard */,
 				3C7BDB4D2C4E5EB300082AD8 /* Info.plist */,
-				3C93E7C82C56EE1F005CE406 /* GoogleService-Info.plist */,
+				3C8B14C62D862F1500E15E82 /* GoogleService-Info.plist */,
 			);
 			path = "TikTok Clone";
 			sourceTree = "<group>";
@@ -377,7 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C7BDB4C2C4E5EB300082AD8 /* LaunchScreen.storyboard in Resources */,
-				3C93E7C92C56EE1F005CE406 /* GoogleService-Info.plist in Resources */,
+				3C8B14C72D862F1500E15E82 /* GoogleService-Info.plist in Resources */,
 				3C7BDB492C4E5EB300082AD8 /* Assets.xcassets in Resources */,
 				3C7BDB472C4E5EB100082AD8 /* Main.storyboard in Resources */,
 			);

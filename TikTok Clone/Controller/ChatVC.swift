@@ -95,6 +95,7 @@ class ChatVC: UIViewController {
                     )
                 } ?? []
                 
+                
                 DispatchQueue.main.async {
                     self.chatTableView.reloadData()
                     if !self.messages.isEmpty {

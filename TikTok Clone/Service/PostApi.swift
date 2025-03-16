@@ -15,7 +15,7 @@ class PostApi {
         
         if let encodedVideoURLUnwrapped = encodedVideoURL {
             let videoIdString = "\(UUID().uuidString).mp4"
-            let storageRef = Storage.storage().reference(forURL: "gs://tiktok-clone-12238.appspot.com")
+            let storageRef = Storage.storage().reference(forURL: "gs://tiktok-app-2da8e.firebasestorage.app")
             let videoRef = storageRef.child("posts").child(videoIdString)
             let videoMetadata = StorageMetadata()
             videoMetadata.contentType = "video/mp4"
@@ -79,7 +79,7 @@ class PostApi {
         }
         
         let photoIdString = UUID().uuidString
-        let storageRef = Storage.storage().reference(forURL: "gs://tiktok-clone-12238.appspot.com")
+        let storageRef = Storage.storage().reference(forURL: "gs://tiktok-app-2da8e.firebasestorage.app")
         let imageRef = storageRef.child("post_images").child(photoIdString)
         let imageMetadata = StorageMetadata()
         imageMetadata.contentType = "image/jpeg"

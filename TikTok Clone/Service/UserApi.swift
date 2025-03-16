@@ -50,7 +50,7 @@ class UserApi: SignInVC {
                     "status": "",
                 ]
                 
-                let storageRef = Storage.storage().reference(forURL: "gs://tiktok-clone-12238.appspot.com")
+                let storageRef = Storage.storage().reference(forURL: "gs://tiktok-app-2da8e.firebasestorage.app")
                 let storageProfile = storageRef.child("profile").child(authData.user.uid)
                 
                 let metaData = StorageMetadata()

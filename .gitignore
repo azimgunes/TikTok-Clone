@@ -1,0 +1,14 @@
+DerivedData/
+Carthage/
+*.xcscmblueprint
+DerivedData/
+build/
+xcuserdata/
+*.xcscheme
+xcschememanagement.plist
+*.xcworkspace
+*.log
+GoogleService-Info.plist
+Pods/
+
+project.pbxproj
