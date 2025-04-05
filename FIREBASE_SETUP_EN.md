@@ -51,22 +51,3 @@ Otherwise, Firebase features like Auth, Firestore, or Analytics may not work pro
 
 ---
 
-## 📃 5. (Optional) Add an Example File
-
-To improve team collaboration, you can include a placeholder file like this in the repository:
-
-**`GoogleService-Info.plist.example`**
-
-```xml
-<!--
-This is an example file. Please download the actual
-GoogleService-Info.plist file from your Firebase Console
-and replace this placeholder in your local project.
--->
-```
-
----
-
-If you encounter any issues, feel free to reach out to the project maintainer or your team.
-
-Happy coding ✨
